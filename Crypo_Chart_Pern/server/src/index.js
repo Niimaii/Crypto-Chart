@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const { PORT } = require('./constants/index.js');
 
+// Import routes
+const authRoutes = require('./routes/auth');
+
+app.use('/api', authRoutes);
+
 // app start
 const appStart = () => {
   try {
