@@ -1,5 +1,7 @@
 const db = require('../db/indexDB');
 const { hash } = require('bcryptjs');
+const { sign } = require('jsonwebtoken');
+const { SECRET } = require('../constants/index');
 
 exports.getUsers = async (req, res) => {
   try {
@@ -27,6 +29,28 @@ exports.register = async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Registration complete',
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+exports.login = async (req, res) => {
+  // This gets the data passed from authValidation with the loginCheck function
+  let user = req.user;
+  payload = {
+    id: user.id,
+    email: user.email,
+  };
+  try {
+    const token = await sign(payload, SECRET);
+
+    return res.status(200).cookie('token', token, { httpOnly: true }).json({
+      success: true,
+      message: 'Logged in successfully',
     });
   } catch (error) {
     console.log(error.message);
