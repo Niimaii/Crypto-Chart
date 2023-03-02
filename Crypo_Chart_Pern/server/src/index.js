@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const { PORT } = require('./constants/index.js');
 
+app.use(express.json());
+
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 
