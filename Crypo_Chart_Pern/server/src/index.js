@@ -3,7 +3,7 @@ const app = express();
 const { PORT } = require('./constants/index.js');
 
 // Import routes
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/authRoutes');
 
 app.use('/api', authRoutes);
 
