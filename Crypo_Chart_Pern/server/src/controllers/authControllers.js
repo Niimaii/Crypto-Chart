@@ -48,6 +48,7 @@ exports.login = async (req, res) => {
   try {
     const token = await sign(payload, SECRET);
 
+    // In cookies store the jwt token
     return res.status(200).cookie('token', token, { httpOnly: true }).json({
       success: true,
       message: 'Logged in successfully',
