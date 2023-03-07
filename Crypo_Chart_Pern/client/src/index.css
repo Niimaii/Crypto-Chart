@@ -7,3 +7,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  font-family: poppins, sans-serif;
+  background-color: #12102e;
+}
+
+/* Chart */
+
+.chartPercent {
+  color: #7fc379;
+}
