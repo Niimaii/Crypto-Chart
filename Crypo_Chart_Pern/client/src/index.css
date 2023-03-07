@@ -15,6 +15,10 @@ body {
 
 /* Chart */
 
-.chartPercent {
+.percentGreen {
   color: #7fc379;
+}
+
+.percentRed {
+  color: #ea7b77;
 }

@@ -26,9 +26,9 @@ ChartJS.register(
   Legend
 );
 
-function SmallChart() {
+function SmallChart({ coin }) {
   const { response } = useAxios(
-    'coins/bitcoin/market_chart?vs_currency=usd&days=365'
+    `coins/${coin.id}/market_chart?vs_currency=usd&days=365`
   );
 
   // Need this for everything else to work
@@ -36,7 +36,7 @@ function SmallChart() {
     return <div>Loading...</div>;
   }
 
-  console.log(response);
+  console.log('small chart', response);
 
   const cryptoData = response.prices.map((value) => {
     return {
@@ -107,19 +107,49 @@ function SmallChart() {
     ],
   };
 
+  // Currency formatter
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  // Chart Percent
+
+  const chartPercent = (num) => {
+    if (num > 0) {
+      return '+' + num;
+    } else {
+      return num;
+    }
+  };
+
   return (
-    <div className='bg-white w-80 h-80 rounded-xl p-4'>
+    <div className='bg-white w-80 h-80 rounded-xl p-4 flex flex-col justify-between'>
       <div className='flex items-center m-0'>
-        <TempIcon />
+        <img className='h-14 mr-3' src={coin.image} alt={coin.name} />
+
         <div>
-          <h1 className='text-xl m-0 h-5 font-medium'>Bitcoin</h1>
-          <h1 className='text-xl m-0 font-extralight'>BTC</h1>
+          <h1 className='text-xl m-0 h-5 font-medium'>{coin.name}</h1>
+          <h1 className='text-xl m-0 font-extralight'>
+            {coin.symbol.toUpperCase()}
+          </h1>
         </div>
       </div>
-      <Line options={options} data={data} />
-      <div className='flex justify-between mt-10 items-center'>
-        <p className='chartPercent'>+5.72%</p>
-        <p className='text-lg font-medium'>$1,602.95</p>
+      <div className='mt-1'>
+        <Line options={options} data={data} />
+      </div>
+      <div className='flex justify-between items-center'>
+        <p
+          className={`${
+            coin.price_change_percentage_24h > 0 ? 'percentGreen' : 'percentRed'
+          }`}
+        >
+          {chartPercent(coin.price_change_percentage_24h)}%
+        </p>
+        <p className='text-lg font-medium'>
+          {formatter.format(coin.current_price)}
+        </p>
       </div>
     </div>
   );
