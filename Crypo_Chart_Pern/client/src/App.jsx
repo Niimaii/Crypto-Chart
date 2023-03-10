@@ -15,17 +15,10 @@ import UserHome from './routes/UserHome';
 import SignIn from './routes/SignIn';
 import SignUp from './routes/SignUp';
 import Navbar from './components/Navbar';
+import PrivateRoutes from './components/PrivateRoutes';
+import RestrictedRoutes from './components/RestrictedRoutes';
 
 function App() {
-  // const { isAuth } = useContext(CryptoContext);
-
-  const PrivateRoutes = () => {
-    return <>{isAuth ? <Outlet /> : <Navigate to='/' />}</>;
-  };
-  const RestrictedRoutes = () => {
-    return <>{!isAuth ? <Outlet /> : <Navigate to='/userhome' />}</>;
-  };
-
   return (
     <CryptoContextProvider>
       <div className='container'>
@@ -36,8 +29,8 @@ function App() {
             <Route element={<PrivateRoutes />}>
               <Route path='/userhome' element={<UserHome />} />
               <Route path='/portfolio' element={<Portfolio />} />
+              <Route path='/settings' element={<Settings />} />
             </Route>
-            <Route path='/settings' element={<Settings />} />
             <Route path='/about' element={<About />} />
             <Route element={<RestrictedRoutes />}>
               <Route path='/signin' element={<SignIn />} />
