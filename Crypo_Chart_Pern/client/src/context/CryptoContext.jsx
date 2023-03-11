@@ -3,7 +3,7 @@ import React, { useState, createContext } from 'react';
 export const CryptoContext = createContext();
 
 export const CryptoContextProvider = (props) => {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
   const authenticateUser = () => {
     setIsAuth(true);
