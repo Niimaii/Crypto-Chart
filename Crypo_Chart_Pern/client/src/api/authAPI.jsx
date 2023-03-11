@@ -18,5 +18,7 @@ export async function onLogout() {
 }
 
 export async function fetchProtectedInfo() {
-  return await axios.get('http://localhost:8005/api/protected');
+  return await axios.get('http://localhost:8005/api/protected', {
+    withCredentials: true,
+  });
 }
