@@ -1,7 +1,7 @@
 const db = require('../db/indexDB');
 const { hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
-const { SECRET } = require('../constants/index');
+const { SECRET, CLIENT_URL } = require('../constants/index');
 
 exports.getUsers = async (req, res) => {
   try {
@@ -58,6 +58,8 @@ exports.login = async (req, res) => {
     return res.status(500).json({
       error: error.message,
     });
+  } finally {
+    console.log(res);
   }
 };
 

@@ -21,6 +21,7 @@ function SignIn() {
     try {
       await onLogin(values);
       authenticateUser();
+      // localStorage.setItem('localAuth', 'true');
     } catch (err) {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg);

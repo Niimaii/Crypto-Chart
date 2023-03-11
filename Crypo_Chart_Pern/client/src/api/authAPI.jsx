@@ -8,7 +8,9 @@ export async function onRegistration(registrationData) {
 }
 
 export async function onLogin(loginData) {
-  return await axios.post('http://localhost:8005/api/login', loginData);
+  return await axios.post('http://localhost:8005/api/login', loginData, {
+    withCredentials: true,
+  });
 }
 
 export async function onLogout() {
