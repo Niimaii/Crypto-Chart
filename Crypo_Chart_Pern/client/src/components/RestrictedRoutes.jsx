@@ -5,7 +5,7 @@ import { CryptoContext } from '../context/CryptoContext';
 function RestrictedRoutes() {
   const { isAuth } = useContext(CryptoContext);
 
-  return <>{!isAuth ? <Outlet /> : <Navigate to='/userhome' />}</>;
+  return <>{!isAuth() ? <Outlet /> : <Navigate to='/userhome' />}</>;
 }
 
 export default RestrictedRoutes;

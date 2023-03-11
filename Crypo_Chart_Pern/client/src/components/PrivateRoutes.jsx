@@ -4,7 +4,7 @@ import { CryptoContext } from '../context/CryptoContext';
 
 function PrivateRoutes() {
   const { isAuth } = useContext(CryptoContext);
-  return <>{isAuth ? <Outlet /> : <Navigate to='/' />}</>;
+  return <>{isAuth() ? <Outlet /> : <Navigate to='/' />}</>;
 }
 
 export default PrivateRoutes;

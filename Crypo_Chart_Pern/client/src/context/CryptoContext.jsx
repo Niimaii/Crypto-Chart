@@ -3,20 +3,27 @@ import React, { useState, createContext } from 'react';
 export const CryptoContext = createContext();
 
 export const CryptoContextProvider = (props) => {
-  const [isAuth, setIsAuth] = useState(false);
+  const localAuth = localStorage.getItem('localAuth');
+  const [auth, setAuth] = useState(false);
+
+  const isAuth = () => {
+    if (localAuth || auth) {
+      return true;
+    }
+    return false;
+  };
 
   const authenticateUser = () => {
-    setIsAuth(true);
+    setAuth(true);
   };
   const unAuthenticateUser = () => {
-    setIsAuth(false);
+    setAuth(false);
   };
 
   return (
     <CryptoContext.Provider
       value={{
         isAuth,
-        setIsAuth,
         authenticateUser,
         unAuthenticateUser,
       }}
