@@ -10,7 +10,25 @@
 
 body {
   font-family: poppins, sans-serif;
-  background-color: #5c598b;
+  background-color: #242bff;
+}
+
+/* Navbar */
+
+.searchbar {
+  width: 550px;
+  background-color: rgba(243, 243, 243, 0.33);
+  color: white;
+}
+
+.searchbar::placeholder {
+  color: white;
+}
+
+.signin {
+  background-color: rgba(243, 243, 243, 0.33);
+  padding: 10px 15px;
+  font-size: 1.1rem;
 }
 
 /* Chart */

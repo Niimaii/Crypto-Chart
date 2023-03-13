@@ -21,9 +21,9 @@ import RestrictedRoutes from './components/RestrictedRoutes';
 function App() {
   return (
     <CryptoContextProvider>
-      <div className='container'>
-        <Navbar />
+      <div className='cont p-5'>
         <BrowserRouter>
+          <Navbar />
           <Routes>
             <Route element={<PrivateRoutes />}>
               <Route path='/userhome' element={<UserHome />} />
