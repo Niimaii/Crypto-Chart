@@ -6,13 +6,13 @@ import { SearchIcon } from '../icons/icons';
 function Navbar() {
   return (
     <nav className='flex items-center justify-between w-full'>
-      <div className='flex items-center gap-3'>
-        <NavLink to='/'>
+      <div className='flex items-center'>
+        <NavLink className='flex items-center gap-3' to='/'>
           <img src={vscodium} alt='' className='h-14' />
+          <h1 className='text-white text-2xl font-bold'>Cryptonium</h1>
         </NavLink>
-        <h1 className='text-white text-2xl font-bold'>Cryptonium</h1>
 
-        <div className='flex items-center relative ml-5'>
+        <div className='flex items-center relative ml-8'>
           <SearchIcon />
           <input
             type='text'

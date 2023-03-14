@@ -17,6 +17,7 @@ import SignUp from './routes/SignUp';
 import Navbar from './components/Navbar';
 import PrivateRoutes from './components/PrivateRoutes';
 import RestrictedRoutes from './components/RestrictedRoutes';
+import CoinPage from './routes/CoinPage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path='/settings' element={<Settings />} />
             </Route>
             <Route path='/about' element={<About />} />
+            <Route path='/:coin' element={<CoinPage />} />
             <Route element={<RestrictedRoutes />}>
               <Route path='/' element={<Home />} />
               <Route path='/signin' element={<SignIn />} />

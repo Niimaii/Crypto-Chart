@@ -125,13 +125,13 @@ function SmallChart({ coin }) {
   };
 
   return (
-    <div className='bg-white w-80 h-80 rounded-xl p-4 flex flex-col justify-between'>
+    <div className='bg-white w-72 h-72 rounded-xl p-4 flex flex-col justify-between'>
       <div className='flex items-center m-0'>
-        <img className='h-14 mr-3' src={coin.image} alt={coin.name} />
+        <img className='h-12 mr-3' src={coin.image} alt={coin.name} />
 
         <div>
-          <h1 className='text-xl m-0 h-5 font-medium'>{coin.name}</h1>
-          <h1 className='text-xl m-0 font-extralight'>
+          <h1 className='text-lg m-0 h-5 font-medium'>{coin.name}</h1>
+          <h1 className='text-lg m-0 font-extralight'>
             {coin.symbol.toUpperCase()}
           </h1>
         </div>

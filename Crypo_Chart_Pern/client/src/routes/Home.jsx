@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import SmallChart from '../components/SmallChart';
 import useAxios from '../hooks/useAxios';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
   const { test, setTest } = useContext(CryptoContext);
@@ -18,11 +19,14 @@ function Home() {
   console.log('home', response);
   return (
     <div>
-      <h1>Home</h1>
-      <div className='flex gap-5'>
+      <div className='flex gap-16 justify-center mt-10'>
         {response &&
           response.map((coin) => {
-            return <SmallChart coin={coin} key={coin.id} />;
+            return (
+              <NavLink to={`/${coin.id}`}>
+                <SmallChart coin={coin} key={coin.id} />
+              </NavLink>
+            );
           })}
       </div>
     </div>
