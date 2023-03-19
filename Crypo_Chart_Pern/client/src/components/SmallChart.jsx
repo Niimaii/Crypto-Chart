@@ -14,6 +14,8 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { TempIcon } from '../icons/icons';
+import { useContext, useEffect, useMemo } from 'react';
+import { CryptoContext } from '../context/CryptoContext';
 
 ChartJS.register(
   CategoryScale,
@@ -26,19 +28,35 @@ ChartJS.register(
   Legend
 );
 
-function SmallChart({ coin }) {
-  const { response } = useAxios(
-    `coins/${coin.id}/market_chart?vs_currency=usd&days=365`
-  );
+function SmallChart({ coin, volume, days, chartResponse }) {
+  // const { response, loading } = useAxios(
+  //   `coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
+  // );
+
+  // useEffect(() => {
+  //   if (response) {
+  //     console.log(response);
+  //     setVolume((previous) => ({
+  //       ...previous,
+  //       [days]: {
+  //         id: coin.id,
+  //         volume: response.total_volumes.at(-1)[1],
+  //       },
+  //     }));
+  //   }
+  // }, [response]);
 
   // Need this for everything else to work
-  if (!response) {
+  if (!chartResponse) {
     return <div>Loading...</div>;
   }
 
-  console.log('small chart', response);
+  // console.log(coin.id, response.total_volumes.at(-1)[1]);
 
-  const cryptoData = response.prices.map((value) => {
+  console.log('coin id', chartResponse[coin.id]);
+
+  // Bracket notation
+  const cryptoData = chartResponse[coin.id].data.prices.map((value) => {
     return {
       x: value[0],
       y: value[1],
