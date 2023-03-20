@@ -7,9 +7,8 @@ import CryptoTable from '../components/CryptoTable';
 import useMarket from '../context/useMarket';
 
 function Home() {
-  console.log();
-
-  const { coinResponse, volume, days, chartResponse, loading } = useMarket();
+  const { coinResponse, volume, chartResponse, loading } = useMarket();
+  const { days, setDays } = useContext(CryptoContext);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -18,10 +17,14 @@ function Home() {
   const total = chartResponse.bitcoin;
   // console.log('Chart Data', total);
 
-  const volumeTotal = () => {};
+  const daysOption = [1, 7, 14, 30, 90, 180, 365];
 
-  console.log('chartResponse', chartResponse);
-  console.log('coinResponse', coinResponse);
+  const updateDays = (e) => {
+    setDays(e.target.value);
+  };
+
+  // console.log('chartResponse', chartResponse);
+  // console.log('coinResponse', coinResponse);
   return (
     <div>
       <div className='flex gap-16 justify-center mt-10'>
@@ -32,7 +35,6 @@ function Home() {
                 <SmallChart
                   coin={coin}
                   chartResponse={chartResponse}
-                  days={days}
                   key={coin.id}
                   loading={loading}
                 />
@@ -41,6 +43,11 @@ function Home() {
           })}
       </div>
       <CryptoTable response={coinResponse} volume={volume} key='CryptoTable' />
+      <select id='daysBtn' onChange={updateDays}>
+        {daysOption.map((days) => {
+          return <option value={days}>{days}</option>;
+        })}
+      </select>
     </div>
   );
 }

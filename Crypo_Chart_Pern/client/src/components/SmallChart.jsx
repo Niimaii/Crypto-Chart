@@ -28,7 +28,7 @@ ChartJS.register(
   Legend
 );
 
-function SmallChart({ coin, volume, days, chartResponse }) {
+function SmallChart({ coin, volume, chartResponse }) {
   // const { response, loading } = useAxios(
   //   `coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
   // );
@@ -52,8 +52,6 @@ function SmallChart({ coin, volume, days, chartResponse }) {
   }
 
   // console.log(coin.id, response.total_volumes.at(-1)[1]);
-
-  console.log('coin id', chartResponse[coin.id]);
 
   // Bracket notation
   const cryptoData = chartResponse[coin.id].data.prices.map((value) => {

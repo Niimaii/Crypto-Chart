@@ -22,9 +22,7 @@ function CryptoTable({ response, volume }) {
           <th>Name</th>
           <th>Price</th>
           <th>Change</th>
-          <th>
-            <span>1D</span>Volume
-          </th>
+          <th>Volume</th>
           <th>Market Cap</th>
         </tr>
       </thead>

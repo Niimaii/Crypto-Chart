@@ -5,6 +5,7 @@ export const CryptoContext = createContext();
 export const CryptoContextProvider = (props) => {
   const localAuth = localStorage.getItem('localAuth');
   const [auth, setAuth] = useState(false);
+  const [days, setDays] = useState(365);
 
   const isAuth = () => {
     if (localAuth || auth) {
@@ -26,6 +27,8 @@ export const CryptoContextProvider = (props) => {
         isAuth,
         authenticateUser,
         unAuthenticateUser,
+        days,
+        setDays,
       }}
     >
       {props.children}
