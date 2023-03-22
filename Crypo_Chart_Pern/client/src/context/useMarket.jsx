@@ -13,50 +13,33 @@ function useMarket(param) {
   const [loading, setLoading] = useState(false);
   axios.defaults.baseURL = 'https://api.coingecko.com/api/v3';
 
+  // let response;
+  // localStorage.setItem('count', 0);
+  // console.log('TEST');
+
   const { response } = useAxios(
-    `coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`
+    `coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false`
   );
 
-  // let id = undefined;
-  // let LastRequest = 1679277589152;
-  // let response = undefined;
-  // let counter = 0;
-
-  // // const getStuff = () => {
-  // //   console.log('getStuff');
-  // //   if (id) clearTimeout(id);
-  // //   id = setTimeout(async () => {
-  // //     console.log('Timeout');
-
-  // //     const geckoResponse = await axios(
-  // //       `coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`
-  // //     );
-  // //     response = geckoResponse.data;
-  // //     LastRequest = Date.now();
-  // //   }, 1000);
-  // // };
-
-  // const getStuff = async () => {
-  //   const geckoResponse = await axios(
+  // const updateDebounceResponse = debounce(async () => {
+  //   localStorage.getItem('count');
+  //   console.log('I ran', count);
+  //   const firstResponse = await axios(
   //     `coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`
   //   );
+  //   response = firstResponse.data;
+  // });
 
-  //   response = geckoResponse.data;
-  //   counter++
-  //   console.log('response',counter, response);
-
-  //   setTimeout(() => {
-  //     counter = 0;
-  //   }, 1000);
-  // };
-
-  // if (Date.now() - LastRequest >= 5000) {
-  //   if (counter <= 0) {
-  //     counter++;
-  //     console.log('Counter++', counter);
-  //     getStuff();
-  //   }
+  // function debounce(cb, delay = 1000) {
+  //   let timeout;
+  //   return (...args) => {
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(() => {
+  //       cb(...args);
+  //     }, delay);
+  //   };
   // }
+  // updateDebounceResponse();
 
   useEffect(() => {
     const getData = async () => {
@@ -103,3 +86,44 @@ function useMarket(param) {
 }
 
 export default useMarket;
+
+// let id = undefined;
+// let LastRequest = 1679277589152;
+// let response = undefined;
+// let counter = 0;
+
+// // const getStuff = () => {
+// //   console.log('getStuff');
+// //   if (id) clearTimeout(id);
+// //   id = setTimeout(async () => {
+// //     console.log('Timeout');
+
+// //     const geckoResponse = await axios(
+// //       `coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`
+// //     );
+// //     response = geckoResponse.data;
+// //     LastRequest = Date.now();
+// //   }, 1000);
+// // };
+
+// const getStuff = async () => {
+//   const geckoResponse = await axios(
+//     `coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false`
+//   );
+
+//   response = geckoResponse.data;
+//   counter++
+//   console.log('response',counter, response);
+
+//   setTimeout(() => {
+//     counter = 0;
+//   }, 1000);
+// };
+
+// if (Date.now() - LastRequest >= 5000) {
+//   if (counter <= 0) {
+//     counter++;
+//     console.log('Counter++', counter);
+//     getStuff();
+//   }
+// }
