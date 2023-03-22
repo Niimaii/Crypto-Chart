@@ -16,8 +16,10 @@ app.use(passport.initialize());
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
+const cryptoRoutes = require('./routes/cryptoRoutes');
 
-app.use('/api', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/crypto', cryptoRoutes);
 
 // app start
 const appStart = () => {
