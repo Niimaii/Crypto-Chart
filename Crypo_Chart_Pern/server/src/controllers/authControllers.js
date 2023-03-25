@@ -2,13 +2,22 @@ const db = require('../db/indexDB');
 const { hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { SECRET, CLIENT_URL } = require('../constants/index');
+const cryptoDataFetch = require('../hooks/cryptoFetch');
 
 exports.getUsers = async (req, res) => {
   try {
+    const cryptoResponse = await cryptoDataFetch(1);
+
+    await console.dir(
+      '*************** THIS IS THE CRYPTO RESPONSE ***************',
+      cryptoResponse
+    );
+
     const { rows } = await db.query('select id, email from users');
     res.status(200).json({
       success: true,
       users: rows,
+      crypto: cryptoResponse,
     });
   } catch (error) {
     console.log(error.message);
