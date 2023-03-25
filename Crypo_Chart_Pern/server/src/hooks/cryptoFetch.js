@@ -16,7 +16,11 @@ const cryptoDataFetch = async (days) => {
         );
 
         if (result) {
-          chartInfo[coin.id] = result;
+          chartInfo[coin.id] = {
+            prices: result.data.prices,
+            market_caps: result.data.market_caps,
+            total_volumes: result.data.total_volumes,
+          };
         }
       })
     );
