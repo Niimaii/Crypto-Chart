@@ -17,6 +17,7 @@ app.use(passport.initialize());
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const cryptoRoutes = require('./routes/cryptoRoutes');
+const cryptoDataFetch = require('./hooks/cryptoFetch');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/crypto', cryptoRoutes);
@@ -33,3 +34,7 @@ const appStart = () => {
 };
 
 appStart();
+
+// setInterval(() => {
+//   cryptoDataFetch(1);
+// }, 70 * 1000);

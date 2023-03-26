@@ -13,13 +13,14 @@ const insertData = async (chartData, marketData) => {
   };
 
   // Map through all the crypto market data and isolate individual coin market data
-  marketData.map(async (coin) => {
+  marketData.map(async (coin, index) => {
     let values = '';
     const now = new Date();
     const current = now.getTime();
-    const btcM = marketData[0];
+    const btcM = marketData[index];
     // This is creating a unique ID that is based on the current time/date
     let coinID = `${btcM.id}${current}`;
+    console.log(coinID);
     // Get the correct postgres Table name with hash table
     const tableName = cryptoHash[coin.id];
 
@@ -70,32 +71,37 @@ const cryptoDataFetch = async (days) => {
   const chartInfo = {};
   // How many cryptos do you want to gather
   let cryptoAmount = 5;
-  // Gets market data for multiple cryptos
-  const { data } = await axios(
-    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoAmount}&page=1&sparkline=false`
-  );
 
-  if (data) {
-    await Promise.all(
-      // Map through all the crypto market data and isolate individual coin market data
-      data.map(async (coin) => {
-        // Get chart/volume data from the specific coin we are mapping through
-        const result = await axios(
-          `https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
-        );
+  try {
+    // Gets market data for multiple cryptos
+    const { data } = await axios(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${cryptoAmount}&page=1&sparkline=false`
+    );
 
-        if (result) {
-          // If we got a result, add the price chart/24hr volume data to our chartInfo object
-          chartInfo[coin.id] = {
-            prices: result.data.prices,
-            volume_24hr: result.data.total_volumes.at(-1)[1],
-          };
-        }
-      })
-    ).then(() => {
-      // Once everything is complete, run this function to add data to our database
-      insertData(chartInfo, data);
-    });
+    if (data) {
+      await Promise.all(
+        // Map through all the crypto market data and isolate individual coin market data
+        data.map(async (coin) => {
+          // Get chart/volume data from the specific coin we are mapping through
+          const result = await axios(
+            `https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
+          );
+
+          if (result) {
+            // If we got a result, add the price chart/24hr volume data to our chartInfo object
+            chartInfo[coin.id] = {
+              prices: result.data.prices,
+              volume_24hr: result.data.total_volumes.at(-1)[1],
+            };
+          }
+        })
+      );
+
+      if (Object.keys(chartInfo).length) insertData(chartInfo, data);
+    }
+  } catch (error) {
+    console.log('Error with cryptoFetch');
+    console.error(error);
   }
   return chartInfo;
 };
