@@ -18,6 +18,7 @@ const insertData = async (chartData, marketData) => {
     const now = new Date();
     const current = now.getTime();
     const btcM = marketData[0];
+    // This is creating a unique ID that is based on the current time/date
     let coinID = `${btcM.id}${current}`;
     // Get the correct postgres Table name with hash table
     const tableName = cryptoHash[coin.id];
@@ -30,6 +31,7 @@ const insertData = async (chartData, marketData) => {
     //   Remove last coma
     values = values.slice(0, -1);
 
+    // Adding data to the main crypto Table
     await db.query(
       `INSERT INTO ${tableName} (id, symbol, name, image, current_price, market_cap, market_cap_rank, fully_diluted_valuation, total_volume, volume_24hr, high_24h, low_24h, price_change_24h, price_change_percentage_24h, market_cap_change_24h, market_cap_change_percentage_24h, circulating_supply, total_supply, max_supply) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)`,
       [
@@ -55,6 +57,7 @@ const insertData = async (chartData, marketData) => {
       ]
     );
 
+    // Adding data to our crypto chart Table
     await db.query(
       `INSERT INTO ${tableName}_history (coin_id, timestamp, price) VALUES ${values};`
     );
