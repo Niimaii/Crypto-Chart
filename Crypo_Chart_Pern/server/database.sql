@@ -152,6 +152,5 @@ CREATE TABLE usdc_history (
   price NUMERIC,
   PRIMARY KEY (coin_id, timestamp)
 );
--- 
 
 INSERT INTO users(email, password) VALUES ('someEamil', 'somePass');
