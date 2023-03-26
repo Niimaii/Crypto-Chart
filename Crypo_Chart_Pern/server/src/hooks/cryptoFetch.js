@@ -2,14 +2,24 @@ const axios = require('axios');
 const db = require('../db/indexDB');
 
 // This function inserts crypto market/chart data into database
-const insertData = async (chartData, marketData) => {
+const insertData = async (chartData, marketData, days) => {
   //   Hashed data is here because the db tables are named after the crypto.id, however some names have special characters. So the tables are named different
   const cryptoHash = {
     bitcoin: 'bitcoin',
     ethereum: 'ethereum',
     tether: 'tether',
     binancecoin: 'binancecoin',
-    'usd-coin': 'usdc',
+    'usd-coin': 'usd_coin',
+    ripple: 'ripple',
+    cardano: 'cardano',
+    'staked-ether': 'staked_ether',
+    dogecoin: 'dogecoin',
+    'matic-network': 'matic_network',
+    solana: 'solana',
+    'binance-usd': 'binance_usd',
+    polkadot: 'polkadot',
+    litecoin: 'litecoin',
+    'shiba-inu': 'shiba_inu',
   };
 
   // Map through all the crypto market data and isolate individual coin market data
@@ -20,13 +30,13 @@ const insertData = async (chartData, marketData) => {
     const btcM = marketData[index];
     // This is creating a unique ID that is based on the current time/date
     let coinID = `${btcM.id}${current}`;
-    console.log(coinID);
     // Get the correct postgres Table name with hash table
     const tableName = cryptoHash[coin.id];
+    console.log(tableName);
 
     // Selecting the correct crypto before looping
     chartData[coin.id].prices.forEach(([timeStamp, price]) => {
-      values += `('${coinID}' , ${timeStamp}, ${price}),`;
+      values += `(${days},'${coinID}' , ${timeStamp}, ${price}),`;
     });
 
     //   Remove last coma
@@ -60,17 +70,19 @@ const insertData = async (chartData, marketData) => {
 
     // Adding data to our crypto chart Table
     await db.query(
-      `INSERT INTO ${tableName}_history (coin_id, timestamp, price) VALUES ${values};`
+      `INSERT INTO ${tableName}_history (chartDays,coin_id, timestamp, price) VALUES ${values};`
     );
   });
 };
 
 // This fetches crypto market/chart data from coingecko API
-const cryptoDataFetch = async (days) => {
+const cryptoDataFetch = async () => {
+  // Which days I want get chart data from
+  const days = 7;
   // This will contain price chart data and coin 24hr volume
   const chartInfo = {};
   // How many cryptos do you want to gather
-  let cryptoAmount = 5;
+  let cryptoAmount = 10;
 
   try {
     // Gets market data for multiple cryptos
@@ -81,7 +93,8 @@ const cryptoDataFetch = async (days) => {
     if (data) {
       await Promise.all(
         // Map through all the crypto market data and isolate individual coin market data
-        data.map(async (coin) => {
+        data.map(async (coin, index) => {
+          console.log('Map loop:', index + 1);
           // Get chart/volume data from the specific coin we are mapping through
           const result = await axios(
             `https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
@@ -97,7 +110,7 @@ const cryptoDataFetch = async (days) => {
         })
       );
 
-      if (Object.keys(chartInfo).length) insertData(chartInfo, data);
+      if (Object.keys(chartInfo).length) insertData(chartInfo, data, days);
     }
   } catch (error) {
     console.log('Error with cryptoFetch');

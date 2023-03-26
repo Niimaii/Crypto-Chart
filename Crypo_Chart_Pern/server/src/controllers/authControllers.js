@@ -6,7 +6,7 @@ const cryptoDataFetch = require('../hooks/cryptoFetch');
 
 exports.getUsers = async (req, res) => {
   try {
-    const cryptoResponse = await cryptoDataFetch(1);
+    const cryptoResponse = await cryptoDataFetch();
 
     const { rows } = await db.query('select id, email from users');
     res.status(200).json({
