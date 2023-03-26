@@ -145,7 +145,6 @@ CREATE TABLE usdc (
   total_supply NUMERIC,
   max_supply NUMERIC
 );
-
 CREATE TABLE usdc_history (
   coin_id TEXT REFERENCES usdc(id),
   timestamp BIGINT,
