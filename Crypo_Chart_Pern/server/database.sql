@@ -8,44 +8,33 @@ CREATE TABLE users (
     created_at date default current_date
 );
 
-CREATE TABLE bitcoin_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
+CREATE TABLE bitcoin (
+  id TEXT PRIMARY KEY,
+  symbol TEXT,
+  name TEXT,
+  image TEXT,
+  current_price NUMERIC,
+  market_cap NUMERIC,
+  market_cap_rank INTEGER,
+  fully_diluted_valuation NUMERIC,
+  total_volume NUMERIC,
+  volume_24hr NUMERIC,
+  high_24h NUMERIC,
+  low_24h NUMERIC,
+  price_change_24h NUMERIC,
+  price_change_percentage_24h NUMERIC,
+  market_cap_change_24h NUMERIC,
+  market_cap_change_percentage_24h NUMERIC,
+  circulating_supply NUMERIC,
+  total_supply NUMERIC,
+  max_supply NUMERIC
 );
 
-CREATE TABLE ethereum_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
-);
-CREATE TABLE ethereum2_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
-);
-
-CREATE TABLE tether_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
-);
-CREATE TABLE bnb_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
-);
-
-CREATE TABLE usd_coin_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
-);
-
-CREATE TABLE xrp_chart_data (
-    id SERIAL PRIMARY KEY,
-    timestamp BIGINT NOT NULL,
-    price NUMERIC(20,10) NOT NULL
+CREATE TABLE bitcoin_history (
+  coin_id TEXT REFERENCES bitcoin(id),
+  timestamp BIGINT,
+  price NUMERIC,
+  PRIMARY KEY (coin_id, timestamp)
 );
 
 
