@@ -1,6 +1,8 @@
 const axios = require('axios');
 const db = require('../db/indexDB');
 
+let count = 0;
+
 // This function inserts crypto market/chart data into database
 const insertData = async (chartData, marketData, days) => {
   //   Hashed data is here because the db tables are named after the crypto.id, however some names have special characters. So the tables are named different
@@ -29,10 +31,9 @@ const insertData = async (chartData, marketData, days) => {
     const current = now.getTime();
     const btcM = marketData[index];
     // This is creating a unique ID that is based on the current time/date
-    let coinID = `${btcM.id}${current}`;
+    let coinID = `${btcM.id}_${current}`;
     // Get the correct postgres Table name with hash table
     const tableName = cryptoHash[coin.id];
-    console.log(tableName);
 
     // Selecting the correct crypto before looping
     chartData[coin.id].prices.forEach(([timeStamp, price]) => {
@@ -77,12 +78,13 @@ const insertData = async (chartData, marketData, days) => {
 
 // This fetches crypto market/chart data from coingecko API
 const cryptoDataFetch = async () => {
+  console.log('cryptoFetch Has started');
   // Which days I want get chart data from
-  const days = 7;
+  const days = 14;
   // This will contain price chart data and coin 24hr volume
   const chartInfo = {};
   // How many cryptos do you want to gather
-  let cryptoAmount = 10;
+  let cryptoAmount = 5;
 
   try {
     // Gets market data for multiple cryptos
@@ -93,8 +95,7 @@ const cryptoDataFetch = async () => {
     if (data) {
       await Promise.all(
         // Map through all the crypto market data and isolate individual coin market data
-        data.map(async (coin, index) => {
-          console.log('Map loop:', index + 1);
+        data.map(async (coin) => {
           // Get chart/volume data from the specific coin we are mapping through
           const result = await axios(
             `https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
@@ -110,11 +111,15 @@ const cryptoDataFetch = async () => {
         })
       );
 
+      console.log('cryptoFetch has completed');
+
       if (Object.keys(chartInfo).length) insertData(chartInfo, data, days);
     }
   } catch (error) {
+    // count++;
+    // console.log(`There have been ${count} errors`);
     console.log('Error with cryptoFetch');
-    console.error(error);
+    console.error(error.message);
   }
   return chartInfo;
 };

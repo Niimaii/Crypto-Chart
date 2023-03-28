@@ -35,6 +35,9 @@ const appStart = () => {
 
 appStart();
 
+let count = 0;
 // setInterval(() => {
-//   cryptoDataFetch(1);
+//   count++;
+//   console.log(count);
+//   cryptoDataFetch();
 // }, 70 * 1000);
