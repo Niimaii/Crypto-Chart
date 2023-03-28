@@ -2,41 +2,42 @@ const axios = require('axios');
 const db = require('../db/indexDB');
 
 let count = 0;
+//   Hashed data is here because the db tables are named after the crypto.id, however some names have special characters. So the tables are named different
+const cryptoHash = {
+  bitcoin: 'bitcoin',
+  ethereum: 'ethereum',
+  tether: 'tether',
+  binancecoin: 'binancecoin',
+  'usd-coin': 'usd_coin',
+  ripple: 'ripple',
+  cardano: 'cardano',
+  'staked-ether': 'staked_ether',
+  dogecoin: 'dogecoin',
+  'matic-network': 'matic_network',
+  solana: 'solana',
+  'binance-usd': 'binance_usd',
+  polkadot: 'polkadot',
+  litecoin: 'litecoin',
+  'shiba-inu': 'shiba_inu',
+};
 
 // This function inserts crypto market/chart data into database
-const insertData = async (chartData, marketData, days) => {
-  //   Hashed data is here because the db tables are named after the crypto.id, however some names have special characters. So the tables are named different
-  const cryptoHash = {
-    bitcoin: 'bitcoin',
-    ethereum: 'ethereum',
-    tether: 'tether',
-    binancecoin: 'binancecoin',
-    'usd-coin': 'usd_coin',
-    ripple: 'ripple',
-    cardano: 'cardano',
-    'staked-ether': 'staked_ether',
-    dogecoin: 'dogecoin',
-    'matic-network': 'matic_network',
-    solana: 'solana',
-    'binance-usd': 'binance_usd',
-    polkadot: 'polkadot',
-    litecoin: 'litecoin',
-    'shiba-inu': 'shiba_inu',
-  };
-
+const insertData = async (chartData, marketData, days, coinArray) => {
   // Map through all the crypto market data and isolate individual coin market data
-  marketData.map(async (coin, index) => {
+  coinArray.map(async (coin, index) => {
     let values = '';
     const now = new Date();
     const current = now.getTime();
-    const btcM = marketData[index];
+    const coinMarket = marketData.find((crypto) => crypto.id == coin);
+
+    console.log('coinmarket.id = ', coinMarket.id);
     // This is creating a unique ID that is based on the current time/date
-    let coinID = `${btcM.id}_${current}`;
+    let coinID = `${coinMarket.id}_${current}`;
     // Get the correct postgres Table name with hash table
-    const tableName = cryptoHash[coin.id];
+    const tableName = cryptoHash[coin];
 
     // Selecting the correct crypto before looping
-    chartData[coin.id].prices.forEach(([timeStamp, price]) => {
+    chartData[coin].prices.forEach(([timeStamp, price]) => {
       values += `(${days},'${coinID}' , ${timeStamp}, ${price}),`;
     });
 
@@ -48,24 +49,24 @@ const insertData = async (chartData, marketData, days) => {
       `INSERT INTO ${tableName} (id, symbol, name, image, current_price, market_cap, market_cap_rank, fully_diluted_valuation, total_volume, volume_24hr, high_24h, low_24h, price_change_24h, price_change_percentage_24h, market_cap_change_24h, market_cap_change_percentage_24h, circulating_supply, total_supply, max_supply) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)`,
       [
         coinID,
-        btcM.symbol,
-        btcM.name,
-        btcM.image,
-        btcM.current_price,
-        btcM.market_cap,
-        btcM.market_cap_rank,
-        btcM.fully_diluted_valuation,
-        btcM.total_volume,
-        chartData[coin.id].volume_24hr,
-        btcM.high_24h,
-        btcM.low_24h,
-        btcM.price_change_24h,
-        btcM.price_change_percentage_24h,
-        btcM.market_cap_change_24h,
-        btcM.market_cap_change_percentage_24h,
-        btcM.circulating_supply,
-        btcM.total_supply,
-        btcM.max_supply,
+        coinMarket.symbol,
+        coinMarket.name,
+        coinMarket.image,
+        coinMarket.current_price,
+        coinMarket.market_cap,
+        coinMarket.market_cap_rank,
+        coinMarket.fully_diluted_valuation,
+        coinMarket.total_volume,
+        chartData[coin].volume_24hr,
+        coinMarket.high_24h,
+        coinMarket.low_24h,
+        coinMarket.price_change_24h,
+        coinMarket.price_change_percentage_24h,
+        coinMarket.market_cap_change_24h,
+        coinMarket.market_cap_change_percentage_24h,
+        coinMarket.circulating_supply,
+        coinMarket.total_supply,
+        coinMarket.max_supply,
       ]
     );
 
@@ -77,14 +78,15 @@ const insertData = async (chartData, marketData, days) => {
 };
 
 // This fetches crypto market/chart data from coingecko API
-const cryptoDataFetch = async () => {
-  console.log('cryptoFetch Has started');
+const cryptoDataFetch = async (days, coinArray) => {
+  console.log('Fetch has started');
+  let error = false;
   // Which days I want get chart data from
-  const days = 14;
+  // const days = 60;
   // This will contain price chart data and coin 24hr volume
   const chartInfo = {};
   // How many cryptos do you want to gather
-  let cryptoAmount = 5;
+  let cryptoAmount = 100;
 
   try {
     // Gets market data for multiple cryptos
@@ -95,15 +97,15 @@ const cryptoDataFetch = async () => {
     if (data) {
       await Promise.all(
         // Map through all the crypto market data and isolate individual coin market data
-        data.map(async (coin) => {
+        coinArray.map(async (coin) => {
           // Get chart/volume data from the specific coin we are mapping through
           const result = await axios(
-            `https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
+            `https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${days}`
           );
 
           if (result) {
             // If we got a result, add the price chart/24hr volume data to our chartInfo object
-            chartInfo[coin.id] = {
+            chartInfo[coin] = {
               prices: result.data.prices,
               volume_24hr: result.data.total_volumes.at(-1)[1],
             };
@@ -111,17 +113,19 @@ const cryptoDataFetch = async () => {
         })
       );
 
-      console.log('cryptoFetch has completed');
+      count++;
+      console.log('cryptoFetch has completed', count);
 
-      if (Object.keys(chartInfo).length) insertData(chartInfo, data, days);
+      // If chartInfo has content, then call the function
+      if (Object.keys(chartInfo).length)
+        insertData(chartInfo, data, days, coinArray);
     }
-  } catch (error) {
-    // count++;
-    // console.log(`There have been ${count} errors`);
+  } catch (err) {
+    error = true;
     console.log('Error with cryptoFetch');
-    console.error(error.message);
+    console.error(err.message);
   }
-  return chartInfo;
+  return { chartInfo, error };
 };
 
 module.exports = cryptoDataFetch;

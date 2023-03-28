@@ -388,7 +388,7 @@ CREATE TABLE binance_usd (
   market_cap_change_24h NUMERIC,
   market_cap_change_percentage_24h NUMERIC,
   circulating_supply NUMERIC,
-  total_supply polkadot
+  total_supply NUMERIC,
   max_supply NUMERIC
 );
 

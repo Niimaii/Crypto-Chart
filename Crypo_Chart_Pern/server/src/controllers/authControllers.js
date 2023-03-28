@@ -6,13 +6,22 @@ const cryptoDataFetch = require('../hooks/cryptoFetch');
 
 exports.getUsers = async (req, res) => {
   try {
-    const cryptoResponse = await cryptoDataFetch();
+    const block3 = [
+      'solana',
+      'binance-usd',
+      'polkadot',
+      'litecoin',
+      'shiba-inu',
+    ];
+
+    const cryptoResponse = await cryptoDataFetch(1, block3);
+
+    console.log('was there an error?', cryptoResponse.error);
 
     const { rows } = await db.query('select id, email from users');
     res.status(200).json({
       success: true,
       users: rows,
-      crypto: cryptoResponse,
     });
   } catch (error) {
     console.log(error.message);
