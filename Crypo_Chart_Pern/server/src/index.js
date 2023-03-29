@@ -48,32 +48,42 @@ const block2 = [
 ];
 const block3 = ['solana', 'binance-usd', 'polkadot', 'litecoin', 'shiba-inu'];
 
+const blockSet1 = 1;
+const blockSet2 = 2;
+const blockSet3 = 3;
+const blockSet4 = 4;
+const blockSet5 = 5;
+
+const days1 = 1;
+const days30 = 30;
+const days365 = 365;
+
 // This instructs the order in which I should fetch crypto chart data, as well as how many days long the chart data is
 const callOrder = {
-  1: {
-    1: [1, ...block1],
-    2: [1, ...block2],
-    3: [1, ...block3],
+  [blockSet1]: {
+    1: [days1, ...block1],
+    2: [days1, ...block2],
+    3: [days1, ...block3],
   },
-  2: {
-    1: [1, ...block1],
-    2: [30, ...block1],
-    3: [30, ...block2],
+  [blockSet2]: {
+    1: [days1, ...block1],
+    2: [days30, ...block1],
+    3: [days30, ...block2],
   },
-  3: {
-    1: [1, ...block1],
-    2: [1, ...block2],
-    3: [30, ...block3],
+  [blockSet3]: {
+    1: [days1, ...block1],
+    2: [days1, ...block2],
+    3: [days30, ...block3],
   },
-  4: {
-    1: [1, ...block1],
-    2: [1, ...block3],
-    3: [30, ...block1],
+  [blockSet4]: {
+    1: [days1, ...block1],
+    2: [days1, ...block3],
+    3: [days30, ...block1],
   },
-  5: {
-    1: [365, ...block1],
-    2: [365, ...block2],
-    3: [365, ...block3],
+  [blockSet5]: {
+    1: [days365, ...block1],
+    2: [days365, ...block2],
+    3: [days365, ...block3],
   },
 };
 
@@ -94,13 +104,14 @@ setInterval(async () => {
 
     // If there is an error, don't increase blockCount++
     if (!complete.error) {
+      console.log('Unix Value:', complete.unix);
       blockCount++;
     }
   } catch (error) {
     console.log('Error fetching data:', error.message);
   }
 
-  // This helps to iterate over the object
+  // This is what resets/controls the iteration loop
   if (blockCount > 3) {
     orderCount++;
     blockCount = 1;

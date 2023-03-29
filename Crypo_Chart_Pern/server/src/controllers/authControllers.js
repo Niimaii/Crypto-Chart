@@ -16,7 +16,7 @@ exports.getUsers = async (req, res) => {
 
     const cryptoResponse = await cryptoDataFetch(1, block3);
 
-    console.log('was there an error?', cryptoResponse.error);
+    console.log('unix value', cryptoResponse.unix);
 
     const { rows } = await db.query('select id, email from users');
     res.status(200).json({
