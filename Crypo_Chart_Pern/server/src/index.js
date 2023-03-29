@@ -104,7 +104,6 @@ let blockCount = 1;
 
 //     // If there is an error, don't increase blockCount++
 //     if (!complete.error) {
-//       console.log('Unix Value:', complete.unix);
 //       blockCount++;
 //     }
 //   } catch (error) {
