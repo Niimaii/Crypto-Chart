@@ -90,33 +90,33 @@ const callOrder = {
 let orderCount = 1;
 let blockCount = 1;
 
-setInterval(async () => {
-  console.log(`index = Ordercount: ${orderCount}, Blockcount: ${blockCount}`);
-  // Get the correct object based on orderCount
-  const call = callOrder[orderCount];
-  // Get the array from callOrder, based on the blockcount
-  const block = call[blockCount];
-  let days = block[0];
-  const coinArray = block.slice(1);
+// setInterval(async () => {
+//   console.log(`index = Ordercount: ${orderCount}, Blockcount: ${blockCount}`);
+//   // Get the correct object based on orderCount
+//   const call = callOrder[orderCount];
+//   // Get the array from callOrder, based on the blockcount
+//   const block = call[blockCount];
+//   let days = block[0];
+//   const coinArray = block.slice(1);
 
-  try {
-    const complete = await cryptoDataFetch(days, coinArray);
+//   try {
+//     const complete = await cryptoDataFetch(days, coinArray);
 
-    // If there is an error, don't increase blockCount++
-    if (!complete.error) {
-      console.log('Unix Value:', complete.unix);
-      blockCount++;
-    }
-  } catch (error) {
-    console.log('Error fetching data:', error.message);
-  }
+//     // If there is an error, don't increase blockCount++
+//     if (!complete.error) {
+//       console.log('Unix Value:', complete.unix);
+//       blockCount++;
+//     }
+//   } catch (error) {
+//     console.log('Error fetching data:', error.message);
+//   }
 
-  // This is what resets/controls the iteration loop
-  if (blockCount > 3) {
-    orderCount++;
-    blockCount = 1;
-  }
-  if (orderCount > 5) {
-    orderCount = 1;
-  }
-}, 60 * 1000);
+//   // This is what resets/controls the iteration loop
+//   if (blockCount > 3) {
+//     orderCount++;
+//     blockCount = 1;
+//   }
+//   if (orderCount > 5) {
+//     orderCount = 1;
+//   }
+// }, 60 * 1000);

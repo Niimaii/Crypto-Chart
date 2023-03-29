@@ -4,92 +4,32 @@ const db = require('../db/indexDB');
 let count = 0;
 let blockCount = 1;
 
-const block1 = ['bitcoin', 'ethereum', 'tether', 'binancecoin', 'usd-coin'];
-const block2 = [
-  'ripple',
-  'cardano',
-  'staked-ether',
-  'dogecoin',
-  'matic-network',
-];
-const block3 = ['solana', 'binance-usd', 'polkadot', 'litecoin', 'shiba-inu'];
+const block1 = 'bitcoin';
+const block2 = 'ripple';
+const block3 = 'solana';
 
 const unix = {
-  bitcoin: {
+  [block1]: {
     1: 0,
     30: 0,
-    356: 0,
+    365: 0,
   },
-  ethereum: {
+  [block2]: {
     1: 0,
     30: 0,
-    356: 0,
+    365: 0,
   },
-  tether: {
+  [block3]: {
     1: 0,
     30: 0,
-    356: 0,
+    365: 0,
   },
-  binancecoin: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  'usd-coin': {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  ripple: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  cardano: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  'staked-ether': {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  dogecoin: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  'matic-network': {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  solana: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  'binance-usd': {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  polkadot: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  litecoin: {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
-  'shiba-inu': {
-    1: 0,
-    30: 0,
-    356: 0,
-  },
+};
+
+const unixHash = {
+  bitcoin: 'block1',
+  ripple: 'block2',
+  solana: 'block3',
 };
 //   Hashed data is here because the db tables are named after the crypto.id, however some names have special characters. So the tables are named different
 const cryptoHash = {
@@ -115,21 +55,25 @@ const cryptoHash = {
 
 // This function inserts crypto market/chart data into database
 const insertData = async (chartData, marketData, days, coinArray) => {
-  if (blockCount > 3) {
-    blockCount = 1;
-  }
+  const now = new Date();
+  const current = now.getTime();
+  // Get the first crypto to determine which block (set) of cryptos we are in
+  const crypto = coinArray[0];
+  const hashedBlock = unixHash[crypto];
+
+  await db.query(
+    `INSERT INTO crypto_unix (cryptoBlock, unix) VALUES ($1, $2) ON CONFLICT (cryptoBlock) DO UPDATE SET unix = EXCLUDED.unix;`,
+    [hashedBlock, current]
+  );
+
+  console.log('crypto:', crypto, 'days', days);
+  unix[crypto][days] = current;
+
   // Map through all the crypto market data and isolate individual coin market data
-  coinArray.map(async (coin, index) => {
+  coinArray.map(async (coin) => {
     let values = '';
-    const now = new Date();
-    const current = now.getTime();
     const coinMarket = marketData.find((crypto) => crypto.id == coin);
-    const blockNum = `block${blockCount}`;
-    const keyDays = `days${days}`;
 
-    unix[coin][days] = current;
-
-    console.log('coinmarket.id = ', coinMarket.id);
     // This is creating a unique ID that is based on the current time/date
     let coinID = `${coinMarket.id}_${current}`;
     // Get the correct postgres Table name with hash table
@@ -174,7 +118,6 @@ const insertData = async (chartData, marketData, days, coinArray) => {
       `INSERT INTO ${tableName}_history (chartDays,coin_id, timestamp, price) VALUES ${values};`
     );
   });
-  blockCount++;
 };
 
 // This fetches crypto market/chart data from coingecko API

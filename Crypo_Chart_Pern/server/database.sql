@@ -8,7 +8,15 @@ CREATE TABLE users (
     created_at date default current_date
 );
 
+CREATE TABLE crypto_unix (
+  id serial primary key,
+  cryptoBlock varchar(255) unique,
+  unix NUMERIC
+);
+
 INSERT INTO users(email, password) VALUES ('someEamil', 'somePass');
+
+
 
 -- *** Crypto Databases ***
 
