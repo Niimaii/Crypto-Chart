@@ -21,6 +21,9 @@ const insertData = async (chartData, days, coinArray) => {
       values += `('${coinID}',${days}, ${timeStamp}, ${price}, ${current}),`;
     });
 
+    if (coin == 'bitcoin') {
+      console.log('===== CHART DATA =====', values);
+    }
     //   Remove last coma
     values = values.slice(0, -1);
 

@@ -10,10 +10,13 @@ exports.getUsers = async (req, res) => {
 
     const cryptoResponse = await cryptoDataFetch(30, block3);
 
+    const bitcoinChart = cryptoResponse.chartInfo.bitcoin.prices;
+
     const { rows } = await db.query('select id, email from users');
     res.status(200).json({
       success: true,
       users: rows,
+      bitcoin_chart: bitcoinChart,
     });
   } catch (error) {
     console.log(error.message);
