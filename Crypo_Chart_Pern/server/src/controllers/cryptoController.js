@@ -18,7 +18,9 @@ exports.getCrypto = async (req, res) => {
 
     const chartData = [];
 
-    result.rows.forEach((row) => chartData.push([row.timestamp, row.price]));
+    result.rows.forEach((row) =>
+      chartData.push([parseInt(row.timestamp), parseFloat(row.price)])
+    );
 
     res.status(200).json({
       success: true,
@@ -36,7 +38,32 @@ exports.getMarket = async (req, res) => {
       'SELECT * FROM crypto_market ORDER BY rank ASC;'
     );
 
-    const marketObj = market.rows;
+    const marketObj = [];
+    market.rows.forEach((coin) => {
+      marketObj.push({
+        ...coin,
+        rank: parseInt(coin.rank),
+        current_price: parseFloat(coin.current_price),
+        market_cap: parseInt(coin.market_cap),
+        fully_diluted_valuation: parseInt(coin.fully_diluted_valuation),
+        total_volume: parseInt(coin.total_volume),
+        volume_24hr: parseFloat(coin.volume_24hr),
+        high_24h: parseFloat(coin.high_24h),
+        low_24h: parseFloat(coin.low_24h),
+        price_change_24h: parseFloat(coin.price_change_24h),
+        price_change_percentage_24h: parseFloat(
+          coin.price_change_percentage_24h
+        ),
+        market_cap_change_24h: parseInt(coin.market_cap_change_24h),
+        market_cap_change_percentage_24h: parseFloat(
+          coin.market_cap_change_percentage_24h
+        ),
+        circulating_supply: parseFloat(coin.circulating_supply),
+        total_supply: parseFloat(coin.total_supply),
+        max_supply: parseInt(coin.max_supply),
+        unix: parseInt(coin.unix),
+      });
+    });
 
     res.status(200).json({
       success: true,

@@ -5,12 +5,28 @@ import useAxios from '../hooks/useAxios';
 import { NavLink } from 'react-router-dom';
 import CryptoTable from '../components/CryptoTable';
 import useDB from '../hooks/useDB';
+import { getMarket } from '../api/cryptoAPI';
 
 function Home() {
   const [coin, setCoin] = useState('bitcoin');
   const [days, setDays] = useState(30);
+  const [coinResponse, setCoinResponse] = useState();
   const { response, loading } = useDB(coin, days);
-  if (loading) {
+
+  useEffect(() => {
+    const market = async () => {
+      const result = await getMarket();
+      if (result) {
+        setCoinResponse(result);
+      }
+    };
+
+    // market();
+  }, []);
+
+  // console.log(coinResponse);
+
+  if (!response) {
     return <h1>Loading...</h1>;
   }
 
