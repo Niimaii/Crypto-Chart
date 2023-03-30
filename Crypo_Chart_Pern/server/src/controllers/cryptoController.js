@@ -2,7 +2,9 @@ const db = require('../db/indexDB');
 
 exports.getCrypto = async (req, res) => {
   try {
-    const { coin, days } = req.body;
+    const coin = req.params.coin;
+    const days = req.params.days;
+    console.log('coin:', coin, 'days:', days);
     /* I don't even know, I checked to make sure that the
     data being inserted was in order. Everything checks out, 
     but for some reason when I insert the data (which again

@@ -55,10 +55,10 @@ CREATE TABLE crypto_chart (
   unix NUMERIC
 );
 CREATE TABLE crypto_market (
-  crypto_id TEXT PRIMARY KEY,
-  symbol TEXT,
-  name TEXT,
-  image TEXT,
+  crypto_id VARCHAR(50) PRIMARY KEY,
+  symbol VARCHAR(50),
+  name VARCHAR(50),
+  image VARCHAR(350),
   current_price NUMERIC,
   market_cap NUMERIC,
   market_cap_rank INTEGER,
@@ -78,10 +78,22 @@ CREATE TABLE crypto_market (
 
 
 CREATE TABLE crypto_chart (
-  crypto_id TEXT,
-  chartDays TEXT,
+  crypto_id VARCHAR(50),
+  chartDays VARCHAR(50),
   timestamp BIGINT,
   price NUMERIC,
   PRIMARY KEY (crypto_id, timestamp, chartDays),
+  unix NUMERIC
+);
+
+-- TEST
+
+-- Tried to fix data being inserted in order and it didn't work
+CREATE TABLE crypto_chart (
+  id SERIAL PRIMARY KEY,
+  crypto_id VARCHAR(50),
+  chartDays VARCHAR(50),
+  timestamp BIGINT,
+  price NUMERIC,
   unix NUMERIC
 );

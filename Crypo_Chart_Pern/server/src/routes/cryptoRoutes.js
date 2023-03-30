@@ -4,6 +4,6 @@ const { getCrypto } = require('../controllers/cryptoController');
 
 const router = Router();
 
-router.get('/chart', getCrypto);
+router.get('/chart/:coin/:days', getCrypto);
 
 module.exports = router;
