@@ -3,12 +3,18 @@ const { hash } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { SECRET, CLIENT_URL } = require('../constants/index');
 const cryptoDataFetch = require('../hooks/cryptoFetch');
+const fetchMarket = require('../hooks/cryptoMarketFetch');
 
 exports.getUsers = async (req, res) => {
   try {
     const block3 = ['bitcoin', 'ethereum', 'tether', 'binancecoin', 'usd-coin'];
 
     const cryptoResponse = await cryptoDataFetch(30, block3);
+    const chartInfo = cryptoResponse.chartInfo;
+    console.log(chartInfo.bitcoin.prices);
+    if (cryptoResponse) {
+      await fetchMarket(chartInfo);
+    }
 
     const bitcoinChart = cryptoResponse.chartInfo.bitcoin.prices;
 

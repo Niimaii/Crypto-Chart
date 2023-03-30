@@ -23,6 +23,7 @@ INSERT INTO users(email, password) VALUES ('someEamil', 'somePass');
 
 -- 0 
 CREATE TABLE crypto_market (
+  rank NUMERIC,
   crypto_id VARCHAR(50) PRIMARY KEY,
   symbol VARCHAR(50),
   name VARCHAR(50),
@@ -44,7 +45,6 @@ CREATE TABLE crypto_market (
   max_supply NUMERIC,
   unix NUMERIC
 );
-
 
 CREATE TABLE crypto_chart (
   crypto_id VARCHAR(50),

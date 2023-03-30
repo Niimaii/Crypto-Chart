@@ -16,7 +16,9 @@ exports.getCrypto = async (req, res) => {
       [coin, days]
     );
 
-    const chartData = result.rows.map((row) => [row.timestamp, row.price]);
+    const chartData = [];
+
+    result.rows.forEach((row) => chartData.push([row.timestamp, row.price]));
 
     res.status(200).json({
       success: true,
@@ -24,6 +26,24 @@ exports.getCrypto = async (req, res) => {
     });
   } catch (error) {
     console.log('Error with getCrypto controller');
+    console.error(error);
+  }
+};
+
+exports.getMarket = async (req, res) => {
+  try {
+    const market = await db.query(
+      'SELECT * FROM crypto_market ORDER BY rank ASC;'
+    );
+
+    const marketObj = market.rows;
+
+    res.status(200).json({
+      success: true,
+      market: marketObj,
+    });
+  } catch (error) {
+    console.log('Error with getMarket controller');
     console.error(error);
   }
 };

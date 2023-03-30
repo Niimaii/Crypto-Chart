@@ -4,6 +4,7 @@ const { PORT, CLIENT_URL } = require('./constants/index');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const cors = require('cors');
+const fetchMarket = require('./hooks/cryptoMarketFetch');
 
 // Import passport middleware
 require('./middleware/passport_middleware');
@@ -101,6 +102,9 @@ let blockCount = 1;
 
 //   try {
 //     const complete = await cryptoDataFetch(days, coinArray);
+//     if (complete) {
+//       await fetchMarket(complete.chartInfo);
+//     }
 
 //     // If there is an error, don't increase blockCount++
 //     if (!complete.error) {
