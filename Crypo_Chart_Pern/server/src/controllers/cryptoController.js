@@ -39,6 +39,7 @@ exports.getMarket = async (req, res) => {
     );
 
     const marketObj = [];
+    // Turning strings into INTs
     market.rows.forEach((coin) => {
       marketObj.push({
         ...coin,

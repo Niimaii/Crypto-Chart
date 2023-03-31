@@ -11,27 +11,25 @@ function Home() {
   const [coin, setCoin] = useState('bitcoin');
   const [days, setDays] = useState(30);
   const [coinResponse, setCoinResponse] = useState();
-  const { response, loading } = useDB(coin, days);
+  const loop = [0, 1, 2, 3, 4];
 
   useEffect(() => {
     const market = async () => {
       const result = await getMarket();
       if (result) {
-        setCoinResponse(result);
+        setCoinResponse(result.data.market);
       }
     };
 
-    // market();
+    market();
   }, []);
 
-  // console.log(coinResponse);
-
-  if (!response) {
+  if (!coinResponse) {
     return <h1>Loading...</h1>;
   }
+  console.log('CoinResponse:', coinResponse);
 
   // const total = chartResponse.bitcoin;
-  console.log('Chart Data', response.chart);
 
   const daysOption = [1, 7, 14, 30, 90, 180, 365];
 
@@ -39,32 +37,26 @@ function Home() {
     setDays(e.target.value);
   };
 
-  // console.log('chartResponse', chartResponse);
-  // console.log('coinResponse', coinResponse);
   return (
     <div>
       <h1>TESTING</h1>
-      {/* <div className='flex gap-16 justify-center mt-10'>
+      <div className='flex gap-16 justify-center mt-10'>
         {coinResponse &&
-          coinResponse.map((coin) => {
+          loop.map((i) => {
+            let coin = coinResponse[i];
             return (
               <NavLink to={`/${coin.id}`}>
-                <SmallChart
-                  coin={coin}
-                  chartResponse={chartResponse}
-                  key={coin.id}
-                  loading={loading}
-                />
+                <SmallChart coin={coin} key={coin.id} days={days} />
               </NavLink>
             );
           })}
       </div>
-      <CryptoTable response={coinResponse} volume={volume} key='CryptoTable' />
+      <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />
       <select id='daysBtn' onChange={updateDays}>
         {daysOption.map((days) => {
           return <option value={days}>{days}</option>;
         })}
-      </select> */}
+      </select>
     </div>
   );
 }
