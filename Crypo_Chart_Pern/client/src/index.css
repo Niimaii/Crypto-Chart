@@ -10,7 +10,7 @@
 
 body {
   font-family: poppins, sans-serif;
-  background-color: #242bff;
+  background-color: #fff;
 }
 
 /* Navbar */
@@ -39,4 +39,34 @@ body {
 
 .percentRed {
   color: #ea7b77;
+}
+
+/* Table */
+
+.coin_table {
+  width: 1000px;
+}
+
+.coin_table tbody tr {
+  border-top: 1px solid rgba(200, 200, 200, 0.609);
+}
+
+.coin_table thead tr th {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  color: #474747;
+  padding-bottom: 5px;
+}
+
+.coin_table tbody tr td {
+  padding: 20px 0;
+  color: #474747;
+}
+
+.table_btn {
+  background-color: #3e45ff;
+  color: white;
+  border-radius: 11px;
+  padding: 10px 45px;
 }

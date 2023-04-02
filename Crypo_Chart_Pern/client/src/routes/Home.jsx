@@ -38,7 +38,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className=''>
       <h1>TESTING</h1>
       <div className='flex gap-16 justify-center mt-10'>
         {coinResponse &&
