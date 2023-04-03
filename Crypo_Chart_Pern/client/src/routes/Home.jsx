@@ -6,12 +6,16 @@ import { NavLink } from 'react-router-dom';
 import CryptoTable from '../components/CryptoTable';
 import useDB from '../hooks/useDB';
 import { getMarket } from '../api/cryptoAPI';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
+
+import 'swiper/css';
+import Carousel from '../components/Carousel';
 
 function Home() {
   const [coin, setCoin] = useState('bitcoin');
   const [days, setDays] = useState(30);
   const [coinResponse, setCoinResponse] = useState();
-  const loop = [0, 1, 2, 3, 4];
 
   useEffect(() => {
     const market = async () => {
@@ -39,18 +43,8 @@ function Home() {
 
   return (
     <div className=''>
-      <h1>TESTING</h1>
-      <div className='flex gap-16 justify-center mt-10'>
-        {coinResponse &&
-          loop.map((i) => {
-            let coin = coinResponse[i];
-            return (
-              <NavLink to={`/${coin.id}`}>
-                <SmallChart coin={coin} key={coin.id} days={days} />
-              </NavLink>
-            );
-          })}
-      </div>
+      <Carousel days={days} coinResponse={coinResponse} />
+
       <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />
       <select id='daysBtn' onChange={updateDays}>
         {daysOption.map((days) => {

@@ -31,6 +31,15 @@ body {
   font-size: 1.1rem;
 }
 
+.nav_bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 450px;
+  background-image: linear-gradient(#242bff, #fff);
+  z-index: -1;
+}
+
 /* Chart */
 
 .percentGreen {

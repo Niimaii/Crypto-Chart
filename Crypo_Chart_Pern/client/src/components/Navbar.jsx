@@ -5,7 +5,8 @@ import { SearchIcon } from '../icons/icons';
 
 function Navbar() {
   return (
-    <nav className='flex items-center justify-between w-full'>
+    <nav className='flex relative items-center justify-between w-full'>
+      <div className='nav_bg'></div>
       <div className='flex items-center'>
         <NavLink className='flex items-center gap-3' to='/'>
           <img src={vscodium} alt='' className='h-14' />

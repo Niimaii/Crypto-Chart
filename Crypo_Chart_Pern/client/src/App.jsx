@@ -22,7 +22,7 @@ import CoinPage from './routes/CoinPage';
 function App() {
   return (
     <CryptoContextProvider>
-      <div className='cont p-5'>
+      <div className=''>
         <BrowserRouter>
           <Navbar />
           <Routes>
