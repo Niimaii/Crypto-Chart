@@ -27,8 +27,10 @@ body {
 
 .signin {
   background-color: rgba(243, 243, 243, 0.33);
-  padding: 10px 15px;
+  padding: 12px 15px;
   font-size: 1.1rem;
+  max-height: 50px;
+  width: 100px;
 }
 
 .nav_bg {
@@ -48,6 +50,30 @@ body {
 
 .percentRed {
   color: #ea7b77;
+}
+
+/* Home */
+
+.table_nav_on {
+  background-color: rgba(212, 213, 254, 0.33);
+  color: #0009ff;
+  border-radius: 7px;
+  padding: 4px 13px;
+}
+.table_nav_off {
+  color: #474747;
+  background-color: rgba(212, 213, 254, 0);
+  border-radius: 7px;
+  padding: 4px 13px;
+}
+
+.day_btn {
+  border: 2px solid black !important;
+  border-radius: 10px;
+  width: 70px;
+  height: 50px;
+  color: #222af3;
+  padding: 0 10px;
 }
 
 /* Table */

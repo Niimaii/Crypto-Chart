@@ -12,7 +12,6 @@ function useDB(coin, days) {
       setLoading(true);
 
       const result = await getChart(coin, days);
-      console.log('Hook Result', result.data);
       //   Set response = to result of our request
       setResponse(result.data);
     } catch (err) {

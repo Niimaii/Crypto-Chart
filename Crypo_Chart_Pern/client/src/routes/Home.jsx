@@ -8,9 +8,8 @@ import useDB from '../hooks/useDB';
 import { getMarket } from '../api/cryptoAPI';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
-
+import CryptoCarousel from '../components/CryptoCarousel';
 import 'swiper/css';
-import Carousel from '../components/Carousel';
 
 function Home() {
   const [coin, setCoin] = useState('bitcoin');
@@ -31,11 +30,8 @@ function Home() {
   if (!coinResponse) {
     return <h1>Loading...</h1>;
   }
-  console.log('CoinResponse:', coinResponse);
 
   // const total = chartResponse.bitcoin;
-
-  const daysOption = [1, 7, 14, 30, 90, 180, 365];
 
   const updateDays = (e) => {
     setDays(e.target.value);
@@ -43,14 +39,11 @@ function Home() {
 
   return (
     <div className=''>
-      <Carousel days={days} coinResponse={coinResponse} />
+      <CryptoCarousel days={days} coinResponse={coinResponse} />
 
-      <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />
-      <select id='daysBtn' onChange={updateDays}>
-        {daysOption.map((days) => {
-          return <option value={days}>{days}</option>;
-        })}
-      </select>
+      <div className='mt-8 flex justify-center'>
+        <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />
+      </div>
     </div>
   );
 }

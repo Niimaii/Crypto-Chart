@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { StarIcon } from '../icons/icons';
 
 function CryptoTable({ response, volume }) {
+  const daysOption = [1, 7, 14, 30, 90, 180, 365];
+  const [tableNav, setTableNav] = useState('table_nav_on');
+
   //   console.log(response);
   // Currency formatter
 
@@ -38,7 +41,20 @@ function CryptoTable({ response, volume }) {
 
   return (
     <div className=''>
-      <table className='coin_table'>
+      <div className='mt-14 mr-20 flex justify-between'>
+        <div className='flex gap-10'>
+          <button className={`${tableNav}`}>All Coins</button>
+          <button className='table_nav_off'>Gainers</button>
+          <button className='table_nav_off'>Losers</button>
+          <button className='table_nav_off'>Favorites</button>
+        </div>
+        <select className='day_btn' id='daysBtn'>
+          {daysOption.map((days) => {
+            return <option value={`${days}D`}>{`${days}D`}</option>;
+          })}
+        </select>
+      </div>
+      <table className='mt-8 coin_table'>
         <thead>
           <tr>
             <th width='290px'>{spacedName}</th>

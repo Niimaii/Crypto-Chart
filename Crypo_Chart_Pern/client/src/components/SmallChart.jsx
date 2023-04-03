@@ -30,7 +30,6 @@ ChartJS.register(
 );
 
 function SmallChart({ coin, days }) {
-  console.log('I ran', coin, days);
   // const { response, loading } = useAxios(
   //   `coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
   // );
@@ -145,7 +144,7 @@ function SmallChart({ coin, days }) {
   };
 
   return (
-    <div className='bg-white w-72 h-72 rounded-xl p-4 flex flex-col justify-between'>
+    <div className='mt-8 bg-white w-72 h-72 rounded-xl p-4 flex flex-col justify-between'>
       <div className='flex items-center m-0'>
         <img className='h-12 mr-3' src={coin.image} alt={coin.name} />
 
