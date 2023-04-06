@@ -13,7 +13,6 @@ import 'swiper/css';
 
 function Home() {
   const [coin, setCoin] = useState('bitcoin');
-  const [days, setDays] = useState(30);
   const [coinResponse, setCoinResponse] = useState();
 
   useEffect(() => {
@@ -39,7 +38,7 @@ function Home() {
 
   return (
     <div className=''>
-      <CryptoCarousel days={days} coinResponse={coinResponse} />
+      <CryptoCarousel coinResponse={coinResponse} />
 
       <div className='mt-8 flex justify-center'>
         <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />

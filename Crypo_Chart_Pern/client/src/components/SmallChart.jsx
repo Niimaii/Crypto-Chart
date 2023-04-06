@@ -29,23 +29,8 @@ ChartJS.register(
   Legend
 );
 
-function SmallChart({ coin, days }) {
-  // const { response, loading } = useAxios(
-  //   `coins/${coin.id}/market_chart?vs_currency=usd&days=${days}`
-  // );
-
-  // useEffect(() => {
-  //   if (response) {
-  //     console.log(response);
-  //     setVolume((previous) => ({
-  //       ...previous,
-  //       [days]: {
-  //         id: coin.id,
-  //         volume: response.total_volumes.at(-1)[1],
-  //       },
-  //     }));
-  //   }
-  // }, [response]);
+function SmallChart({ coin }) {
+  const { days } = useContext(CryptoContext);
 
   const { response, loading } = useDB(coin.crypto_id, days);
 

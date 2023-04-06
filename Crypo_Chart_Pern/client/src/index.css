@@ -105,3 +105,11 @@ body {
   border-radius: 11px;
   padding: 10px 45px;
 }
+
+.percentGreen {
+  color: #7fc379;
+}
+
+.percentRed {
+  color: #ea7b77;
+}

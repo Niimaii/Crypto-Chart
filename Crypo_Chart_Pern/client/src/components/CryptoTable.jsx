@@ -1,27 +1,43 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { CryptoContext } from '../context/CryptoContext';
 import { StarIcon } from '../icons/icons';
 
 function CryptoTable({ response, volume }) {
+  const { days, setDays } = useContext(CryptoContext);
+
+  const eValue = document.getElementById('daysBtn');
+
   const daysOption = [1, 30, 365];
-  const [tableNav1, setTableNav1] = useState(true);
-  const [tableNav2, setTableNav2] = useState(false);
-  const [tableNav3, setTableNav3] = useState(false);
-  const [tableNav4, setTableNav4] = useState(false);
+  const [allCoins, setAllCoins] = useState(true);
+  const [gainers, setGainers] = useState(false);
+  const [losers, setLosers] = useState(false);
+  const [favorites, setFavorites] = useState(false);
+
+  const changeDays = () => {
+    const newEValue = parseInt(eValue.value.slice(0, -1));
+    console.log(newEValue);
+
+    setDays(newEValue);
+    console.log(days);
+  };
+
+  // I couldn't call a function in my array unless I add an empty function and add the function of interest in it
   const navFunctions = [
     function (onOff) {
-      setTableNav1(onOff);
+      setAllCoins(onOff);
     },
     function (onOff) {
-      setTableNav2(onOff);
+      setGainers(onOff);
     },
     function (onOff) {
-      setTableNav3(onOff);
+      setLosers(onOff);
     },
     function (onOff) {
-      setTableNav4(onOff);
+      setFavorites(onOff);
     },
   ];
 
+  // Turn on the button being clicked on and turn all other buttons off
   const navBtnChanger = (e) => {
     const getIndex = e.target.className[0];
     navFunctions[getIndex](true);
@@ -74,7 +90,7 @@ function CryptoTable({ response, volume }) {
           <button
             onClick={navBtnChanger}
             className={`0, ${
-              tableNav1 == true ? 'table_nav_on' : 'table_nav_off'
+              allCoins == true ? 'table_nav_on' : 'table_nav_off'
             }`}
           >
             All Coins
@@ -82,7 +98,7 @@ function CryptoTable({ response, volume }) {
           <button
             onClick={navBtnChanger}
             className={`1, ${
-              tableNav2 == true ? 'table_nav_on' : 'table_nav_off'
+              gainers == true ? 'table_nav_on' : 'table_nav_off'
             }`}
           >
             Gainers
@@ -90,7 +106,7 @@ function CryptoTable({ response, volume }) {
           <button
             onClick={navBtnChanger}
             className={`2, ${
-              tableNav3 == true ? 'table_nav_on' : 'table_nav_off'
+              losers == true ? 'table_nav_on' : 'table_nav_off'
             }`}
           >
             Losers
@@ -98,13 +114,13 @@ function CryptoTable({ response, volume }) {
           <button
             onClick={navBtnChanger}
             className={`3, ${
-              tableNav4 == true ? 'table_nav_on' : 'table_nav_off'
+              favorites == true ? 'table_nav_on' : 'table_nav_off'
             }`}
           >
             Favorites
           </button>
         </div>
-        <select className='day_btn' id='daysBtn'>
+        <select onChange={changeDays} className='day_btn' id='daysBtn'>
           {daysOption.map((days) => {
             return <option value={`${days}D`}>{`${days}D`}</option>;
           })}
@@ -158,7 +174,13 @@ function CryptoTable({ response, volume }) {
                         : 'percentRed'
                     } table_change`}
                   >
-                    <div className='pr-16'>
+                    <div
+                      className={`pr-16 ${
+                        coin.price_change_percentage_24h > 0
+                          ? 'percentGreen'
+                          : 'percentRed'
+                      } table_change`}
+                    >
                       {chartPercent(coin.price_change_percentage_24h)}%
                     </div>
                   </td>

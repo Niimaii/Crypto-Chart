@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import { NavLink } from 'react-router-dom';
 import SmallChart from './SmallChart';
 
-function CryptoCarousel({ coinResponse, days }) {
+function CryptoCarousel({ coinResponse }) {
   const loop = [0, 1, 2, 3, 4];
 
   return (
@@ -41,7 +41,7 @@ function CryptoCarousel({ coinResponse, days }) {
             // You need to add SwiperSlide for Swiper to work properly
             <SwiperSlide>
               <NavLink to={`/${coin.crypto_id}`}>
-                <SmallChart coin={coin} key={coin.crypto_id} days={days} />
+                <SmallChart coin={coin} key={coin.crypto_id} />
               </NavLink>
             </SwiperSlide>
           );
