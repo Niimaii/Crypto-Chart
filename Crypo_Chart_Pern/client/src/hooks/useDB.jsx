@@ -25,7 +25,7 @@ function useDB(coin, days) {
   //   Initiate our request
   useEffect(() => {
     fetchData(coin, days);
-  }, []);
+  }, [days]);
 
   return { response, loading, error };
 }

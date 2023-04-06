@@ -22,20 +22,7 @@ function CryptoTable({ response, volume }) {
   };
 
   // I couldn't call a function in my array unless I add an empty function and add the function of interest in it
-  const navFunctions = [
-    function (onOff) {
-      setAllCoins(onOff);
-    },
-    function (onOff) {
-      setGainers(onOff);
-    },
-    function (onOff) {
-      setLosers(onOff);
-    },
-    function (onOff) {
-      setFavorites(onOff);
-    },
-  ];
+  const navFunctions = [setAllCoins, setGainers, setLosers, setFavorites];
 
   // Turn on the button being clicked on and turn all other buttons off
   const navBtnChanger = (e) => {
