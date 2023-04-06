@@ -2,8 +2,36 @@ import React, { useState } from 'react';
 import { StarIcon } from '../icons/icons';
 
 function CryptoTable({ response, volume }) {
-  const daysOption = [1, 7, 14, 30, 90, 180, 365];
-  const [tableNav, setTableNav] = useState('table_nav_on');
+  const daysOption = [1, 30, 365];
+  const [tableNav1, setTableNav1] = useState(true);
+  const [tableNav2, setTableNav2] = useState(false);
+  const [tableNav3, setTableNav3] = useState(false);
+  const [tableNav4, setTableNav4] = useState(false);
+  const navFunctions = [
+    function (onOff) {
+      setTableNav1(onOff);
+    },
+    function (onOff) {
+      setTableNav2(onOff);
+    },
+    function (onOff) {
+      setTableNav3(onOff);
+    },
+    function (onOff) {
+      setTableNav4(onOff);
+    },
+  ];
+
+  const navBtnChanger = (e) => {
+    const getIndex = e.target.className[0];
+    navFunctions[getIndex](true);
+
+    const newNavFunctions = [...navFunctions];
+
+    newNavFunctions.splice(getIndex, 1);
+
+    newNavFunctions.forEach((fn) => fn(false));
+  };
 
   //   console.log(response);
   // Currency formatter
@@ -43,10 +71,38 @@ function CryptoTable({ response, volume }) {
     <div className=''>
       <div className='mt-14 mr-20 flex justify-between'>
         <div className='flex gap-10'>
-          <button className={`${tableNav}`}>All Coins</button>
-          <button className='table_nav_off'>Gainers</button>
-          <button className='table_nav_off'>Losers</button>
-          <button className='table_nav_off'>Favorites</button>
+          <button
+            onClick={navBtnChanger}
+            className={`0, ${
+              tableNav1 == true ? 'table_nav_on' : 'table_nav_off'
+            }`}
+          >
+            All Coins
+          </button>
+          <button
+            onClick={navBtnChanger}
+            className={`1, ${
+              tableNav2 == true ? 'table_nav_on' : 'table_nav_off'
+            }`}
+          >
+            Gainers
+          </button>
+          <button
+            onClick={navBtnChanger}
+            className={`2, ${
+              tableNav3 == true ? 'table_nav_on' : 'table_nav_off'
+            }`}
+          >
+            Losers
+          </button>
+          <button
+            onClick={navBtnChanger}
+            className={`3, ${
+              tableNav4 == true ? 'table_nav_on' : 'table_nav_off'
+            }`}
+          >
+            Favorites
+          </button>
         </div>
         <select className='day_btn' id='daysBtn'>
           {daysOption.map((days) => {
