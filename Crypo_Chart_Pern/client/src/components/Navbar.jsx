@@ -23,7 +23,7 @@ function Navbar() {
         </div>
       </div>
       <div className='w-full mt-5 flex justify-center items-center'>
-        <div className='ml-10 w-72 flex items-center justify-between'>
+        <div className='portfolio w-72 flex items-center justify-between'>
           <NavLink to='/portfolio'>
             <span className='text-white'>Portfolio</span>
           </NavLink>

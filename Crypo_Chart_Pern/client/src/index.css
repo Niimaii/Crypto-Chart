@@ -113,3 +113,21 @@ body {
 .percentRed {
   color: #ea7b77;
 }
+
+/* Responsive */
+
+@media (max-width: 1355px) {
+  .searchbar {
+    width: 450px;
+  }
+}
+
+@media (max-width: 1210px) {
+  .searchbar {
+    width: 375px;
+  }
+
+  .portfolio {
+    margin-left: 20px;
+  }
+}
