@@ -127,6 +127,16 @@ function CryptoTable({ response, volume }) {
           {response &&
             response.map((coin) => {
               const [fill, setFill] = useState(false);
+              const coinPercent = coin.price_change_percentage_24h;
+
+              // If the gainers button is pressed, only display positive percentages
+              if (gainers && coinPercent < 0) {
+                return false;
+              }
+              // If the gainers button is pressed, only display negative percentages
+              if (losers && coinPercent > 0) {
+                return false;
+              }
 
               return (
                 <tr>
