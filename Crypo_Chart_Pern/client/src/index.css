@@ -114,6 +114,26 @@ body {
   color: #ea7b77;
 }
 
+.coin_icon {
+  min-width: 300px;
+}
+
+.coin_price {
+  min-width: 200px;
+}
+
+.coin_percent {
+  min-width: 125px;
+}
+
+.coin_volume {
+  min-width: 130px;
+}
+
+.coin_market {
+  min-width: 148px;
+}
+
 /* Responsive */
 
 @media (max-width: 1355px) {

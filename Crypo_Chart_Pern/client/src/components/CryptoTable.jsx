@@ -144,7 +144,7 @@ function CryptoTable({ response, volume }) {
                     <div className='pl-16'>
                       <div className='flex items-center justify-start gap-3'>
                         <img className='h-10' src={coin.image} alt='' />
-                        <div className='text-left pr-16'>
+                        <div className='coin_icon text-left pr-16'>
                           <p className='font-medium w-52'> {coin.name}</p>
                           <p className='font-light'>
                             {coin.symbol.toUpperCase()}
@@ -160,7 +160,7 @@ function CryptoTable({ response, volume }) {
                     </button>
                   </td>
                   <td>
-                    <div className='pr-28'>
+                    <div className='coin_price pr-28'>
                       {formatter.format(coin.current_price)}
                     </div>
                   </td>
@@ -172,7 +172,7 @@ function CryptoTable({ response, volume }) {
                     } table_change`}
                   >
                     <div
-                      className={`pr-16 ${
+                      className={`coin_percent pr-16 ${
                         coin.price_change_percentage_24h > 0
                           ? 'percentGreen'
                           : 'percentRed'
@@ -182,12 +182,12 @@ function CryptoTable({ response, volume }) {
                     </div>
                   </td>
                   <td>
-                    <div className='pr-16'>
+                    <div className='coin_volume pr-16'>
                       {shortFormatter(coin.total_volume)}
                     </div>
                   </td>
                   <td>
-                    <div className='pr-20'>
+                    <div className='coin_market pr-20'>
                       {shortFormatter(coin.market_cap)}
                     </div>
                   </td>
