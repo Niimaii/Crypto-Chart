@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { NavLink } from 'react-router-dom';
 import SmallChart from './SmallChart';
+import { layouts } from 'chart.js';
 
 function CryptoCarousel({ coinResponse }) {
   const loop = [0, 1, 2, 3, 4];
@@ -14,6 +15,8 @@ function CryptoCarousel({ coinResponse }) {
     <Swiper
       // TODO: Fix loop
       loop={true}
+      slidesOffsetAfter={30}
+      slidesOffsetBefore={30}
       //   Changes how many slides can be seen based on screen size
       breakpoints={{
         '@0.00': {
@@ -30,7 +33,7 @@ function CryptoCarousel({ coinResponse }) {
         },
         '@1.50': {
           slidesPerView: 4,
-          spaceBetween: 100,
+          spaceBetween: 20,
         },
       }}
     >
