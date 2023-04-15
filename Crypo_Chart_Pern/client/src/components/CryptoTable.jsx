@@ -16,7 +16,6 @@ function CryptoTable({ response, volume }) {
   const changeDays = () => {
     const newEValue = parseInt(eValue.value.slice(0, -1));
     console.log(newEValue);
-
     setDays(newEValue);
     console.log(days);
   };
@@ -35,9 +34,6 @@ function CryptoTable({ response, volume }) {
 
     newNavFunctions.forEach((fn) => fn(false));
   };
-
-  //   console.log(response);
-  // Currency formatter
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

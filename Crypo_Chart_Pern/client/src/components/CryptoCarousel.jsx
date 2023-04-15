@@ -20,19 +20,19 @@ function CryptoCarousel({ coinResponse }) {
       //   Changes how many slides can be seen based on screen size
       breakpoints={{
         '@0.00': {
-          slidesPerView: 2,
+          slidesPerView: 1,
           spaceBetween: 15,
         },
         '@0.75': {
-          slidesPerView: 2,
+          slidesPerView: 1,
           spaceBetween: 50,
         },
         '@1.00': {
-          slidesPerView: 3,
+          slidesPerView: 1,
           spaceBetween: 75,
         },
         '@1.50': {
-          slidesPerView: 4,
+          slidesPerView: 1,
           spaceBetween: 20,
         },
       }}
