@@ -67,7 +67,7 @@ function CryptoTable({ response, volume }) {
   };
 
   return (
-    <div className=''>
+    <div className='w-screen'>
       <div className='mt-14 mr-20 flex justify-between'>
         <div className='flex gap-10'>
           <button
@@ -137,11 +137,11 @@ function CryptoTable({ response, volume }) {
               return (
                 <tr>
                   <td className='relative'>
-                    <div className='pl-16'>
+                    <div className='pl-12'>
                       <div className='flex items-center justify-start gap-3'>
                         <img className='h-10' src={coin.image} alt='' />
-                        <div className='coin_icon text-left pr-16'>
-                          <p className='font-medium w-52'> {coin.name}</p>
+                        <div className='coin_icon text-left'>
+                          <p className='font-medium w-0'> {coin.name}</p>
                           <p className='font-light'>
                             {coin.symbol.toUpperCase()}
                           </p>
