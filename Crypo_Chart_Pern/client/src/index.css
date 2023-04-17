@@ -61,10 +61,12 @@ body {
 .day_btn {
   border: 2px solid black !important;
   border-radius: 10px;
-  width: 75px;
-  height: 50px;
+  width: 55px;
+  height: 40px;
   color: #222af3;
-  padding: 0 5px;
+  padding: 0 3px;
+
+  font-size: 0.8rem;
 }
 
 /* Table */
@@ -130,13 +132,23 @@ body {
   background-color: rgba(212, 213, 254, 0.33);
   color: #0009ff;
   border-radius: 7px;
-  padding: 4px 13px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
 }
 .table_nav_off {
   color: #474747;
   background-color: rgba(212, 213, 254, 0);
   border-radius: 7px;
-  padding: 4px 13px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+}
+
+.opt_btn button {
+  height: 35px;
+}
+
+.opt_btn button:nth-child(1) {
+  width: 81px;
 }
 
 /* Responsive */

@@ -10,7 +10,7 @@ function Navbar() {
       <div className='nav_bg'></div>
       {/* I have no idea why, but having flex here causes the bg color to display properly */}
       <nav className='flex'>
-        <div className='flex items-center justify-between w-full m-5 mb-0'>
+        <div className='flex items-center justify-between w-full m-3 mb-0'>
           <div className='flex items-center'>
             <NavLink className='flex items-center gap-3' to='/'>
               <img src={vscodium} alt='' className='nav_logo w-14 h-14' />

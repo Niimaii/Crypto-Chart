@@ -68,8 +68,8 @@ function CryptoTable({ response, volume }) {
 
   return (
     <div className='w-screen'>
-      <div className='mt-14 mr-20 flex justify-between'>
-        <div className='flex gap-10'>
+      <div className='mt-14 mr-20 flex'>
+        <div className='opt_btn flex items-center'>
           <button
             onClick={navBtnChanger}
             className={`0, ${
