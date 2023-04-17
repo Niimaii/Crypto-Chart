@@ -129,31 +129,35 @@ function SmallChart({ coin }) {
   };
 
   return (
-    <div className='mt-8 bg-white w-56 h-56 rounded-xl p-4 flex flex-col justify-between'>
-      <div className='flex items-center m-0'>
-        <img className='h-10 mr-3' src={coin.image} alt={coin.name} />
+    <div className='mt-8 flex justify-center'>
+      <div className=' bg-white w-56 h-56 rounded-xl p-4 flex flex-col justify-between'>
+        <div className='flex items-center m-0'>
+          <img className='h-10 mr-3' src={coin.image} alt={coin.name} />
 
-        <div>
-          <h1 className='text-base m-0 h-5 font-medium'>{coin.name}</h1>
-          <h1 className='text-base m-0 font-extralight'>
-            {coin.symbol.toUpperCase()}
-          </h1>
+          <div>
+            <h1 className='text-base m-0 h-5 font-medium'>{coin.name}</h1>
+            <h1 className='text-base m-0 font-extralight'>
+              {coin.symbol.toUpperCase()}
+            </h1>
+          </div>
         </div>
-      </div>
-      <div className='mt-1'>
-        <Line options={options} data={data} />
-      </div>
-      <div className='flex justify-between items-center'>
-        <p
-          className={`text-sm ${
-            coin.price_change_percentage_24h > 0 ? 'percentGreen' : 'percentRed'
-          }`}
-        >
-          {chartPercent(coin.price_change_percentage_24h)}%
-        </p>
-        <p className='text-sm font-medium'>
-          {formatter.format(coin.current_price)}
-        </p>
+        <div className='mt-1'>
+          <Line options={options} data={data} />
+        </div>
+        <div className='flex justify-between items-center'>
+          <p
+            className={`text-sm ${
+              coin.price_change_percentage_24h > 0
+                ? 'percentGreen'
+                : 'percentRed'
+            }`}
+          >
+            {chartPercent(coin.price_change_percentage_24h)}%
+          </p>
+          <p className='text-sm font-medium'>
+            {formatter.format(coin.current_price)}
+          </p>
+        </div>
       </div>
     </div>
   );

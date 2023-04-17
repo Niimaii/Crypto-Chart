@@ -14,26 +14,28 @@ function CryptoCarousel({ coinResponse }) {
   return (
     <Swiper
       // TODO: Fix loop
+      centeredSlides={true}
+      // centerInsufficientSlides={true}
       loop={true}
-      slidesOffsetAfter={30}
-      slidesOffsetBefore={30}
+      // slidesOffsetAfter={30}
+      // slidesOffsetBefore={30}
       //   Changes how many slides can be seen based on screen size
       breakpoints={{
         '@0.00': {
           slidesPerView: 1,
-          spaceBetween: 15,
+          spaceBetween: 1,
         },
         '@0.75': {
           slidesPerView: 1,
-          spaceBetween: 50,
+          spaceBetween: 1,
         },
         '@1.00': {
           slidesPerView: 1,
-          spaceBetween: 75,
+          spaceBetween: 1,
         },
         '@1.50': {
           slidesPerView: 1,
-          spaceBetween: 20,
+          spaceBetween: 1,
         },
       }}
     >
