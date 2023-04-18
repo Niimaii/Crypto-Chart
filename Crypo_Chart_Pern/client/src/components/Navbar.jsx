@@ -21,7 +21,7 @@ function Navbar() {
               </h1>
             </NavLink>
 
-            <div className='nav_response flex items-center relative ml-24'>
+            <div className='nav_response flex items-center relative mx-10'>
               <SearchIcon />
               <input
                 type='text'
@@ -30,26 +30,30 @@ function Navbar() {
               />
             </div>
           </div>
-          <button>
+          <button className='hamburger'>
             <Hamburger />
           </button>
-          <div className='nav_response w-full mt-5 flex justify-center items-center'>
-            <div className='portfolio w-72 flex items-center justify-between'>
-              <NavLink to='/portfolio'>
-                <span className='text-white'>Portfolio</span>
-              </NavLink>
-              <NavLink to='/settings'>
-                <span className='text-white'>Settings</span>
-              </NavLink>
-              <NavLink to='/about'>
-                <span className='text-white'>About</span>
+          <div className='flex justify-between'>
+            <div className='nav_response w-full flex justify-center items-center'>
+              <div className='portfolio w-60 flex items-center justify-between'>
+                <NavLink to='/portfolio'>
+                  <span className='text-white'>Portfolio</span>
+                </NavLink>
+                <NavLink to='/settings'>
+                  <span className='text-white'>Settings</span>
+                </NavLink>
+                <NavLink to='/about'>
+                  <span className='text-white'>About</span>
+                </NavLink>
+              </div>
+            </div>
+            <div className='nav_response ml-5'>
+              <NavLink to='/signin'>
+                <button className='signin text-white rounded-md'>
+                  Sign In
+                </button>
               </NavLink>
             </div>
-          </div>
-          <div className='nav_response mt-5 mr-5'>
-            <NavLink to='/signin'>
-              <button className='signin text-white rounded-md'>Sign In</button>
-            </NavLink>
           </div>
         </div>
       </nav>
