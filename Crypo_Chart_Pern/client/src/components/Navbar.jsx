@@ -6,11 +6,11 @@ import { Hamburger, SearchIcon } from '../icons/icons';
 function Navbar() {
   console.log(window.innerWidth);
   return (
-    <div className='relative'>
+    <div className='relative mb-5'>
       <div className='nav_bg'></div>
       {/* I have no idea why, but having flex here causes the bg color to display properly */}
       <nav className='flex'>
-        <div className='flex items-center justify-between w-full m-3 mb-0'>
+        <div className='flex items-center w-full m-3 mb-0'>
           <div className='flex items-center'>
             <NavLink className='flex items-center gap-3' to='/'>
               <img src={vscodium} alt='' className='nav_logo w-14 h-14' />
@@ -33,9 +33,9 @@ function Navbar() {
           <button className='hamburger'>
             <Hamburger />
           </button>
-          <div className='flex justify-between'>
+          <div className='flex justify-between w-full'>
             <div className='nav_response w-full flex justify-center items-center'>
-              <div className='portfolio w-60 flex items-center justify-between'>
+              <div className='portfolio nav_options w-60 flex items-center justify-between'>
                 <NavLink to='/portfolio'>
                   <span className='text-white'>Portfolio</span>
                 </NavLink>

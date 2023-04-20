@@ -72,8 +72,13 @@ body {
 /* Table */
 
 .coin_table {
+  max-width: 1300px;
   width: 100%;
   border-collapse: collapse;
+}
+
+.market_data {
+  max-width: 1300px;
 }
 
 .coin_table tbody tr {
@@ -109,7 +114,7 @@ body {
 }
 
 .coin_icon {
-  min-width: 190px;
+  min-width: 170px;
 }
 
 .coin_price {
@@ -155,6 +160,14 @@ body {
   position: absolute;
   right: 3px;
   top: 17px;
+}
+
+/* Portfolio */
+
+.balance_display {
+  background-color: #fff;
+  width: 325px;
+  height: 225px;
 }
 
 /* Responsive */
@@ -236,5 +249,11 @@ body {
 @media (max-width: 1200px) {
   .searchbar {
     width: 350px;
+  }
+}
+
+@media (min-width: 1350px) {
+  .nav_options {
+    width: 300px;
   }
 }
