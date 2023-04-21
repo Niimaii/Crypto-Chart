@@ -75,3 +75,28 @@ exports.getMarket = async (req, res) => {
     console.error(error);
   }
 };
+
+exports.buyCoin = async (req, res) => {
+  const { email, crypto, cryptoValue, amount } = req.body;
+  try {
+    const result = await db.query('SELECT id FROM users WHERE email = $1', [
+      email,
+    ]);
+
+    const userID = result.rows[0].id;
+    await db.query(
+      'INSERT INTO investments (user_id, coin, coin_value, amount) values ($1, $2, $3, $4)',
+      [userID, crypto, cryptoValue, amount]
+    );
+
+    res.status(201).json({
+      success: true,
+      message: 'Purchase Complete',
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};

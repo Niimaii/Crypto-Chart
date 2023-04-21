@@ -18,13 +18,15 @@ import Navbar from './components/Navbar';
 import PrivateRoutes from './components/PrivateRoutes';
 import RestrictedRoutes from './components/RestrictedRoutes';
 import CoinPage from './routes/CoinPage';
+import BuyCard from './components/BuyCard';
 
 function App() {
   return (
     <CryptoContextProvider>
-      <div className=''>
+      <div className='relative'>
         <BrowserRouter>
           <Navbar />
+          <BuyCard />
           <Routes>
             <Route element={<PrivateRoutes />}>
               <Route path='/userhome' element={<UserHome />} />

@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import vscodium from '../assets/vscodium.png';
-import { Hamburger, SearchIcon } from '../icons/icons';
+import { Hamburger, SearchIcon, UserIcon } from '../icons/icons';
+import { CryptoContext } from '../context/CryptoContext';
+import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 
 function Navbar() {
   console.log(window.innerWidth);
+  const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
+
+  const logout = async () => {
+    try {
+      // Clear cookies
+      await onLogout();
+
+      unAuthenticateUser();
+      localStorage.removeItem('localAuth');
+      window.location.reload(false);
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+
   return (
     <div className='relative mb-5'>
       <div className='nav_bg'></div>
@@ -48,11 +65,17 @@ function Navbar() {
               </div>
             </div>
             <div className='nav_response ml-5'>
-              <NavLink to='/signin'>
-                <button className='signin text-white rounded-md'>
-                  Sign In
+              {isAuth() ? (
+                <button onClick={logout}>
+                  <UserIcon />
                 </button>
-              </NavLink>
+              ) : (
+                <NavLink to='/signin'>
+                  <button className='signin text-white rounded-md'>
+                    Sign In
+                  </button>
+                </NavLink>
+              )}
             </div>
           </div>
         </div>

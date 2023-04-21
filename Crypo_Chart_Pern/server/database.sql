@@ -8,6 +8,15 @@ CREATE TABLE users (
     created_at date default current_date
 );
 
+CREATE TABLE investments (
+  id serial primary key,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  coin varchar(255) NOT NULL,
+  coin_value INTEGER NOT NULL,
+  amount INTEGER NOT NULL,
+  created_at date default current_date
+);
+
 CREATE TABLE crypto_unix (
   id serial primary key,
   cryptoBlock varchar(255) unique,
