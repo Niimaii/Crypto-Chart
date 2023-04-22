@@ -77,7 +77,8 @@ exports.getMarket = async (req, res) => {
 };
 
 exports.buyCoin = async (req, res) => {
-  const { email, crypto, cryptoValue, amount } = req.body;
+  const { crypto, cryptoValue, amount } = req.body;
+  const email = req.email;
   try {
     const result = await db.query('SELECT id FROM users WHERE email = $1', [
       email,
