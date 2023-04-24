@@ -12,8 +12,8 @@ CREATE TABLE investments (
   id serial primary key,
   user_id INTEGER NOT NULL REFERENCES users(id),
   coin varchar(255) NOT NULL,
-  coin_value INTEGER NOT NULL,
-  amount INTEGER NOT NULL,
+  coin_value NUMERIC(10,2) NOT NULL,
+  amount NUMERIC(10,2) NOT NULL,
   created_at date default current_date
 );
 

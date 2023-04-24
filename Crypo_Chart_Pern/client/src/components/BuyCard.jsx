@@ -1,20 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CloseIcon } from '../icons/icons';
-import { buyCoin } from '../api/cryptoAPI';
+import { buyCoin, getMarket } from '../api/cryptoAPI';
 
 function BuyCard() {
   const [display, setDisplay] = useState(true);
   const [amount, setAmount] = useState(0);
+  const [coinValue, setCoinValue] = useState(0);
+  const [cryptoName, setCryptoName] = useState('bitcoin');
+  const cryptoTable = {};
+  const coinNames = [];
 
-  const purchaseCoin = async () => {
+  const [coinResponse, setCoinResponse] = useState();
+
+  useEffect(() => {
+    const market = async () => {
+      const result = await getMarket();
+      if (result) {
+        setCoinResponse(result.data.market);
+      }
+    };
+
+    market();
+  }, []);
+
+  if (!coinResponse) {
+    return <h1>Loading...</h1>;
+  }
+
+  console.log(coinResponse);
+
+  // Buy coins with API
+  const purchaseCoin = async (crypto, coinValue) => {
     const coinPurchase = {
-      crypto: 'bitcoin',
-      cryptoValue: 30500,
+      crypto: crypto,
+      cryptoValue: coinValue,
       amount: amount,
     };
     await buyCoin(coinPurchase);
-    console.log('this ran');
   };
+
+  // Make a hashmap that uses the name and id.
+  coinResponse.forEach((coin) => {
+    cryptoTable[coin.name] = coin.crypto_id;
+    coinNames.push(coin.name);
+  });
 
   return (
     <div className={`buy_card absolute ${display ? 'block' : 'hidden'}`}>
@@ -37,7 +66,30 @@ function BuyCard() {
               max={1000000}
               value={amount}
             />
-            <button onClick={purchaseCoin}>Purchase</button>
+            <select
+              onChange={(e) => {
+                setCryptoName(cryptoTable[e.target.value]);
+              }}
+              name=''
+              id=''
+            >
+              {coinNames.map((coin) => {
+                return <option value={coin}>{coin}</option>;
+              })}
+            </select>
+            <button
+              onClick={() => {
+                const targetCoin = coinResponse.find(
+                  (coin) => coin.crypto_id == cryptoName
+                );
+
+                const cryptoValue = targetCoin.current_price;
+                console.log('Target Coin', cryptoValue);
+                purchaseCoin(cryptoName, cryptoValue);
+              }}
+            >
+              Purchase
+            </button>
           </div>
         </div>
       </div>
