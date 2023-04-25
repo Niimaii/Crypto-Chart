@@ -14,7 +14,8 @@ CREATE TABLE investments (
   coin varchar(255) NOT NULL,
   coin_value NUMERIC NOT NULL,
   amount NUMERIC NOT NULL,
-  created_at date default current_date
+  crypto_total NUMERIC NOT NULL,
+  created_at timestamp default current_date
 );
 
 CREATE TABLE crypto_unix (

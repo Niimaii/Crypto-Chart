@@ -79,6 +79,7 @@ exports.getMarket = async (req, res) => {
 exports.buyCoin = async (req, res) => {
   const { crypto, cryptoValue, amount } = req.body;
   const email = req.email;
+  const crypto_total = amount / cryptoValue;
   try {
     const result = await db.query('SELECT id FROM users WHERE email = $1', [
       email,
@@ -86,8 +87,8 @@ exports.buyCoin = async (req, res) => {
 
     const userID = result.rows[0].id;
     await db.query(
-      'INSERT INTO investments (user_id, coin, coin_value, amount) values ($1, $2, $3, $4)',
-      [userID, crypto, cryptoValue, amount]
+      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total) values ($1, $2, $3, $4, $5)',
+      [userID, crypto, cryptoValue, amount, crypto_total]
     );
 
     res.status(201).json({
@@ -100,4 +101,9 @@ exports.buyCoin = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+exports.getPortfolio = async (req, res) => {
+  try {
+  } catch (error) {}
 };
