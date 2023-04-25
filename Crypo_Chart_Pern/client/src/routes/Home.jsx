@@ -38,7 +38,7 @@ function Home() {
 
   return (
     <div className=''>
-      <CryptoCarousel coinResponse={coinResponse} />
+      <CryptoCarousel coinResponse={coinResponse} key='Carousel' />
 
       <div className='mt-8 flex justify-center'>
         <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />

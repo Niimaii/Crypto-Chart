@@ -44,7 +44,7 @@ function CryptoCarousel({ coinResponse }) {
           let coin = coinResponse[i];
           return (
             // You need to add SwiperSlide for Swiper to work properly
-            <SwiperSlide>
+            <SwiperSlide key={coin.crypto_id}>
               <NavLink to={`/${coin.crypto_id}`}>
                 <SmallChart coin={coin} key={coin.crypto_id} />
               </NavLink>

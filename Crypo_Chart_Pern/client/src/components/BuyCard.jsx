@@ -74,7 +74,11 @@ function BuyCard() {
               id=''
             >
               {coinNames.map((coin) => {
-                return <option value={coin}>{coin}</option>;
+                return (
+                  <option key={coin.crypto_id} value={coin}>
+                    {coin}
+                  </option>
+                );
               })}
             </select>
             <button
