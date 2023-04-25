@@ -4,7 +4,6 @@ exports.getCrypto = async (req, res) => {
   try {
     const coin = req.params.coin;
     const days = req.params.days;
-    console.log('coin:', coin, 'days:', days);
     /* I don't even know, I checked to make sure that the
     data being inserted was in order. Everything checks out, 
     but for some reason when I insert the data (which again
@@ -43,26 +42,6 @@ exports.getMarket = async (req, res) => {
     market.rows.forEach((coin) => {
       marketObj.push({
         ...coin,
-        rank: parseInt(coin.rank),
-        current_price: parseFloat(coin.current_price),
-        market_cap: parseInt(coin.market_cap),
-        fully_diluted_valuation: parseInt(coin.fully_diluted_valuation),
-        total_volume: parseInt(coin.total_volume),
-        volume_24hr: parseFloat(coin.volume_24hr),
-        high_24h: parseFloat(coin.high_24h),
-        low_24h: parseFloat(coin.low_24h),
-        price_change_24h: parseFloat(coin.price_change_24h),
-        price_change_percentage_24h: parseFloat(
-          coin.price_change_percentage_24h
-        ),
-        market_cap_change_24h: parseInt(coin.market_cap_change_24h),
-        market_cap_change_percentage_24h: parseFloat(
-          coin.market_cap_change_percentage_24h
-        ),
-        circulating_supply: parseFloat(coin.circulating_supply),
-        total_supply: parseFloat(coin.total_supply),
-        max_supply: parseInt(coin.max_supply),
-        unix: parseInt(coin.unix),
       });
     });
 

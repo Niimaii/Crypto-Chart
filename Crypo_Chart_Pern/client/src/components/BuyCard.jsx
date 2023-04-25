@@ -3,7 +3,7 @@ import { CloseIcon } from '../icons/icons';
 import { buyCoin, getMarket } from '../api/cryptoAPI';
 
 function BuyCard() {
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState(false);
   const [amount, setAmount] = useState(0);
   const [coinValue, setCoinValue] = useState(0);
   const [cryptoName, setCryptoName] = useState('bitcoin');
