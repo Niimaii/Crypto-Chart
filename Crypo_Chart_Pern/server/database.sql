@@ -12,9 +12,9 @@ CREATE TABLE investments (
   id serial primary key,
   user_id INTEGER NOT NULL REFERENCES users(id),
   coin varchar(255) NOT NULL,
-  coin_value NUMERIC NOT NULL,
-  amount NUMERIC NOT NULL,
-  crypto_total NUMERIC NOT NULL,
+  coin_value FLOAT NOT NULL,
+  amount FLOAT NOT NULL,
+  crypto_total FLOAT NOT NULL,
   created_at timestamp default current_date
 );
 

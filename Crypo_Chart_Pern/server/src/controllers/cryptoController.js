@@ -120,19 +120,18 @@ exports.getPortfolio = async (req, res) => {
 
     // add keys to 'coinPrice' that are equal to the crypto name and it's current price
     market.rows.forEach((coin) => {
-      coinPrice[coin.crypto_id] = parseFloat(coin.current_price);
+      coinPrice[coin.crypto_id] = coin.current_price;
     });
 
     // Give the users total balance, based on the investment made and current crypto prices
     investments.rows.forEach((purchase) => {
       const currentPrice = coinPrice[purchase.coin];
       portfolio.total_balance += purchase.crypto_total * currentPrice;
-      // portfolio.initial_investment += purchase.amount;
+      portfolio.initial_investment += purchase.amount;
     });
     res.status(201).json({
       status: true,
       portfolio: portfolio,
-      // investments: investments,
     });
   } catch (error) {
     console.log(error.message);
