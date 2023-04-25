@@ -27,8 +27,6 @@ function BuyCard() {
     return <h1>Loading...</h1>;
   }
 
-  console.log(coinResponse);
-
   // Buy coins with API
   const purchaseCoin = async (crypto, coinValue) => {
     const coinPurchase = {
@@ -75,7 +73,7 @@ function BuyCard() {
             >
               {coinNames.map((coin) => {
                 return (
-                  <option key={coin.crypto_id} value={coin}>
+                  <option key={coin} value={coin}>
                     {coin}
                   </option>
                 );

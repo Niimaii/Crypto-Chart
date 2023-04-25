@@ -6,7 +6,6 @@ import { CryptoContext } from '../context/CryptoContext';
 import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 
 function Navbar() {
-  console.log(window.innerWidth);
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
 
   const logout = async () => {

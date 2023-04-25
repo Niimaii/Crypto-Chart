@@ -104,8 +104,8 @@ function CryptoTable({ response, volume }) {
           </button>
         </div>
         <select onChange={changeDays} className='day_btn' id='daysBtn'>
-          {daysOption.map((days) => {
-            return <option value={`${days}D`}>{`${days}D`}</option>;
+          {daysOption.map((days, index) => {
+            return <option key={index} value={`${days}D`}>{`${days}D`}</option>;
           })}
         </select>
       </div>
@@ -135,7 +135,7 @@ function CryptoTable({ response, volume }) {
               }
 
               return (
-                <tr>
+                <tr key={coin.crypto_id}>
                   <td className='relative'>
                     <div className='pl-12'>
                       <div className='flex items-center justify-start gap-3'>
