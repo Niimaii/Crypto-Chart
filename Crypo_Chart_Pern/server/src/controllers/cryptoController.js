@@ -71,8 +71,10 @@ exports.getMarket = async (req, res) => {
       market: marketObj,
     });
   } catch (error) {
-    console.log('Error with getMarket controller');
-    console.error(error);
+    console.log('getMarket Error: ', error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
   }
 };
 
@@ -105,5 +107,37 @@ exports.buyCoin = async (req, res) => {
 
 exports.getPortfolio = async (req, res) => {
   try {
-  } catch (error) {}
+    const investments = await db.query('SELECT * FROM investments;');
+    const market = await db.query(
+      'SELECT * FROM crypto_market ORDER BY rank ASC;'
+    );
+    const coinPrice = {};
+
+    const portfolio = {
+      total_balance: 0,
+      initial_investment: 0,
+    };
+
+    // add keys to 'coinPrice' that are equal to the crypto name and it's current price
+    market.rows.forEach((coin) => {
+      coinPrice[coin.crypto_id] = parseFloat(coin.current_price);
+    });
+
+    // Give the users total balance, based on the investment made and current crypto prices
+    investments.rows.forEach((purchase) => {
+      const currentPrice = coinPrice[purchase.coin];
+      portfolio.total_balance += purchase.crypto_total * currentPrice;
+      // portfolio.initial_investment += purchase.amount;
+    });
+    res.status(201).json({
+      status: true,
+      portfolio: portfolio,
+      // investments: investments,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
 };
