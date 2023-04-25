@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CloseIcon } from '../icons/icons';
-import { buyCoin, getMarket } from '../api/cryptoAPI';
+import { buyCoin, getMarket, getPortfolio } from '../api/cryptoAPI';
 
 function BuyCard() {
   const [display, setDisplay] = useState(false);
@@ -11,12 +11,14 @@ function BuyCard() {
   const coinNames = [];
 
   const [coinResponse, setCoinResponse] = useState();
+  const [portfolio, setPortfolio] = useState();
 
   useEffect(() => {
     const market = async () => {
-      const result = await getMarket();
-      if (result) {
-        setCoinResponse(result.data.market);
+      const coinResult = await getMarket();
+
+      if (coinResult) {
+        setCoinResponse(coinResult.data.market);
       }
     };
 

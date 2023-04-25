@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getPortfolio } from '../api/cryptoAPI';
 
 function Portfolio() {
+  const [portfolio, setPortfolio] = useState();
+
+  useEffect(() => {
+    const market = async () => {
+      const portfolioResult = await getPortfolio();
+
+      if (portfolioResult) {
+        setPortfolio(portfolioResult.data.portfolio);
+      }
+    };
+
+    market();
+  });
+
+  if (!portfolio) {
+    return <h1>Loading...</h1>;
+  }
+
+  const total_balance = portfolio.total_balance.toFixed(2);
+  const difference = (
+    total_balance - portfolio.initial_investment.toFixed(2)
+  ).toFixed(2);
+
   return (
     <div className='flex justify-center'>
       <div className='balance_display'>
         <p>Total Balance</p>
         <p>
-          $42,500 <span>+(500)</span>
+          {`$${total_balance} `} &ensp;
+          <span
+            className={`${difference >= 0 ? 'textPurple' : 'percentRed'}`}
+          >{`${difference >= 0 ? '+' : '-'}(${difference})`}</span>
         </p>
         <div className='flex'>
           <div>
