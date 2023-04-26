@@ -1,6 +1,5 @@
 CREATE DATABASE crypto_chart;
 
-
 CREATE TABLE users (
     id serial primary key,
     email varchar(255) unique not null, 
@@ -24,14 +23,16 @@ CREATE TABLE crypto_unix (
   unix NUMERIC
 );
 
-INSERT INTO users(email, password) VALUES ('someEamil', 'somePass');
-
-
-
+CREATE TABLE favorites (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  coin VARCHAR(50) UNIQUE NOT NULL,
+  is_favorite BOOLEAN NOT NULL,
+  created_at timestamp default current_date
+);
 
 -- *** Crypto Databases ***
 
--- 0 
 CREATE TABLE crypto_market (
   rank NUMERIC,
   crypto_id VARCHAR(50) PRIMARY KEY,

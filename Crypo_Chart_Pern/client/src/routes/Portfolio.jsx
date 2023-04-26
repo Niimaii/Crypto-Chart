@@ -38,7 +38,8 @@ function Portfolio() {
           {`${formatter.format(total_balance)} `} &ensp;
           <span
             className={`${difference >= 0 ? 'textPurple' : 'percentRed'}`}
-          >{`${difference >= 0 ? '+' : '-'}(${difference})`}</span>
+            // Math.abs is there to make the number output as positive, while keeping the actual value true
+          >{`${difference >= 0 ? '+' : '-'}(${Math.abs(difference)})`}</span>
         </p>
         <div className='flex'>
           <div>
