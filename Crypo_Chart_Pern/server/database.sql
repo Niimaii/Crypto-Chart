@@ -26,8 +26,9 @@ CREATE TABLE crypto_unix (
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id),
-  coin VARCHAR(50) UNIQUE NOT NULL,
+  coin VARCHAR(50) NOT NULL,
   is_favorite BOOLEAN NOT NULL,
+  CONSTRAINT user_coin UNIQUE (user_id, coin),
   created_at timestamp default current_date
 );
 

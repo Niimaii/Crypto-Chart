@@ -59,16 +59,17 @@ exports.getMarket = async (req, res) => {
 
 exports.buyCoin = async (req, res) => {
   const { crypto, cryptoValue, amount } = req.body;
+  // This was passed by the userInfo middleware
   const email = req.email;
   const crypto_total = amount / cryptoValue;
   try {
-    const result = await db.query('SELECT id FROM users WHERE email = $1', [
+    const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
       email,
     ]);
 
-    const userID = result.rows[0].id;
+    const userID = userInfo.rows[0].id;
     await db.query(
-      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total) values ($1, $2, $3, $4, $5)',
+      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total) values ($1, $2, $3, $4, $5);',
       [userID, crypto, cryptoValue, amount, crypto_total]
     );
 
@@ -111,6 +112,33 @@ exports.getPortfolio = async (req, res) => {
     res.status(201).json({
       status: true,
       portfolio: portfolio,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+exports.patchFavorites = async (req, res) => {
+  try {
+    const { coin, is_favorite } = req.body;
+
+    // This was passed by the userInfo middleware
+    const email = req.email;
+    const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
+      email,
+    ]);
+    const userID = userInfo.rows[0].id;
+
+    await db.query(
+      'INSERT INTO favorites (user_id, coin, is_favorite) VALUES ($1, $2, $3) ON CONFLICT (user_id, coin) DO UPDATE SET is_favorite = EXCLUDED.is_favorite;',
+      [userID, coin, is_favorite]
+    );
+
+    res.status(201).json({
+      success: true,
     });
   } catch (error) {
     console.log(error.message);
