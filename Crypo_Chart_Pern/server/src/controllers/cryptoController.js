@@ -132,6 +132,7 @@ exports.patchFavorites = async (req, res) => {
     ]);
     const userID = userInfo.rows[0].id;
 
+    // Add new row tracking user favorite status on coin, if coin already exists then update the favorite status
     await db.query(
       'INSERT INTO favorites (user_id, coin, is_favorite) VALUES ($1, $2, $3) ON CONFLICT (user_id, coin) DO UPDATE SET is_favorite = EXCLUDED.is_favorite;',
       [userID, coin, is_favorite]

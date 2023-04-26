@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import vscodium from '../assets/vscodium.png';
 import { Hamburger, SearchIcon, UserIcon } from '../icons/icons';
@@ -7,6 +7,8 @@ import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 
 function Navbar() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
+  const [loading, setLoading] = useState(true);
+  const [protectedData, setProtectedData] = useState(null);
 
   const logout = async () => {
     try {
@@ -20,6 +22,24 @@ function Navbar() {
       console.log(err.response);
     }
   };
+
+  // const protectedInfo = async () => {
+  //   try {
+  //     const { data } = await fetchProtectedInfo();
+
+  //     setProtectedData(data.info);
+  //   } catch (error) {
+  //     logout();
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   protectedInfo();
+  // }, []);
+
+  // if (loading) {
+  //   <h1>Loading...</h1>;
+  // }
 
   return (
     <div className='relative mb-5'>
