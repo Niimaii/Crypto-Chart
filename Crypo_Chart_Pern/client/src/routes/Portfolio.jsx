@@ -16,6 +16,11 @@ function Portfolio() {
     market();
   });
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
   if (!portfolio) {
     return <h1>Loading...</h1>;
   }
@@ -30,7 +35,7 @@ function Portfolio() {
       <div className='balance_display'>
         <p>Total Balance</p>
         <p>
-          {`$${total_balance} `} &ensp;
+          {`${formatter.format(total_balance)} `} &ensp;
           <span
             className={`${difference >= 0 ? 'textPurple' : 'percentRed'}`}
           >{`${difference >= 0 ? '+' : '-'}(${difference})`}</span>
