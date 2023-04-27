@@ -9,6 +9,7 @@ function UserHome() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   const [protectedData, setProtectedData] = useState(null);
+  console.log('User Home');
 
   const logout = async () => {
     try {
@@ -23,6 +24,7 @@ function UserHome() {
     }
   };
 
+  // Check to see if the user has a valid JWT token & not faking
   const protectedInfo = async () => {
     try {
       const { data } = await fetchProtectedInfo();
@@ -49,9 +51,7 @@ function UserHome() {
     market();
   }, []);
 
-  if (!coinResponse) {
-    return <h1>Loading...</h1>;
-  } else if (loading) {
+  if (!coinResponse || loading) {
     return <h1>Loading...</h1>;
   }
 

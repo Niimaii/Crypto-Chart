@@ -14,7 +14,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { TempIcon } from '../icons/icons';
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import useDB from '../hooks/useDB';
 
