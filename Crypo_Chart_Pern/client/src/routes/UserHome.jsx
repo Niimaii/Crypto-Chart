@@ -40,6 +40,7 @@ function UserHome() {
   const [coinResponse, setCoinResponse] = useState();
 
   useEffect(() => {
+    console.log('useEffect');
     protectedInfo();
     const market = async () => {
       const result = await getMarket();
