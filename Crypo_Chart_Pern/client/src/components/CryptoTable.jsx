@@ -1,17 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import { StarIcon } from '../icons/icons';
 
 function CryptoTable({ response, volume }) {
   const { days, setDays } = useContext(CryptoContext);
-
   const eValue = document.getElementById('daysBtn');
 
   const daysOption = [1, 30, 365];
+
   const [allCoins, setAllCoins] = useState(true);
   const [gainers, setGainers] = useState(false);
   const [losers, setLosers] = useState(false);
   const [favorites, setFavorites] = useState(false);
+  // const [coinFavorites, setCoinFavorties] = useState(null);
+
+  // useEffect(() => {
+  //   const userCoinFavorites = async () => {
+  //     const coinList = response.reduce((accumulator, coin) => {
+  //       accumulator[coin.crypto_id] = false;
+  //     }, {});
+  //   };
+
+  //   userCoinFavorites();
+  // }, []);
 
   const changeDays = () => {
     const newEValue = parseInt(eValue.value.slice(0, -1));
@@ -47,6 +58,7 @@ function CryptoTable({ response, volume }) {
     }
   };
 
+  // Hacky solution to get the table "Name" head to look right
   const spacedName = (
     <>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

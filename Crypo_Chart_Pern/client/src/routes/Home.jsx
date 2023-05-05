@@ -5,7 +5,7 @@ import CryptoCarousel from '../components/CryptoCarousel';
 import 'swiper/css';
 
 function Home() {
-  const [coinResponse, setCoinResponse] = useState();
+  const [coinResponse, setCoinResponse] = useState(null);
 
   console.log('True Home');
 

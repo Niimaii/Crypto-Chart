@@ -37,7 +37,7 @@ function UserHome() {
   };
 
   const [coin, setCoin] = useState('bitcoin');
-  const [coinResponse, setCoinResponse] = useState();
+  const [coinResponse, setCoinResponse] = useState(null);
 
   useEffect(() => {
     console.log('useEffect home');
