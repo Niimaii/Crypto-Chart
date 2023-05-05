@@ -3,27 +3,22 @@ import CryptoTable from '../components/CryptoTable';
 import { getMarket } from '../api/cryptoAPI';
 import CryptoCarousel from '../components/CryptoCarousel';
 import 'swiper/css';
+import { useQuery } from '@tanstack/react-query';
 
 function Home() {
-  const [coinResponse, setCoinResponse] = useState(null);
+  const { data, isLoading } = useQuery({
+    queryKey: ['market'],
+    queryFn: getMarket,
+  });
 
-  console.log('True Home');
-
-  useEffect(() => {
-    console.log('useEffect Home');
-    const market = async () => {
-      const result = await getMarket();
-      if (result) {
-        setCoinResponse(result.data.market);
-      }
-    };
-
-    market();
-  }, []);
-
-  if (!coinResponse) {
+  if (isLoading) {
     return <h1>Loading...</h1>;
   }
+
+  console.log(data.data.market);
+  const coinResponse = data.data.market;
+
+  console.log('True Home');
 
   // const total = chartResponse.bitcoin;
 
