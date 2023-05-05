@@ -1,21 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CryptoContext } from '../context/CryptoContext';
-import SmallChart from '../components/SmallChart';
-import useAxios from '../hooks/useAxios';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import CryptoTable from '../components/CryptoTable';
-import useDB from '../hooks/useDB';
 import { getMarket } from '../api/cryptoAPI';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
 import CryptoCarousel from '../components/CryptoCarousel';
 import 'swiper/css';
 
 function Home() {
-  const [coin, setCoin] = useState('bitcoin');
   const [coinResponse, setCoinResponse] = useState();
 
+  console.log('True Home');
+
   useEffect(() => {
+    console.log('useEffect Home');
     const market = async () => {
       const result = await getMarket();
       if (result) {

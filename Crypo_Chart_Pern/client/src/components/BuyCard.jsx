@@ -14,6 +14,7 @@ function BuyCard() {
   const [portfolio, setPortfolio] = useState();
 
   useEffect(() => {
+    console.log('useEffect buyCard');
     const market = async () => {
       const coinResult = await getMarket();
 

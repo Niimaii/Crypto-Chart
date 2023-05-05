@@ -32,6 +32,7 @@ exports.getCrypto = async (req, res) => {
 };
 
 exports.getMarket = async (req, res) => {
+  console.log('getMarket Ran');
   try {
     const market = await db.query(
       'SELECT * FROM crypto_market ORDER BY rank ASC;'
