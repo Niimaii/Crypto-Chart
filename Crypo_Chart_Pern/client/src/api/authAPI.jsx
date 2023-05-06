@@ -14,7 +14,9 @@ export async function onLogin(loginData) {
 }
 
 export async function onLogout() {
-  return await axios.get('http://localhost:8005/api/auth/logout');
+  return await axios.get('http://localhost:8005/api/auth/logout', {
+    withCredentials: true,
+  });
 }
 
 export async function fetchProtectedInfo() {
