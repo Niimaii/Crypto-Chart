@@ -6,6 +6,7 @@ export const CryptoContextProvider = (props) => {
   const localAuth = localStorage.getItem('localAuth');
   const [auth, setAuth] = useState(false);
   const [days, setDays] = useState(1);
+  const [buyCard, setBuyCard] = useState(false);
 
   const isAuth = () => {
     if (localAuth || auth) {
@@ -21,6 +22,14 @@ export const CryptoContextProvider = (props) => {
     setAuth(false);
   };
 
+  const openBuyCard = () => {
+    setBuyCard(true);
+  };
+
+  const closeBuyCard = () => {
+    setBuyCard(false);
+  };
+
   return (
     <CryptoContext.Provider
       value={{
@@ -29,6 +38,9 @@ export const CryptoContextProvider = (props) => {
         unAuthenticateUser,
         days,
         setDays,
+        buyCard,
+        openBuyCard,
+        closeBuyCard,
       }}
     >
       {props.children}

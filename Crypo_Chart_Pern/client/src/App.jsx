@@ -26,7 +26,6 @@ function App() {
       <div className='relative'>
         <BrowserRouter>
           <Navbar />
-          <BuyCard />
           <Routes>
             <Route element={<PrivateRoutes />}>
               <Route path='/userhome' element={<UserHome />} />

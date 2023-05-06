@@ -1,34 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CloseIcon } from '../icons/icons';
 import { buyCoin, getMarket, getPortfolio } from '../api/cryptoAPI';
+import { useQueryClient } from '@tanstack/react-query';
+import { CryptoContext } from '../context/CryptoContext';
 
 function BuyCard() {
-  const [display, setDisplay] = useState(false);
+  const queryClient = useQueryClient();
+  const cachedResponse = queryClient.getQueryData(['market']);
+  const coinResponse = cachedResponse.data.market;
+
+  const { buyCard, closeBuyCard } = useContext(CryptoContext);
   const [amount, setAmount] = useState(0);
   const [coinValue, setCoinValue] = useState(0);
   const [cryptoName, setCryptoName] = useState('bitcoin');
   const cryptoTable = {};
   const coinNames = [];
-
-  const [coinResponse, setCoinResponse] = useState();
-  const [portfolio, setPortfolio] = useState();
-
-  useEffect(() => {
-    console.log('useEffect buyCard');
-    const market = async () => {
-      const coinResult = await getMarket();
-
-      if (coinResult) {
-        setCoinResponse(coinResult.data.market);
-      }
-    };
-
-    market();
-  }, []);
-
-  if (!coinResponse) {
-    return <h1>Loading...</h1>;
-  }
 
   // Buy coins with API
   const purchaseCoin = async (crypto, coinValue) => {
@@ -47,7 +33,7 @@ function BuyCard() {
   });
 
   return (
-    <div className={`buy_card absolute ${display ? 'block' : 'hidden'}`}>
+    <div className={`buy_card absolute ${buyCard ? 'block' : 'hidden'}`}>
       <div className='flex justify-center mt-32'>
         <div className='card'>
           <div className='flex'>
@@ -55,7 +41,9 @@ function BuyCard() {
               <button>Buy</button>
               <button>Sell</button>
             </div>
-            <CloseIcon />
+            <button onClick={closeBuyCard}>
+              <CloseIcon />
+            </button>
           </div>
           <div>
             <input

@@ -4,6 +4,7 @@ import { getMarket } from '../api/cryptoAPI';
 import CryptoCarousel from '../components/CryptoCarousel';
 import 'swiper/css';
 import { useQuery } from '@tanstack/react-query';
+import BuyCard from '../components/BuyCard';
 
 function Home() {
   const { data, isLoading } = useQuery({
@@ -31,6 +32,7 @@ function Home() {
       <div className='mt-8 flex justify-center'>
         <CryptoTable volume='123' key='CryptoTable' />
       </div>
+      <BuyCard />
     </div>
   );
 }

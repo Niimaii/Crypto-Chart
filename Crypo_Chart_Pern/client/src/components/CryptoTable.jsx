@@ -4,6 +4,8 @@ import { StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
 
 function CryptoTable({ volume }) {
+  const { openBuyCard } = useContext(CryptoContext);
+
   const queryClient = useQueryClient();
   const cachedResponse = queryClient.getQueryData(['market']);
   const response = cachedResponse.data.market;
@@ -17,17 +19,6 @@ function CryptoTable({ volume }) {
   const [gainers, setGainers] = useState(false);
   const [losers, setLosers] = useState(false);
   const [favorites, setFavorites] = useState(false);
-  // const [coinFavorites, setCoinFavorties] = useState(null);
-
-  // useEffect(() => {
-  //   const userCoinFavorites = async () => {
-  //     const coinList = response.reduce((accumulator, coin) => {
-  //       accumulator[coin.crypto_id] = false;
-  //     }, {});
-  //   };
-
-  //   userCoinFavorites();
-  // }, []);
 
   const changeDays = () => {
     const newEValue = parseInt(eValue.value.slice(0, -1));
@@ -206,7 +197,9 @@ function CryptoTable({ volume }) {
                   </td>
                   <td>
                     <div className=''>
-                      <button className='table_btn'>Trade</button>
+                      <button onClick={openBuyCard} className='table_btn'>
+                        Trade
+                      </button>
                     </div>
                   </td>
                 </tr>
