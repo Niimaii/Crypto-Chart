@@ -9,16 +9,14 @@ function Home() {
   const { data, isLoading } = useQuery({
     queryKey: ['market'],
     queryFn: getMarket,
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 3,
   });
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-
-  console.log(data.data.market);
   const coinResponse = data.data.market;
-
-  console.log('True Home');
 
   // const total = chartResponse.bitcoin;
 
@@ -31,7 +29,7 @@ function Home() {
       <CryptoCarousel coinResponse={coinResponse} key='Carousel' />
 
       <div className='mt-8 flex justify-center'>
-        <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />
+        <CryptoTable volume='123' key='CryptoTable' />
       </div>
     </div>
   );

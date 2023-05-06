@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import { StarIcon } from '../icons/icons';
+import { useQueryClient } from '@tanstack/react-query';
 
-function CryptoTable({ response, volume }) {
+function CryptoTable({ volume }) {
+  const queryClient = useQueryClient();
+  const cachedResponse = queryClient.getQueryData(['market']);
+  const response = cachedResponse.data.market;
+
   const { days, setDays } = useContext(CryptoContext);
   const eValue = document.getElementById('daysBtn');
 
