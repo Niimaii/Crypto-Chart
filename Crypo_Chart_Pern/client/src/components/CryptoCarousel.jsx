@@ -7,8 +7,13 @@ import 'swiper/css/pagination';
 import { NavLink } from 'react-router-dom';
 import SmallChart from './SmallChart';
 import { layouts } from 'chart.js';
+import { useQueryClient } from '@tanstack/react-query';
 
-function CryptoCarousel({ coinResponse }) {
+function CryptoCarousel() {
+  const queryClient = useQueryClient();
+  const cachedMarket = queryClient.getQueryData(['market']);
+  const coinResponse = cachedMarket.data.market;
+
   const loop = [0, 1, 2, 3, 4];
 
   return (

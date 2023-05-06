@@ -17,6 +17,7 @@ function Home() {
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
+
   const coinResponse = data.data.market;
 
   // const total = chartResponse.bitcoin;
