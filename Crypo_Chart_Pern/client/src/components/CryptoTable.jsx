@@ -2,16 +2,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import { StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-function CryptoTable({ volume }) {
-  const { openBuyCard } = useContext(CryptoContext);
+function CryptoTable() {
+  let navigateTo = useNavigate();
 
+  // Context function to open buy card
+  const { openBuyCard, isAuth } = useContext(CryptoContext);
+
+  // Get cached data from React Query
   const queryClient = useQueryClient();
   const cachedResponse = queryClient.getQueryData(['market']);
   const response = cachedResponse.data.market;
 
   const { days, setDays } = useContext(CryptoContext);
-  const eValue = document.getElementById('daysBtn');
 
   const daysOption = [1, 30, 365];
 
@@ -20,11 +24,10 @@ function CryptoTable({ volume }) {
   const [losers, setLosers] = useState(false);
   const [favorites, setFavorites] = useState(false);
 
-  const changeDays = () => {
-    const newEValue = parseInt(eValue.value.slice(0, -1));
-    console.log(newEValue);
-    setDays(newEValue);
-    console.log(days);
+  const changeDays = (e) => {
+    // Remove the last letter to get the number
+    const newChartDays = parseInt(e.target.value.slice(0, -1));
+    setDays(newChartDays);
   };
 
   // I couldn't call a function in my array unless I add an empty function and add the function of interest in it
@@ -51,6 +54,15 @@ function CryptoTable({ volume }) {
       return '+' + num.toFixed(2);
     } else {
       return num.toFixed(2);
+    }
+  };
+
+  const handleTradeBtn = () => {
+    if (isAuth()) {
+      console.log('buycard');
+      openBuyCard();
+    } else {
+      navigateTo('/signin');
     }
   };
 
@@ -197,7 +209,7 @@ function CryptoTable({ volume }) {
                   </td>
                   <td>
                     <div className=''>
-                      <button onClick={openBuyCard} className='table_btn'>
+                      <button onClick={handleTradeBtn} className='table_btn'>
                         Trade
                       </button>
                     </div>

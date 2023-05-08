@@ -11,8 +11,9 @@ function BuyCard() {
 
   const { buyCard, closeBuyCard } = useContext(CryptoContext);
   const [amount, setAmount] = useState(0);
-  const [coinValue, setCoinValue] = useState(0);
   const [cryptoName, setCryptoName] = useState('bitcoin');
+  const [displayCard, setDisplayCard] = useState(false);
+
   const cryptoTable = {};
   const coinNames = [];
 
@@ -33,7 +34,7 @@ function BuyCard() {
   });
 
   return (
-    <div className={`buy_card absolute ${buyCard ? 'block' : 'hidden'}`}>
+    <div className={`buy_card absolute ${displayCard ? 'block' : 'hidden'}`}>
       <div className='flex justify-center mt-32'>
         <div className='card'>
           <div className='flex'>

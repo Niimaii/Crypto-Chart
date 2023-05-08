@@ -27,14 +27,15 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path='/' element={<Home />} />
             <Route element={<PrivateRoutes />}>
+              <Route path='/userhome' element={<UserHome />} />
               <Route path='/portfolio' element={<Portfolio />} />
               <Route path='/settings' element={<Settings />} />
             </Route>
             <Route path='/about' element={<About />} />
             <Route path='/:coin' element={<CoinPage />} />
             <Route element={<RestrictedRoutes />}>
+              <Route path='/' element={<Home />} />
               <Route path='/signin' element={<SignIn />} />
               <Route path='/signup' element={<SignUp />} />
             </Route>

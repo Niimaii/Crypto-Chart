@@ -39,8 +39,6 @@ function SmallChart({ coin }) {
     return <div>Loading...</div>;
   }
 
-  // console.log(coin.id, response.total_volumes.at(-1)[1]);
-
   // Bracket notation
   const cryptoData = response.chart.map((value) => {
     return {

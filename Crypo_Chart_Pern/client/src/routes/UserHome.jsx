@@ -4,12 +4,18 @@ import { CryptoContext } from '../context/CryptoContext';
 import { getMarket } from '../api/cryptoAPI';
 import CryptoCarousel from '../components/CryptoCarousel';
 import CryptoTable from '../components/CryptoTable';
+import { useQuery } from '@tanstack/react-query';
 
 function UserHome() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
-  const [protectedData, setProtectedData] = useState(null);
-  console.log('User Home');
+  let protectedData = null;
+  const { data, isLoading } = useQuery({
+    queryKey: ['market'],
+    queryFn: getMarket,
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 3,
+  });
 
   const logout = async () => {
     try {
@@ -29,39 +35,27 @@ function UserHome() {
     try {
       const { data } = await fetchProtectedInfo();
 
-      setProtectedData(data.info);
+      protectedData = data.info;
       setLoading(false);
     } catch (error) {
       logout();
     }
   };
 
-  const [coin, setCoin] = useState('bitcoin');
-  const [coinResponse, setCoinResponse] = useState(null);
-
   useEffect(() => {
-    console.log('useEffect home');
     protectedInfo();
-    const market = async () => {
-      const result = await getMarket();
-      if (result) {
-        setCoinResponse(result.data.market);
-      }
-    };
-
-    market();
   }, []);
 
-  if (!coinResponse || loading) {
+  if (isLoading || loading) {
     return <h1>Loading...</h1>;
   }
 
   return (
     <div className=''>
-      <CryptoCarousel coinResponse={coinResponse} />
+      <CryptoCarousel />
 
       <div className='mt-8 flex justify-center'>
-        <CryptoTable response={coinResponse} volume='123' key='CryptoTable' />
+        <CryptoTable volume='123' key='CryptoTable' />
       </div>
     </div>
   );

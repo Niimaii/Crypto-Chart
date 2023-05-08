@@ -20,15 +20,9 @@ function Home() {
 
   const coinResponse = data.data.market;
 
-  // const total = chartResponse.bitcoin;
-
-  const updateDays = (e) => {
-    setDays(e.target.value);
-  };
-
   return (
     <div className=''>
-      <CryptoCarousel coinResponse={coinResponse} key='Carousel' />
+      <CryptoCarousel key='Carousel' />
 
       <div className='mt-8 flex justify-center'>
         <CryptoTable volume='123' key='CryptoTable' />
