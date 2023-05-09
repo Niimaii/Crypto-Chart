@@ -7,7 +7,7 @@ export async function getChart(coin, days) {
 }
 
 export async function getMarket() {
-  console.log('getMarket');
+  console.log('getMarket ran');
   return await axios.get(`http://localhost:8005/api/crypto/market`);
 }
 
@@ -32,7 +32,7 @@ export async function getFavorites() {
 }
 
 export async function patchFavorites(userFavorite) {
-  console.log('favorite request', userFavorite);
+  console.log('patchFavorites ran');
   return await axios.patch(
     'http://localhost:8005/api/crypto/patch-favorites',
     userFavorite,
