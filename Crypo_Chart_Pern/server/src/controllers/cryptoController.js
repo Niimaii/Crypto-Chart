@@ -149,3 +149,29 @@ exports.patchFavorites = async (req, res) => {
     });
   }
 };
+
+exports.getFavorites = async (req, res) => {
+  try {
+    // This was passed by the userInfo middleware
+    const email = req.email;
+    const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
+      email,
+    ]);
+    const userId = userInfo.rows[0].id;
+
+    const userFavorites = await db.query(
+      'SELECT coin, is_favorite FROM favorites WHERE user_id = $1',
+      [userId]
+    );
+
+    res.status(201).json({
+      success: true,
+      favorites: userFavorites.rows,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};

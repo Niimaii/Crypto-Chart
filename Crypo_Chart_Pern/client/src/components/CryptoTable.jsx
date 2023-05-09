@@ -59,7 +59,6 @@ function CryptoTable() {
 
   const handleTradeBtn = () => {
     if (isAuth()) {
-      console.log('buycard');
       openBuyCard();
     } else {
       navigateTo('/signin');
@@ -74,6 +73,7 @@ function CryptoTable() {
     </>
   );
 
+  // Money formatter
   const shortFormatter = (amount) => {
     if (amount >= 1e9) {
       return `$${(amount / 1e9).toFixed(1)}B`;
@@ -85,6 +85,16 @@ function CryptoTable() {
       return `$${amount.toFixed(2)}`;
     }
   };
+
+  // ========== Favorite Coin Retrieval Logic ==========
+
+  // // Create an object containing all coins as keys equal to false
+  const userCoinFavorites = response.reduce((accumulator, coin) => {
+    accumulator[coin.crypto_id] = false;
+    return accumulator;
+  }, {});
+
+  // Insert the favorites boolean values in the new object based on info from the db
 
   return (
     <div className='w-screen market_data'>
