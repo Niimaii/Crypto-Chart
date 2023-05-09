@@ -30,3 +30,14 @@ export async function getFavorites() {
     withCredentials: true,
   });
 }
+
+export async function patchFavorites(userFavorite) {
+  console.log('favorite request', userFavorite);
+  return await axios.patch(
+    'http://localhost:8005/api/crypto/patch-favorites',
+    userFavorite,
+    {
+      withCredentials: true,
+    }
+  );
+}

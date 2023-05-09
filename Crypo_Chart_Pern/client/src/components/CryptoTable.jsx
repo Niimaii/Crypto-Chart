@@ -3,7 +3,7 @@ import { CryptoContext } from '../context/CryptoContext';
 import { StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { getFavorites } from '../api/cryptoAPI';
+import { getFavorites, patchFavorites } from '../api/cryptoAPI';
 
 function CryptoTable() {
   let navigateTo = useNavigate();
@@ -24,6 +24,7 @@ function CryptoTable() {
   const [gainers, setGainers] = useState(false);
   const [losers, setLosers] = useState(false);
   const [favorites, setFavorites] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const changeDays = (e) => {
     // Remove the last letter to get the number
@@ -95,24 +96,45 @@ function CryptoTable() {
     return accumulator;
   }, {});
 
+  const [favoriteList, setFavoriteList] = useState(userCoinFavorites);
+
   // If the authenticated, insert the favorites boolean values in the new object based on info from the db
   const insertUserFavorites = async () => {
-    const { data } = await getFavorites();
-    const userFavorites = data.favorites;
-    // Check if user has favorites, then return if not
-    if (userFavorites.length === 0) {
-      return;
+    try {
+      const { data } = await getFavorites();
+      const userFavorites = data.favorites;
+      // Check if user has favorites, then return if not
+      if (userFavorites.length === 0) {
+        return;
+      }
+
+      userFavorites.forEach((coin) => {
+        userCoinFavorites[coin.coin] = coin.is_favorite;
+      });
+
+      setFavoriteList({ ...favoriteList, ...userCoinFavorites });
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
     }
-
-    userFavorites.forEach((coin) => {
-      userCoinFavorites[coin.coin] = coin.is_favorite;
-    });
-
-    console.log(userCoinFavorites);
   };
 
-  if (isAuth()) {
-    insertUserFavorites();
+  // Update the users favorite coin in the DB & screen
+  const handleFavorites = async (coin, fill) => {
+    setFavoriteList({ ...favoriteList, [coin]: !fill });
+    await patchFavorites({
+      coin: coin,
+      is_favorite: !fill,
+    });
+  };
+
+  useEffect(() => {
+    if (isAuth()) insertUserFavorites();
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <h1>Loading</h1>;
   }
 
   return (
@@ -171,7 +193,7 @@ function CryptoTable() {
         <tbody>
           {response &&
             response.map((coin) => {
-              const [fill, setFill] = useState(false);
+              const fill = favoriteList[coin.crypto_id];
               const coinPercent = coin.price_change_percentage_24h;
 
               // If the gainers button is pressed, only display positive percentages
@@ -198,7 +220,7 @@ function CryptoTable() {
                       </div>
                     </div>
                     <button
-                      onClick={() => setFill(!fill)}
+                      onClick={() => handleFavorites(coin.crypto_id, fill)}
                       className='absolute left-1 top-8'
                     >
                       <StarIcon fill={fill} />
