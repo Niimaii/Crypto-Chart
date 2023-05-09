@@ -200,8 +200,12 @@ function CryptoTable() {
               if (gainers && coinPercent < 0) {
                 return false;
               }
-              // If the gainers button is pressed, only display negative percentages
+              // If the losers button is pressed, only display negative percentages
               if (losers && coinPercent > 0) {
+                return false;
+              }
+              //  If the favorite button was pressed, only display the users favorite coins
+              if (favorites && favoriteList[coin.crypto_id] === false) {
                 return false;
               }
 
