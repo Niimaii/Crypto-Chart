@@ -24,3 +24,9 @@ export async function buyCoin(cryptoPurchase) {
     }
   );
 }
+
+export async function getFavorites() {
+  return await axios.get('http://localhost:8005/api/crypto/favorites', {
+    withCredentials: true,
+  });
+}

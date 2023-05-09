@@ -3,6 +3,7 @@ import { CryptoContext } from '../context/CryptoContext';
 import { StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { getFavorites } from '../api/cryptoAPI';
 
 function CryptoTable() {
   let navigateTo = useNavigate();
@@ -94,7 +95,25 @@ function CryptoTable() {
     return accumulator;
   }, {});
 
-  // Insert the favorites boolean values in the new object based on info from the db
+  // If the authenticated, insert the favorites boolean values in the new object based on info from the db
+  const insertUserFavorites = async () => {
+    const { data } = await getFavorites();
+    const userFavorites = data.favorites;
+    // Check if user has favorites, then return if not
+    if (userFavorites.length === 0) {
+      return;
+    }
+
+    userFavorites.forEach((coin) => {
+      userCoinFavorites[coin.coin] = coin.is_favorite;
+    });
+
+    console.log(userCoinFavorites);
+  };
+
+  if (isAuth()) {
+    insertUserFavorites();
+  }
 
   return (
     <div className='w-screen market_data'>
