@@ -21,7 +21,15 @@ function CryptoTable() {
   // Get cached data from React Query
   const queryClient = useQueryClient();
   const cachedResponse = queryClient.getQueryData(['market']);
-  // Paginating data
+
+  /*
+  After too much consideration I decided to paginate the data on the client side
+  simply because it would reduce the load on the data base. I didn't like how
+  when I had server side pagination the db was pinged every time a user clicks
+  on "next" page. This way I only ping the db once and from there I just interact 
+  with the cached data
+  */
+  // Paginating Data
   let start = (page - 1) * 20;
   let finish = page * 20;
   let response = cachedResponse.slice(start, finish);
@@ -278,6 +286,17 @@ function CryptoTable() {
             })}
         </tbody>
       </table>
+      <div>
+        <button
+          onClick={() => setPage((prev) => prev - 1)}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <button onClick={() => setPage((prev) => prev + 1)} disabled={page > 5}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
