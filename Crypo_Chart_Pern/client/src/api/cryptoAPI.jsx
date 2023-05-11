@@ -8,7 +8,8 @@ export async function getChart(coin, days) {
 
 export async function getMarket() {
   console.log('getMarket ran');
-  return await axios.get(`http://localhost:8005/api/crypto/market`);
+  const response = await axios.get(`http://localhost:8005/api/crypto/market`);
+  return response.data.market;
 }
 
 export async function getPortfolio() {

@@ -12,7 +12,6 @@ import { useQueryClient } from '@tanstack/react-query';
 function CryptoCarousel() {
   const queryClient = useQueryClient();
   const cachedMarket = queryClient.getQueryData(['market']);
-  const coinResponse = cachedMarket.data.market;
 
   const loop = [0, 1, 2, 3, 4];
 
@@ -44,9 +43,9 @@ function CryptoCarousel() {
         },
       }}
     >
-      {coinResponse &&
+      {cachedMarket &&
         loop.map((i) => {
-          let coin = coinResponse[i];
+          let coin = cachedMarket[i];
           return (
             // You need to add SwiperSlide for Swiper to work properly
             <SwiperSlide key={coin.crypto_id}>

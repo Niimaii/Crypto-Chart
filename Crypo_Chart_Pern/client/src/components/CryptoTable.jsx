@@ -8,23 +8,27 @@ import { getFavorites, patchFavorites } from '../api/cryptoAPI';
 function CryptoTable() {
   let navigateTo = useNavigate();
 
+  const [allCoins, setAllCoins] = useState(true);
+  const [gainers, setGainers] = useState(false);
+  const [losers, setLosers] = useState(false);
+  const [favorites, setFavorites] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+
   // Context function to open buy card
   const { openBuyCard, isAuth } = useContext(CryptoContext);
 
   // Get cached data from React Query
   const queryClient = useQueryClient();
   const cachedResponse = queryClient.getQueryData(['market']);
-  const response = cachedResponse.data.market;
+  // Paginating data
+  let start = (page - 1) * 20;
+  let finish = page * 20;
+  let response = cachedResponse.slice(start, finish);
 
   const { days, setDays } = useContext(CryptoContext);
 
   const daysOption = [1, 30, 365];
-
-  const [allCoins, setAllCoins] = useState(true);
-  const [gainers, setGainers] = useState(false);
-  const [losers, setLosers] = useState(false);
-  const [favorites, setFavorites] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const changeDays = (e) => {
     // Remove the last letter to get the number
