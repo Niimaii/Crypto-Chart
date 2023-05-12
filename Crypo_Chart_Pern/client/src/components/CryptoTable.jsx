@@ -20,7 +20,7 @@ function CryptoTable() {
 
   // Get cached data from React Query
   const queryClient = useQueryClient();
-  const cachedResponse = queryClient.getQueryData(['market']);
+  // const cachedResponse = queryClient.getQueryData(['market']);
 
   /*
   After too much consideration I decided to paginate the data on the client side
@@ -32,7 +32,10 @@ function CryptoTable() {
   // Paginating Data
   let start = (page - 1) * 20;
   let finish = page * 20;
-  let response = cachedResponse.slice(start, finish);
+  const response =
+    gainers || losers || favorites
+      ? queryClient.getQueryData(['market'])
+      : queryClient.getQueryData(['market']).slice(start, finish);
 
   const { days, setDays } = useContext(CryptoContext);
 
@@ -124,8 +127,11 @@ function CryptoTable() {
         userCoinFavorites[coin.coin] = coin.is_favorite;
       });
 
-      setFavoriteList({ ...favoriteList, ...userCoinFavorites });
+      setFavoriteList((prev) => {
+        return { ...prev, ...userCoinFavorites };
+      });
       setLoading(false);
+      console.log(favoriteList);
     } catch (error) {
       console.log(error);
     }
@@ -217,7 +223,7 @@ function CryptoTable() {
                 return false;
               }
               //  If the favorite button was pressed, only display the users favorite coins
-              if (favorites && favoriteList[coin.crypto_id] === false) {
+              if (favorites && favoriteList[coin.crypto_id] != true) {
                 return false;
               }
 
