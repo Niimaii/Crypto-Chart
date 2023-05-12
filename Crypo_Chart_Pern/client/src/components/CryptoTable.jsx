@@ -30,8 +30,10 @@ function CryptoTable() {
   with the cached data
   */
   // Paginating Data
-  let start = (page - 1) * 20;
-  let finish = page * 20;
+  const start = (page - 1) * 20;
+  const finish = page * 20;
+
+  // If the user pressed the "Gainers", "Losers" or "Favorites" button, then don't paginate
   const response =
     gainers || losers || favorites
       ? queryClient.getQueryData(['market'])
@@ -131,7 +133,6 @@ function CryptoTable() {
         return { ...prev, ...userCoinFavorites };
       });
       setLoading(false);
-      console.log(favoriteList);
     } catch (error) {
       console.log(error);
     }
@@ -292,7 +293,7 @@ function CryptoTable() {
             })}
         </tbody>
       </table>
-      <div>
+      <div className='flex justify-center gap-5'>
         <button
           onClick={() => setPage((prev) => prev - 1)}
           disabled={page === 1}
