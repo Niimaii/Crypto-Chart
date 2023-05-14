@@ -136,6 +136,7 @@ exports.getPortfolio = async (req, res) => {
     res.status(201).json({
       status: true,
       total_balance: totalBalance,
+      investments: investments.rows,
     });
   } catch (error) {
     console.log(error.message);
