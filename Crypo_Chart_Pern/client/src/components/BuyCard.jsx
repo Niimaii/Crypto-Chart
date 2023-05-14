@@ -5,9 +5,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { CryptoContext } from '../context/CryptoContext';
 
 function BuyCard() {
+  console.log('Buy card ran');
   const queryClient = useQueryClient();
-  const cachedResponse = queryClient.getQueryData(['market']);
-  const coinResponse = cachedResponse.data.market;
+  const coinResponse = queryClient.getQueryData(['market']);
 
   const { buyCard, closeBuyCard } = useContext(CryptoContext);
   const [amount, setAmount] = useState(0);
@@ -18,10 +18,9 @@ function BuyCard() {
   const coinNames = [];
 
   // Buy coins with API
-  const purchaseCoin = async (crypto, coinValue) => {
+  const purchaseCoin = async (crypto) => {
     const coinPurchase = {
       crypto: crypto,
-      cryptoValue: coinValue,
       amount: amount,
     };
     await buyCoin(coinPurchase);
@@ -34,7 +33,7 @@ function BuyCard() {
   });
 
   return (
-    <div className={`buy_card absolute ${displayCard ? 'block' : 'hidden'}`}>
+    <div className={`buy_card absolute ${buyCard ? 'block' : 'hidden'}`}>
       <div className='flex justify-center mt-32'>
         <div className='card'>
           <div className='flex'>
@@ -73,13 +72,7 @@ function BuyCard() {
             </select>
             <button
               onClick={() => {
-                const targetCoin = coinResponse.find(
-                  (coin) => coin.crypto_id == cryptoName
-                );
-
-                const cryptoValue = targetCoin.current_price;
-                console.log('Target Coin', cryptoValue);
-                purchaseCoin(cryptoName, cryptoValue);
+                purchaseCoin(cryptoName);
               }}
             >
               Purchase

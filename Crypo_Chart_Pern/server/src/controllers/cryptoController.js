@@ -59,11 +59,19 @@ exports.getMarket = async (req, res) => {
 };
 
 exports.buyCoin = async (req, res) => {
-  const { crypto, cryptoValue, amount } = req.body;
-  // This was passed by the userInfo middleware
-  const email = req.email;
-  const crypto_total = amount / cryptoValue;
+  // const { crypto, cryptoValue, amount } = req.body;
   try {
+    const { crypto, amount } = req.body;
+    const market = await db.query(
+      'SELECT current_price FROM crypto_market WHERE crypto_id = $1',
+      [crypto]
+    );
+
+    const cryptoValue = market.rows[0].current_price;
+
+    // This was passed by the userInfo middleware
+    const email = req.email;
+    const crypto_total = amount / cryptoValue;
     const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
       email,
     ]);
@@ -88,14 +96,29 @@ exports.buyCoin = async (req, res) => {
 
 exports.getPortfolio = async (req, res) => {
   try {
-    const investments = await db.query('SELECT * FROM investments;');
+    // This was passed by the userInfo middleware
+    const email = req.email;
+
+    // Get the users id with their current email
+    const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
+      email,
+    ]);
+
+    const userID = userInfo.rows[0].id;
+
+    // Get users investments
+    const investments = await db.query(
+      'SELECT * FROM investments WHERE user_id = $1;',
+      [userID]
+    );
+    // Get the current coin prices to compare
     const market = await db.query(
       'SELECT * FROM crypto_market ORDER BY rank ASC;'
     );
     const coinPrice = {};
 
-    const portfolio = {
-      total_balance: 0,
+    const totalBalance = {
+      total: 0,
       initial_investment: 0,
     };
 
@@ -107,12 +130,12 @@ exports.getPortfolio = async (req, res) => {
     // Give the users total balance, based on the investment made and current crypto prices
     investments.rows.forEach((purchase) => {
       const currentPrice = coinPrice[purchase.coin];
-      portfolio.total_balance += purchase.crypto_total * currentPrice;
-      portfolio.initial_investment += purchase.amount;
+      totalBalance.total += purchase.crypto_total * currentPrice;
+      totalBalance.initial_investment += purchase.amount;
     });
     res.status(201).json({
       status: true,
-      portfolio: portfolio,
+      total_balance: totalBalance,
     });
   } catch (error) {
     console.log(error.message);

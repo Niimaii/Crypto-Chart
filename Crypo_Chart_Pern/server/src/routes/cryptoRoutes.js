@@ -15,7 +15,7 @@ const router = Router();
 
 router.get('/chart/:coin/:days', getCrypto);
 router.get('/market', getMarket);
-router.get('/portfolio', getPortfolio);
+router.get('/portfolio', userAuth, extractEmail, getPortfolio);
 router.get('/favorites', userAuth, extractEmail, getFavorites);
 
 router.post('/buy', userAuth, extractEmail, buyCoin);

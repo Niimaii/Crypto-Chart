@@ -23,6 +23,8 @@ export const CryptoContextProvider = (props) => {
   };
 
   const openBuyCard = () => {
+    console.log('context ran');
+
     setBuyCard(true);
   };
 

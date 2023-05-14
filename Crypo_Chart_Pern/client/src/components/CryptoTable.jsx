@@ -16,7 +16,7 @@ function CryptoTable() {
   const [page, setPage] = useState(1);
 
   // Context function to open buy card
-  const { openBuyCard, isAuth } = useContext(CryptoContext);
+  const { openBuyCard, isAuth, buyCard } = useContext(CryptoContext);
 
   // Get cached data from React Query
   const queryClient = useQueryClient();
@@ -83,6 +83,8 @@ function CryptoTable() {
       navigateTo('/signin');
     }
   };
+
+  console.log(buyCard);
 
   // Hacky solution to get the table "Name" head to look right
   const spacedName = (

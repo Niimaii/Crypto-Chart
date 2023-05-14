@@ -5,6 +5,7 @@ import { getMarket } from '../api/cryptoAPI';
 import CryptoCarousel from '../components/CryptoCarousel';
 import CryptoTable from '../components/CryptoTable';
 import { useQuery } from '@tanstack/react-query';
+import BuyCard from '../components/BuyCard';
 
 function UserHome() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
@@ -57,6 +58,7 @@ function UserHome() {
       <div className='mt-8 flex justify-center'>
         <CryptoTable volume='123' key='CryptoTable' />
       </div>
+      <BuyCard />
     </div>
   );
 }

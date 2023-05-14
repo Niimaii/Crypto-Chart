@@ -2,13 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { getPortfolio } from '../api/cryptoAPI';
 import { CryptoContext } from '../context/CryptoContext';
 import { fetchProtectedInfo, onLogout } from '../api/authAPI';
+import { useQuery } from '@tanstack/react-query';
 
 function Portfolio() {
   const [portfolio, setPortfolio] = useState();
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   const [protectedData, setProtectedData] = useState(null);
-  console.log('portfolio');
+
+  // const {isLoading} = useQuery({
+  //   queryKey: ['port']
+  // })
 
   const logout = async () => {
     try {
