@@ -5,7 +5,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { CryptoContext } from '../context/CryptoContext';
 
 function BuyCard() {
-  console.log('Buy card ran');
   const queryClient = useQueryClient();
   const coinResponse = queryClient.getQueryData(['market']);
 

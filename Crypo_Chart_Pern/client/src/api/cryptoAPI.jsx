@@ -13,7 +13,9 @@ export async function getMarket() {
 }
 
 export async function getPortfolio() {
-  return await axios.get(`http://localhost:8005/api/crypto/portfolio`);
+  return await axios.get(`http://localhost:8005/api/crypto/portfolio`, {
+    withCredentials: true,
+  });
 }
 
 export async function buyCoin(cryptoPurchase) {

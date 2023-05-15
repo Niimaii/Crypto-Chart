@@ -18,8 +18,6 @@ function CryptoTable() {
   // Context function to open buy card
   const { openBuyCard, isAuth, buyCard } = useContext(CryptoContext);
 
-  // Get cached data from React Query
-  const queryClient = useQueryClient();
   // const cachedResponse = queryClient.getQueryData(['market']);
 
   /*
@@ -33,6 +31,8 @@ function CryptoTable() {
   const start = (page - 1) * 20;
   const finish = page * 20;
 
+  // Get cached data from React Query
+  const queryClient = useQueryClient();
   // If the user pressed the "Gainers", "Losers" or "Favorites" button, then don't paginate
   const response =
     gainers || losers || favorites
@@ -83,8 +83,6 @@ function CryptoTable() {
       navigateTo('/signin');
     }
   };
-
-  console.log(buyCard);
 
   // Hacky solution to get the table "Name" head to look right
   const spacedName = (
