@@ -14,7 +14,9 @@ CREATE TABLE investments (
   coin_value FLOAT NOT NULL,
   amount FLOAT NOT NULL,
   crypto_total FLOAT NOT NULL,
-  created_at timestamp default current_date
+  image VARCHAR(350),
+  symbol VARCHAR(50),
+  created_at timestamp default current_timestamp
 );
 
 CREATE TABLE crypto_unix (

@@ -1,19 +1,18 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
-function TotalBalance() {
+function TotalBalanceCard() {
   const queryClient = useQueryClient();
-  const portfolio = queryClient.getQueryData(['portfolio']);
-
-  console.log('Portfolio', portfolio);
+  const { data } = queryClient.getQueryData(['portfolio']);
+  const portfolio = data.total_balance;
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
-  const total_balance = portfolio.data.total_balance.total.toFixed(2);
+  const total_balance = portfolio.total.toFixed(2);
   const difference = (
-    total_balance - portfolio.data.total_balance.initial_investment.toFixed(2)
+    total_balance - portfolio.initial_investment.toFixed(2)
   ).toFixed(2);
   return (
     <div className='flex justify-center'>
@@ -45,4 +44,4 @@ function TotalBalance() {
   );
 }
 
-export default TotalBalance;
+export default TotalBalanceCard;

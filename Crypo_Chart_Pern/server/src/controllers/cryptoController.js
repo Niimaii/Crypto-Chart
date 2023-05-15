@@ -63,7 +63,7 @@ exports.buyCoin = async (req, res) => {
   try {
     const { crypto, amount } = req.body;
     const market = await db.query(
-      'SELECT current_price FROM crypto_market WHERE crypto_id = $1',
+      'SELECT * FROM crypto_market WHERE crypto_id = $1',
       [crypto]
     );
 
@@ -72,14 +72,16 @@ exports.buyCoin = async (req, res) => {
     // This was passed by the userInfo middleware
     const email = req.email;
     const crypto_total = amount / cryptoValue;
+    const image = market.rows[0].image;
+    const symbol = market.rows[0].symbol;
     const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
       email,
     ]);
 
     const userID = userInfo.rows[0].id;
     await db.query(
-      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total) values ($1, $2, $3, $4, $5);',
-      [userID, crypto, cryptoValue, amount, crypto_total]
+      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total, image, symbol) values ($1, $2, $3, $4, $5, $6, $7);',
+      [userID, crypto, cryptoValue, amount, crypto_total, image, symbol]
     );
 
     res.status(201).json({
