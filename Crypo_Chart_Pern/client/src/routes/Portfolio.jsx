@@ -4,6 +4,7 @@ import { CryptoContext } from '../context/CryptoContext';
 import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 import { useQuery } from '@tanstack/react-query';
 import TotalBalanceCard from '../components/TotalBalanceCard';
+import YourPortfolioCard from '../components/YourPortfolioCard';
 
 function Portfolio() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
@@ -50,7 +51,12 @@ function Portfolio() {
     return <h1>Loading...</h1>;
   }
 
-  return <TotalBalanceCard />;
+  return (
+    <div>
+      <TotalBalanceCard />
+      <YourPortfolioCard />
+    </div>
+  );
 }
 
 export default Portfolio;

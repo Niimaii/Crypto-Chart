@@ -74,14 +74,15 @@ exports.buyCoin = async (req, res) => {
     const crypto_total = amount / cryptoValue;
     const image = market.rows[0].image;
     const symbol = market.rows[0].symbol;
+    const name = market.rows[0].name;
     const userInfo = await db.query('SELECT id FROM users WHERE email = $1;', [
       email,
     ]);
 
     const userID = userInfo.rows[0].id;
     await db.query(
-      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total, image, symbol) values ($1, $2, $3, $4, $5, $6, $7);',
-      [userID, crypto, cryptoValue, amount, crypto_total, image, symbol]
+      'INSERT INTO investments (user_id, coin, coin_value, amount, crypto_total, image, symbol, name) values ($1, $2, $3, $4, $5, $6, $7, $8);',
+      [userID, crypto, cryptoValue, amount, crypto_total, image, symbol, name]
     );
 
     res.status(201).json({

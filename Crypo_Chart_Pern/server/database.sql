@@ -16,6 +16,7 @@ CREATE TABLE investments (
   crypto_total FLOAT NOT NULL,
   image VARCHAR(350),
   symbol VARCHAR(50),
+  name VARCHAR(50),
   created_at timestamp default current_timestamp
 );
 
