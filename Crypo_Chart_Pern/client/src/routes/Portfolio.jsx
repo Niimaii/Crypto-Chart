@@ -5,6 +5,7 @@ import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 import { useQuery } from '@tanstack/react-query';
 import TotalBalanceCard from '../components/TotalBalanceCard';
 import YourPortfolioCard from '../components/YourPortfolioCard';
+import ActivityCard from '../components/ActivityCard';
 
 function Portfolio() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
@@ -55,6 +56,7 @@ function Portfolio() {
     <div>
       <TotalBalanceCard />
       <YourPortfolioCard />
+      <ActivityCard />
     </div>
   );
 }

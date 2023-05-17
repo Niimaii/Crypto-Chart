@@ -18,8 +18,6 @@ function Home() {
     return <h1>Loading...</h1>;
   }
 
-  const coinResponse = data.data.market;
-
   return (
     <div className=''>
       <CryptoCarousel key='Carousel' />
