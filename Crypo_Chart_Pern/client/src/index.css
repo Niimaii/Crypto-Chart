@@ -19,6 +19,11 @@ body {
   color: #5f64ff;
 }
 
+.random {
+  color: rgb(161, 172, 174);
+  color: rgb(60, 66, 66);
+}
+
 /* Buy Card */
 
 .buy_card {

@@ -74,7 +74,6 @@ function SmallChart({ coin }) {
         },
         border: {
           // This removes the outside border
-
           display: false,
         },
         // Removes Visual Data

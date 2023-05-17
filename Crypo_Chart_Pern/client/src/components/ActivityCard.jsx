@@ -40,6 +40,7 @@ function ActivityCard() {
       <h1>Recent Activity</h1>
       <div>
         {portfolio.map((coin, index) => {
+          // get the date
           const date = new Date(coin.created_at);
           const formattedDate = date.toLocaleDateString('en-US', {
             day: 'numeric',

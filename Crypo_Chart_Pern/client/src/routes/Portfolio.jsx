@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import TotalBalanceCard from '../components/TotalBalanceCard';
 import YourPortfolioCard from '../components/YourPortfolioCard';
 import ActivityCard from '../components/ActivityCard';
+import DoughnutCard from '../components/DoughnutCard';
 
 function Portfolio() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
@@ -57,6 +58,7 @@ function Portfolio() {
       <TotalBalanceCard />
       <YourPortfolioCard />
       <ActivityCard />
+      <DoughnutCard />
     </div>
   );
 }
