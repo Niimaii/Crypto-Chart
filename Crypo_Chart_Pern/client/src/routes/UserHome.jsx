@@ -8,15 +8,9 @@ import { useQuery } from '@tanstack/react-query';
 import BuyCard from '../components/BuyCard';
 
 function UserHome() {
-  const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
+  const { isAuth, unAuthenticateUser, market } = useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   let protectedData = null;
-  const { data, isLoading } = useQuery({
-    queryKey: ['market'],
-    queryFn: getMarket,
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 3,
-  });
 
   const logout = async () => {
     try {
@@ -47,7 +41,7 @@ function UserHome() {
     protectedInfo();
   }, []);
 
-  if (isLoading || loading) {
+  if (market.isLoading || loading) {
     return <h1>Loading...</h1>;
   }
 

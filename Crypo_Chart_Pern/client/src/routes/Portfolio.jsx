@@ -9,16 +9,10 @@ import ActivityCard from '../components/ActivityCard';
 import DoughnutCard from '../components/DoughnutCard';
 
 function Portfolio() {
-  const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
+  const { isAuth, unAuthenticateUser, isLoading, portfolio } =
+    useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   const [protectedData, setProtectedData] = useState(null);
-
-  const { isLoading } = useQuery({
-    queryKey: ['portfolio'],
-    queryFn: getPortfolio,
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 30,
-  });
 
   const logout = async () => {
     try {
@@ -49,7 +43,7 @@ function Portfolio() {
     protectedInfo();
   }, []);
 
-  if (isLoading || loading) {
+  if (portfolio.isLoading || loading) {
     return <h1>Loading...</h1>;
   }
 

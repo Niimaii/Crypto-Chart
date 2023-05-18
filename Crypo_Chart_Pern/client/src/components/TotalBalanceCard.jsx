@@ -10,6 +10,7 @@ function TotalBalanceCard() {
     style: 'currency',
     currency: 'USD',
   });
+
   const total_balance = portfolio.total.toFixed(2);
   const difference = (
     total_balance - portfolio.initial_investment.toFixed(2)

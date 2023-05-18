@@ -51,6 +51,7 @@ function DoughnutCard() {
   const fillColors = [];
   const borderColors = [];
 
+  //   For each coin the user transacted with, create a color to represent each one
   transactionCoins.forEach((element, index) => {
     if (fillColors.length >= colors.length) {
       fillColors.push(backupColors[0]);
