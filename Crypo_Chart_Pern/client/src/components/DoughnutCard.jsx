@@ -29,8 +29,6 @@ function DoughnutCard() {
   //   Get an array with the organized transaction list
   const transactionsSummed = sortedTransactions.map(([key, value]) => value);
 
-  console.log(transactionsSummed);
-
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Organizing Transactions ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
   //   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Chart Setup ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
@@ -48,30 +46,28 @@ function DoughnutCard() {
     'rgb(236, 149, 210)',
   ];
 
+  const backupColors = ['rgb(161, 172, 174)', 'rgb(60, 66, 66)'];
+
   const fillColors = [];
   const borderColors = [];
+
+  transactionCoins.forEach((element, index) => {
+    if (fillColors.length >= colors.length) {
+      fillColors.push(backupColors[0]);
+      borderColors.push(backupColors[1]);
+    } else {
+      fillColors.push(colors[index]);
+      borderColors.push(colors[index]);
+    }
+  });
 
   const data = {
     labels: transactionCoins,
     datasets: [
       {
         data: transactionsSummed,
-        backgroundColor: [
-          'rgb(161, 172, 174)',
-          'rgb(161, 172, 174)',
-          'rgb(161, 172, 174)',
-          'rgb(161, 172, 174)',
-          'rgb(161, 172, 174)',
-          'rgb(161, 172, 174)',
-        ],
-        borderColor: [
-          'rgb(60, 66, 66)',
-          'rgb(60, 66, 66)',
-          'rgb(60, 66, 66)',
-          'rgb(60, 66, 66)',
-          'rgb(60, 66, 66)',
-          'rgb(60, 66, 66)',
-        ],
+        backgroundColor: fillColors,
+        borderColor: borderColors,
         borderWidth: 1,
       },
     ],
