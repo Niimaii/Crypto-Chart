@@ -9,7 +9,7 @@ import ActivityCard from '../components/ActivityCard';
 import DoughnutCard from '../components/DoughnutCard';
 
 function Portfolio() {
-  const { isAuth, unAuthenticateUser, isLoading, portfolio } =
+  const { isAuth, unAuthenticateUser, isLoading, portfolio, market } =
     useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   const [protectedData, setProtectedData] = useState(null);
@@ -43,7 +43,7 @@ function Portfolio() {
     protectedInfo();
   }, []);
 
-  if (portfolio.isLoading || loading) {
+  if (portfolio.isLoading || loading || market.isLoading) {
     return <h1>Loading...</h1>;
   }
 

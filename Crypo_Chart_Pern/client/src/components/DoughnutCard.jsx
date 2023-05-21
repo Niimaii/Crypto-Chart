@@ -86,8 +86,14 @@ function DoughnutCard() {
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Chart Setup ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
   return (
-    <div className='h-80 w-80'>
-      <Doughnut options={options} data={data} />
+    <div className='p-20'>
+      <div className='h-72 w-72'>
+        <Doughnut options={options} data={data} />
+      </div>
+
+      <div className='progressbar-outer'>
+        <div className='progressbar-inner'></div>
+      </div>
     </div>
   );
 }
