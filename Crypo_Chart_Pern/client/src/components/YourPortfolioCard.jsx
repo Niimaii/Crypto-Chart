@@ -82,7 +82,7 @@ function YourPortfolioCard() {
                   <p>{investment.name}</p>
                 </div>
               </div>
-              <p>{formatCryptoValue(investment.current)}</p>
+              <p>{formatter.format(investment.current)}</p>
               <p>{formatter.format(investment.invested)}</p>
             </div>
           );
