@@ -24,6 +24,14 @@ body {
   color: rgb(60, 66, 66);
 }
 
+.money_red {
+  color: #ea7a77;
+}
+
+.money_green {
+  color: #579953;
+}
+
 /* Buy Card */
 
 .buy_card {
