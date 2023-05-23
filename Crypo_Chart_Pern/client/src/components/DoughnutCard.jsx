@@ -9,7 +9,6 @@ function DoughnutCard() {
   const portfolioData = queryClient.getQueryData(['portfolio']);
   const portfolio = portfolioData.data.investments;
   const marketData = queryClient.getQueryData(['market']);
-
   const market = marketData;
 
   const formatter = new Intl.NumberFormat('en-US', {

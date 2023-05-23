@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 import { CryptoContext } from '../context/CryptoContext';
-import { getMarket } from '../api/cryptoAPI';
 import CryptoCarousel from '../components/CryptoCarousel';
 import CryptoTable from '../components/CryptoTable';
-import { useQuery } from '@tanstack/react-query';
 import BuyCard from '../components/BuyCard';
 
 function UserHome() {
-  const { isAuth, unAuthenticateUser, market } = useContext(CryptoContext);
+  const { unAuthenticateUser, market } = useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   let protectedData = null;
 
