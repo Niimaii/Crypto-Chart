@@ -210,7 +210,7 @@ body {
 /* Doughnut Card */
 
 .progressbar-outer {
-  background-color: grey;
+  background-color: #cccccc;
   border-radius: 20px;
   height: 9px;
   width: 350px;
