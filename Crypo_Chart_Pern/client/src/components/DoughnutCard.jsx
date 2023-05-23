@@ -8,6 +8,9 @@ function DoughnutCard() {
   const queryClient = useQueryClient();
   const portfolioData = queryClient.getQueryData(['portfolio']);
   const portfolio = portfolioData.data.investments;
+  const marketData = queryClient.getQueryData(['market']);
+
+  const market = marketData;
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -18,8 +21,11 @@ function DoughnutCard() {
 
   //   Sum all the transactions based on the coin name into an Object
   const reducedTransactions = portfolio.reduce((acc, investment) => {
+    const coinMarket = market.find((coin) => coin.name === investment.name);
+    const currentInvestment =
+      investment.crypto_total * coinMarket.current_price;
     acc[investment.name] = acc[investment.name] || 0;
-    acc[investment.name] += investment.amount;
+    acc[investment.name] += currentInvestment;
 
     return acc;
   }, {});
@@ -95,7 +101,6 @@ function DoughnutCard() {
     0
   );
 
-  console.log(transactionsTotal);
   return (
     <div className='doughnut'>
       <div className='doughnut_container'>
@@ -116,13 +121,13 @@ function DoughnutCard() {
             ).toFixed(2)}%`;
 
             return (
-              <div>
+              <div key={transaction}>
                 <div className='flex gap-5'>
                   <p>{transaction}</p>
                   <p>{formatter.format(transactionsSummed[index])}</p>
                   <p>{shortPercentage}</p>
                 </div>
-                <div key={transaction} className='progressbar-outer'>
+                <div className='progressbar-outer'>
                   <div
                     style={{
                       backgroundColor: colors[index],
