@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { useQueryClient } from '@tanstack/react-query';
@@ -8,6 +8,11 @@ function DoughnutCard() {
   const queryClient = useQueryClient();
   const portfolioData = queryClient.getQueryData(['portfolio']);
   const portfolio = portfolioData.data.investments;
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
   //   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Organizing Transactions ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
@@ -85,14 +90,51 @@ function DoughnutCard() {
 
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Chart Setup ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
-  return (
-    <div className='p-20'>
-      <div className='h-72 w-72'>
-        <Doughnut options={options} data={data} />
-      </div>
+  const transactionsTotal = transactionsSummed.reduce(
+    (sum, number) => sum + number,
+    0
+  );
 
-      <div className='progressbar-outer'>
-        <div className='progressbar-inner'></div>
+  console.log(transactionsTotal);
+  return (
+    <div className='doughnut'>
+      <div className='doughnut_container'>
+        <div className='flex justify-center h-64 w-64'>
+          <Doughnut options={options} data={data} />
+        </div>
+
+        <div>
+          {transactionCoins.map((transaction, index) => {
+            // Get the percentage of individual transactions compared to their total sum
+            const progressPercentage = `${
+              (transactionsSummed[index] / transactionsTotal) * 100
+            }%`;
+
+            const shortPercentage = `${(
+              (transactionsSummed[index] / transactionsTotal) *
+              100
+            ).toFixed(2)}%`;
+
+            return (
+              <div>
+                <div className='flex gap-5'>
+                  <p>{transaction}</p>
+                  <p>{formatter.format(transactionsSummed[index])}</p>
+                  <p>{shortPercentage}</p>
+                </div>
+                <div key={transaction} className='progressbar-outer'>
+                  <div
+                    style={{
+                      backgroundColor: colors[index],
+                      width: progressPercentage,
+                    }}
+                    className='progressbar-inner'
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

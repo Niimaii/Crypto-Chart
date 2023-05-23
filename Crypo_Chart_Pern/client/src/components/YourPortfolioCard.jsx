@@ -14,7 +14,7 @@ function YourPortfolioCard() {
     currency: 'USD',
   });
 
-  console.log(market);
+  // console.log(market);
 
   /*   
   High Level: Consolidate the portfolio investments and add the investments up
