@@ -8,8 +8,7 @@ import { useParams } from 'react-router-dom';
 function CoinPage() {
   const [crypto, setCrypto] = useState(0);
   const [money, setMoney] = useState('0');
-  const [cursorPos, setCursorPos] = useState(null);
-  const [iterate, setIterate] = useState(0);
+  const [cursorPos, setCursorPos] = useState({ cursor: null });
   const inputRef = useRef(null);
 
   const { portfolio, market } = useContext(CryptoContext);
@@ -22,12 +21,14 @@ function CoinPage() {
 
   const { coin } = useParams();
 
-  // Only update the position after a re-render (to avoid stupid issues)
+  // Update the cursor position when converting
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.setSelectionRange(cursorPos, cursorPos);
+      console.log('this tan');
+      const position = cursorPos.cursor;
+      inputRef.current.setSelectionRange(position, position);
     }
-  }, [cursorPos, iterate]);
+  }, [cursorPos]);
 
   if (portfolio.isLoading || isLoading || market.isLoading) {
     return <h1>Loading...</h1>;
@@ -36,7 +37,7 @@ function CoinPage() {
   //   Locate the correct crypto market data based on the coin of interest
   const coinMarket = market.data.find((crypto) => crypto.crypto_id === coin);
   const chartData = data.data.chart;
-  //   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Crypto Converter ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
   // Currency formatter
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -45,61 +46,72 @@ function CoinPage() {
     maximumFractionDigits: 2,
   });
 
+  // Short formatter
+  const shortFormatter = (amount) => {
+    if (amount >= 1e9) {
+      return `$${(amount / 1e9).toFixed(1)}B`;
+    } else if (amount >= 1e6) {
+      return `$${(amount / 1e6).toFixed(1)}M`;
+    } else if (amount >= 1e3) {
+      return `$${(amount / 1e3).toFixed(1)}K`;
+    } else {
+      return `$${amount.toFixed(2)}`;
+    }
+  };
+
+  //   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Crypto Converter ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+  // TODO: Need to add decimal functionality to the Money Input
+
+  // Convert money -> crypto and crypto -> money
   const converter = (e) => {
-    // Remove the currency symbol and grouping separators
+    // ====== Format the money value into a number ======
+    // Remove special characters from 'e.target.value'
     const deFormatValue = e.target.value.replace(/[$,]/g, '');
-    // Parse the deFormatValue value as a number or '' if NaN
+    // Parse the 'deFormatValue' value as a number or '' if NaN
     const numberValue = isNaN(parseFloat(deFormatValue))
       ? ''
       : parseFloat(deFormatValue);
+
+    // ====== Locate the correct cursor position ======
     // Get the cursor position
     let cursorPosition = e.target.selectionStart;
-    // Slice all the characters after the cursor position from e.target.value.
+    // Slice all the characters after the cursor position from 'e.target.value'.
     const slicedInput = e.target.value.slice(0, cursorPosition);
-    // Slice all the characters after the cursor position after formatting.
+    // Slice all the characters after the cursor position from 'formatting'.
     const slicedFormatter = formatter
       .format(numberValue)
       .slice(0, cursorPosition);
-    // Count how many non-numbers are in the slicedInput.
+    // Count how many non-numbers are in the 'slicedInput'.
     const nonNumericValuesInput = (slicedInput.match(/[^0-9]/g) || []).length;
-    // Count how many non-numbers are in the slicedFormatter.
+    // Count how many non-numbers are in the 'slicedFormatter'.
     const nonNumericValuesFormatter = (slicedFormatter.match(/[^0-9]/g) || [])
       .length;
 
-    console.log(
-      'Input + Formatter',
-      nonNumericValuesInput,
-      nonNumericValuesFormatter
-    );
-    console.log(slicedFormatter);
-    // Add to 'cursorPosition' based on that amount
-    cursorPosition += nonNumericValuesFormatter - nonNumericValuesInput;
-    console.log('Cursor Position:', cursorPosition, cursorPos);
-
     /* 
-    This is some dumb shit, I have to force a re-render 
-    when the cursor position is the same as last time.
-    This way the cursor position always update, otherwise
-    the cursor position will be fucking stupid.
-    */
-    if (cursorPosition === cursorPos) {
-      setIterate((prev) => prev + 1);
-    }
-    setCursorPos(cursorPosition);
+    Add to 'cursorPosition' based on the difference between
+    'nonNumericValuesInput' and 'nonNumericValuesFormatter'.
+   */
+    cursorPosition += nonNumericValuesFormatter - nonNumericValuesInput;
 
-    // console.log('Cursor Position:', cursorPosition);
-    // console.log('Sliced:', e.target.value.slice(0, cursorPosition));
-    // console.log('Input:', e.target.value);
+    // I made 'cursorPos' = to an object in order to force a rerender
+    setCursorPos((prev) => ({
+      ...prev,
+      cursor: cursorPosition,
+    }));
 
-    const reFormatted = numberValue === '' ? '' : formatter.format(numberValue);
+    const reFormattedMoney =
+      numberValue === '' ? '' : formatter.format(numberValue);
     if (e.target.id === 'Money') {
       const convertedToCrypto = numberValue / coinMarket.current_price;
-      setMoney(reFormatted);
+      setMoney(reFormattedMoney);
       setCrypto(convertedToCrypto);
     } else {
       const convertedToMoney = numberValue * coinMarket.current_price;
+      const reFormattedCrypto =
+        numberValue === '' ? '' : formatter.format(convertedToMoney);
       setCrypto(numberValue);
-      setMoney(convertedToMoney);
+      setMoney(reFormattedCrypto);
     }
   };
 
@@ -108,7 +120,7 @@ function CoinPage() {
   return (
     <div>
       <BigChart chartData={chartData} coin={coin} />
-      <div className='ml-20'>
+      <div className=''>
         <div className='converter'>
           <input
             onChange={converter}
@@ -125,6 +137,53 @@ function CoinPage() {
             className='w-96 h-14 border-2'
             type='number'
           />
+        </div>
+      </div>
+
+      <div>
+        <div id='CoinInfoRow1' className='flex gap-5'>
+          <div>
+            <p>Price</p>
+            <h2>{formatter.format(coinMarket.current_price)}</h2>
+          </div>
+          <div>
+            <p>Market Cap</p>
+            <h2>{shortFormatter(coinMarket.market_cap)}</h2>
+          </div>
+          <div>
+            <p>Market Cap Rank</p>
+            <h2>{`#${coinMarket.market_cap_rank}`}</h2>
+          </div>
+        </div>
+
+        <div id='CoinInfoRow2' className='flex gap-5'>
+          <div>
+            <p>24h High</p>
+            <h2>{formatter.format(coinMarket.high_24h)}</h2>
+          </div>
+          <div>
+            <p>Volume</p>
+            <h2>{shortFormatter(coinMarket.total_volume)}</h2>
+          </div>
+          <div>
+            <p>All Time High</p>
+            <h2>{formatter.format(coinMarket.ath)}</h2>
+          </div>
+        </div>
+
+        <div id='CoinInfoRow3' className='flex gap-5'>
+          <div>
+            <p>24h Low</p>
+            <h2>{formatter.format(coinMarket.low_24h)}</h2>
+          </div>
+          <div>
+            <p>Circulating Supply</p>
+            <h2>{shortFormatter(coinMarket.circulating_supply)}</h2>
+          </div>
+          <div>
+            <p>All Time Low</p>
+            <h2>{formatter.format(coinMarket.atl)}</h2>
+          </div>
         </div>
       </div>
     </div>

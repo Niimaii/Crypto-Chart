@@ -58,7 +58,9 @@ CREATE TABLE crypto_market (
   circulating_supply FLOAT,
   total_supply FLOAT,
   max_supply FLOAT,
-  unix FLOAT
+  unix FLOAT,
+  ath FLOAT NOT NULL,
+  atl FLOAT NOT NULL
 );
 
 CREATE TABLE crypto_chart (
