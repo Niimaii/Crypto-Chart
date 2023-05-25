@@ -244,6 +244,15 @@ body {
   height: 2px;
 }
 
+/* Coin Page */
+
+.converter {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
 /* Responsive */
 
 @media (max-width: 600px) {

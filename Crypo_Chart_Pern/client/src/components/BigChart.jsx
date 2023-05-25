@@ -39,7 +39,7 @@ function BigChart({ chartData, coin }) {
   const market = queryClient.getQueryData(['market']);
 
   //   Locate the correct crypto market data based on the coin of interest
-  const marketData = market.find((crypto) => crypto.crypto_id === coin);
+  const coinMarket = market.find((crypto) => crypto.crypto_id === coin);
 
   // Currency formatter
   const formatter = new Intl.NumberFormat('en-US', {
@@ -126,14 +126,14 @@ function BigChart({ chartData, coin }) {
         <div className='flex items-center m-0'>
           <img
             className='h-12 mr-3'
-            src={marketData.image}
-            alt={marketData.name}
+            src={coinMarket.image}
+            alt={coinMarket.name}
           />
 
           <div>
-            <h1 className='text-base m-0 h-5 font-medium'>{marketData.name}</h1>
+            <h1 className='text-base m-0 h-5 font-medium'>{coinMarket.name}</h1>
             <h1 className='text-base m-0 font-extralight'>
-              {marketData.symbol.toUpperCase()}
+              {coinMarket.symbol.toUpperCase()}
             </h1>
           </div>
         </div>
@@ -143,7 +143,7 @@ function BigChart({ chartData, coin }) {
           <p>1Y</p>
         </div>
       </div>
-      <h1>{formatter.format(marketData.current_price)}</h1>
+      <h1>{formatter.format(coinMarket.current_price)}</h1>
       <div className='h-80'>
         <Line options={options} data={data} />
       </div>
