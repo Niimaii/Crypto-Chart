@@ -13,6 +13,12 @@ body {
   background-color: #f9f9ff;
 }
 
+/* General */
+
+.removeBottomRadius {
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
 /* Colors */
 
 .textPurple {
@@ -61,13 +67,22 @@ body {
   min-width: 56px;
 }
 
-.searchbar {
-  width: 550px;
-  background-color: rgba(243, 243, 243, 0.33);
-  color: white;
+.searchIcon {
+  z-index: 1;
 }
 
-.searchbar::placeholder {
+.searchBar {
+  width: 550px;
+  background-color: rgba(243, 243, 243, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+
+  padding-left: 2.25rem;
+  border-radius: 0.375rem;
+  height: 2.75rem;
+}
+
+.searchBar::placeholder {
   color: white;
 }
 
@@ -81,6 +96,30 @@ body {
 
 .nav_bg {
   background-color: #454bff;
+}
+
+.searchOptions {
+  position: absolute;
+  left: 270px;
+  top: 65.5px;
+  z-index: 2;
+
+  width: 550px;
+  height: 0px;
+  background-color: rgba(243, 243, 243, 0.2);
+  backdrop-filter: blur(10px);
+
+  transition: 0.3s ease 0.3s;
+  overflow-y: auto;
+}
+
+.searchResults {
+  display: flex;
+}
+
+/* Removes Scrollbar */
+.searchOptions::-webkit-scrollbar {
+  display: none;
 }
 
 /* Chart */

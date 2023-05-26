@@ -8,8 +8,6 @@ import SearchBar from './SearchBar';
 
 function Navbar() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
-  const [loading, setLoading] = useState(true);
-  const [protectedData, setProtectedData] = useState(null);
 
   const logout = async () => {
     try {
