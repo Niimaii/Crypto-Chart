@@ -10,16 +10,20 @@ function CoinPage() {
   const [money, setMoney] = useState('0');
   const [cursorPos, setCursorPos] = useState({ cursor: null });
   const inputRef = useRef(null);
+  const { coin } = useParams();
 
   const { portfolio, market } = useContext(CryptoContext);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['coin'],
-    queryFn: () => getChart('bitcoin', 30),
+    queryFn: () => getChart(coin, 30),
     staleTime: 1000 * 60 * 3,
     refetchInterval: 1000 * 60 * 3,
   });
 
-  const { coin } = useParams();
+  // Update the graph data when user visits another coin page
+  useEffect(() => {
+    refetch();
+  }, [coin, refetch]);
 
   // Update the cursor position when converting
   useEffect(() => {
