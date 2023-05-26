@@ -4,6 +4,7 @@ import vscodium from '../assets/vscodium.png';
 import { Hamburger, SearchIcon, UserIcon } from '../icons/icons';
 import { CryptoContext } from '../context/CryptoContext';
 import { fetchProtectedInfo, onLogout } from '../api/authAPI';
+import SearchBar from './SearchBar';
 
 function Navbar() {
   const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
@@ -38,14 +39,7 @@ function Navbar() {
               </h1>
             </NavLink>
 
-            <div className='nav_response flex items-center relative mx-10'>
-              <SearchIcon />
-              <input
-                type='text'
-                placeholder='Search Crypto Charts'
-                className='searchbar pl-9 rounded-md h-11'
-              />
-            </div>
+            <SearchBar />
           </div>
           <button className='hamburger'>
             <Hamburger />
