@@ -4,6 +4,7 @@ CREATE TABLE users (
     id serial primary key,
     email varchar(255) unique not null, 
     password varchar(255) unique not null,
+  currency varchar(255) NOT NULL,
     created_at date default current_date
 );
 
@@ -71,3 +72,4 @@ CREATE TABLE crypto_chart (
   PRIMARY KEY (crypto_id, timestamp, chartDays),
   unix NUMERIC
 );
+
