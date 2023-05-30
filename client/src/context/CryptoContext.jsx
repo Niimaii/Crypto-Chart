@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState, createContext } from 'react';
-import { getMarket, getPortfolio } from '../api/cryptoAPI';
+import { getCurrency, getMarket, getPortfolio } from '../api/cryptoAPI';
 
 export const CryptoContext = createContext();
 
@@ -24,6 +24,13 @@ export const CryptoContextProvider = (props) => {
     refetchInterval: 1000 * 60 * 3,
   });
 
+  const currency = useQuery({
+    queryKey: ['currency'],
+    queryFn: getCurrency,
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 3,
+  });
+
   const isAuth = () => {
     if (localAuth || auth) {
       return true;
@@ -39,8 +46,6 @@ export const CryptoContextProvider = (props) => {
   };
 
   const openBuyCard = () => {
-    console.log('context ran');
-
     setBuyCard(true);
   };
 
@@ -61,6 +66,7 @@ export const CryptoContextProvider = (props) => {
         closeBuyCard,
         market,
         portfolio,
+        currency,
       }}
     >
       {props.children}

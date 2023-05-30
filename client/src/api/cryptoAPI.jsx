@@ -44,3 +44,19 @@ export async function patchFavorites(userFavorite) {
     }
   );
 }
+
+export async function getCurrency() {
+  return await axios.get('http://localhost:8005/api/crypto/currency', {
+    withCredentials: true,
+  });
+}
+
+export async function patchCurrency(currency) {
+  return await axios.patch(
+    'http://localhost:8005/api/crypto/patch-currency',
+    currency,
+    {
+      withCredentials: true,
+    }
+  );
+}
