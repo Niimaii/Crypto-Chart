@@ -202,3 +202,47 @@ exports.getFavorites = async (req, res) => {
     });
   }
 };
+
+exports.getCurrency = async (req, res) => {
+  try {
+    // This was passed by the userInfo middleware
+    const email = req.email;
+    const userInfo = await db.query(
+      'SELECT currency FROM users WHERE email = $1;',
+      [email]
+    );
+    const userCurrency =
+      userInfo.rows[0].currency === null ? 'USD' : userInfo.rows[0].currency;
+
+    res.status(201).json({
+      success: true,
+      currency: userCurrency,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+exports.patchCurrency = async (req, res) => {
+  try {
+    const { currency } = req.body;
+    // This was passed by the userInfo middleware
+    const email = req.email;
+    await db.query('UPDATE users SET currency = $1 WHERE email = $2;', [
+      currency,
+      email,
+    ]);
+
+    res.status(201).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};

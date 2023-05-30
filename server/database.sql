@@ -4,7 +4,7 @@ CREATE TABLE users (
     id serial primary key,
     email varchar(255) unique not null, 
     password varchar(255) unique not null,
-  currency varchar(255) NOT NULL,
+    currency varchar(255),
     created_at date default current_date
 );
 
