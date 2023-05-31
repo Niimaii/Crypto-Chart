@@ -1,7 +1,6 @@
 const { validationResult } = require('express-validator');
 
 exports.validationMiddleware = (req, res, next) => {
-  // This is equal to the validation result from authValidation
   let errors = validationResult(req);
 
   //   if an error exists then return an error

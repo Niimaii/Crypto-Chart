@@ -29,7 +29,7 @@ passport.use(
         throw new Error('401 not authorized');
       }
 
-      // Store users id & pass
+      // Store users id & email
       let user = { id: rows[0].id, email: rows[0].email };
 
       // Return the user info

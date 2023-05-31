@@ -24,3 +24,13 @@ export async function fetchProtectedInfo() {
     withCredentials: true,
   });
 }
+
+export async function confirmPassword(password) {
+  return await axios.post(
+    'http://localhost:8005/api/auth/check-pass',
+    { password },
+    {
+      withCredentials: true,
+    }
+  );
+}

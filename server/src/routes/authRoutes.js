@@ -5,6 +5,7 @@ const {
   login,
   protected,
   logout,
+  passwordCheck,
 } = require('../controllers/authControllers');
 const { validationMiddleware } = require('../middleware/validation_middle');
 const {
@@ -17,9 +18,10 @@ const router = Router();
 
 router.get('/users', getUsers);
 router.get('/protected', userAuth, protected);
+router.get('/logout', logout);
 
+router.post('/check-pass', userAuth, passwordCheck);
 router.post('/register', registerValidation, validationMiddleware, register);
 router.post('/login', loginValidation, validationMiddleware, login);
-router.get('/logout', logout);
 
 module.exports = router;

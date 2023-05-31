@@ -1,5 +1,5 @@
 const db = require('../db/indexDB');
-const { hash } = require('bcryptjs');
+const { hash, compare } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { SECRET, CLIENT_URL } = require('../constants/index');
 const cryptoDataFetch = require('../hooks/cryptoFetch');
@@ -95,6 +95,36 @@ exports.logout = async (req, res) => {
     console.log(error.message);
     return res.status(500).json({
       error: error.message,
+    });
+  }
+};
+
+exports.passwordCheck = async (req, res) => {
+  try {
+    // Get the id from passport middleware
+    const { id } = req.user;
+    // Get access to the password based on th id
+    const user = await db.query('SELECT password FROM users WHERE id = $1', [
+      id,
+    ]);
+
+    // Compare the passwords
+    const validPassword = await compare(
+      req.body.password,
+      user.rows[0].password
+    );
+
+    if (!validPassword) {
+      throw new Error('Wrong password');
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Correct Password',
+    });
+  } catch (error) {
+    return res.status(403).json({
+      error: 'Wrong Password',
     });
   }
 };

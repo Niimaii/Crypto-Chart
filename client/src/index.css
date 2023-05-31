@@ -294,6 +294,34 @@ body {
 
 /* Settings */
 
+.pass_check {
+  background-color: #0002264b;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+}
+
+.pass_check_card {
+  background-color: white;
+  width: 300px;
+  height: 200px;
+}
+
+.pass_check_card button {
+  background-color: #454bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
 /* Responsive */
 
 @media (max-width: 600px) {
