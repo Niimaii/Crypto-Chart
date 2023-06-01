@@ -128,3 +128,47 @@ exports.passwordCheck = async (req, res) => {
     });
   }
 };
+
+exports.changeEmail = async (req, res) => {
+  try {
+    const { email, id } = req.user;
+    const newEmail = req.body.email;
+    const copyEmails = await db.query(
+      'SELECT COUNT(*) AS email_count FROM users WHERE email = $1',
+      [newEmail]
+    );
+
+    const emailCount = copyEmails.rows[0].email_count;
+
+    // If the new email does not exist in the DB
+    if (emailCount === '0' || 0) {
+      await db.query('UPDATE users SET email = $1 WHERE email = $2', [
+        newEmail,
+        email,
+      ]);
+      const payload = {
+        id: id,
+        email: newEmail,
+      };
+
+      const newToken = await sign(payload, SECRET);
+
+      // Clear Cookie
+      res.clearCookie('token', { httpOnly: true });
+      // Replace Cookie
+      res.cookie('token', newToken, { httpOnly: true });
+
+      return res.status(200).json({
+        success: true,
+        message: 'Email Changed',
+      });
+    } else {
+      throw new Error('Email Exists');
+    }
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};

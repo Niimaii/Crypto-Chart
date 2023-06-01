@@ -16,7 +16,7 @@ const opts = {
 };
 
 passport.use(
-  // {id} comes from the payload which has the user.id & user.email
+  // {id} comes from the JWT payload which has the user.id & user.email
   new Strategy(opts, async ({ id }, done) => {
     try {
       const { rows } = await db.query(

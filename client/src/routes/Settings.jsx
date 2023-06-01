@@ -7,6 +7,9 @@ import { confirmPassword } from '../api/authAPI';
 function Settings() {
   const { currency } = useContext(CryptoContext);
   const [checkPass, setCheckPass] = useState(false);
+  const [changePass, setChangePass] = useState(false);
+  const [changeEmail, setChangeEmail] = useState(false);
+  const [deleteAccount, setDeleteAccount] = useState(false);
   const [checkInput, setCheckInput] = useState('');
 
   if (currency.isLoading) {
@@ -53,7 +56,7 @@ function Settings() {
         <button onClick={() => setCheckPass(true)}>Email</button>
         <button onClick={() => setCheckPass(true)}>Delete</button>
       </div>
-      {/* Display the password check if button is pressed  */}
+      {/* Display the password check if a button is pressed  */}
       {checkPass && (
         <div className='pass_check'>
           <div className='pass_check_card'>
@@ -69,6 +72,8 @@ function Settings() {
           </div>
         </div>
       )}
+
+      {}
     </div>
   );
 }
