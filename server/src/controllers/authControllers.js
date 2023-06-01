@@ -116,12 +116,12 @@ exports.passwordCheck = async (req, res) => {
 
     if (!validPassword) {
       throw new Error('Wrong password');
+    } else {
+      return res.status(200).json({
+        success: true,
+        message: 'Correct Password',
+      });
     }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Correct Password',
-    });
   } catch (error) {
     return res.status(403).json({
       error: 'Wrong Password',
@@ -164,6 +164,37 @@ exports.changeEmail = async (req, res) => {
 
 exports.changePassword = async (req, res) => {
   try {
+    // Comes from the userAuth middleware
+    const { id, email } = req.user;
+    const newPassword = req.body.password;
+    // Encrypt the password
+    const hashedPassword = await hash(newPassword, 10);
+
+    // Change Password
+    await db.query('UPDATE users SET password = $1 WHERE id = $2', [
+      hashedPassword,
+      id,
+    ]);
+
+    // ↓↓↓↓↓↓↓ Create a new token ↓↓↓↓↓↓↓
+    const payload = {
+      id: id,
+      email: email,
+    };
+
+    const newToken = await sign(payload, SECRET);
+
+    // Clear Cookie
+    res.clearCookie('token', { httpOnly: true });
+    // Replace Cookie
+    res.cookie('token', newToken, { httpOnly: true });
+
+    // ↑↑↑↑↑↑↑↑ Create a new token ↑↑↑↑↑↑↑↑
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password Changed',
+    });
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({

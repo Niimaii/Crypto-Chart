@@ -33,9 +33,9 @@ router.patch(
 );
 router.patch(
   '/change-password',
+  userAuth,
   passwordValidation,
   validationMiddleware,
-  userAuth,
   changePassword
 );
 

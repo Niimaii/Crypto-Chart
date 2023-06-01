@@ -9,6 +9,7 @@ const password = check('password')
   .isLength({ min: 6, max: 25 })
   .withMessage('Password has to be between 6-25 characters');
 
+// Makes sure you typed the correct password
 const confirmPassword = check('confirmPassword').custom(
   async (value, { req }) => {
     if (value !== req.body.password) {
@@ -16,6 +17,30 @@ const confirmPassword = check('confirmPassword').custom(
     }
   }
 );
+
+// Make sure the password matches in the database
+const passwordCheck = check('passwordCheck').custom(async (value, { req }) => {
+  // Get the id from passport middleware
+  const { id } = req.user;
+  const { passwordCheck, password } = req.body;
+  // Get access to the password based on th id
+  const user = await db.query('SELECT password FROM users WHERE id = $1', [id]);
+
+  // Compare the passwords
+  const validPassword = await compare(
+    req.body.passwordCheck,
+    user.rows[0].password
+  );
+
+  // Make sure the passwords don't match
+  if (passwordCheck === password) {
+    throw new Error('Password matches, use new password');
+  }
+
+  if (!validPassword) {
+    throw new Error('Wrong password');
+  }
+});
 
 // Email
 const email = check('email')
@@ -57,5 +82,5 @@ module.exports = {
   registerValidation: [email, password, emailExists, confirmPassword],
   loginValidation: [loginCheck],
   emailValidation: [email, emailExists],
-  passwordValidation: [password],
+  passwordValidation: [passwordCheck, password, confirmPassword],
 };
