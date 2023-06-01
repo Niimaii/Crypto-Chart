@@ -34,3 +34,13 @@ export async function confirmPassword(password) {
     }
   );
 }
+
+export async function changeEmail(email) {
+  return await axios.patch(
+    'http://localhost:8005/api/auth/change-email',
+    { email },
+    {
+      withCredentials: true,
+    }
+  );
+}

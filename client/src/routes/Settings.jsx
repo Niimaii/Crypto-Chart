@@ -2,21 +2,36 @@ import { useContext, useState } from 'react';
 import currencyCodes from '../data/Currency';
 import { CryptoContext } from '../context/CryptoContext';
 import { patchCurrency } from '../api/cryptoAPI';
-import { confirmPassword } from '../api/authAPI';
+import { changeEmail, confirmPassword } from '../api/authAPI';
 
 function Settings() {
   const { currency } = useContext(CryptoContext);
   const [checkPass, setCheckPass] = useState(false);
-  const [changePass, setChangePass] = useState(false);
-  const [changeEmail, setChangeEmail] = useState(false);
-  const [deleteAccount, setDeleteAccount] = useState(false);
+  const [passCard, setPassCard] = useState(false);
+  const [emailCard, setEmailCard] = useState(false);
+  const [deleteCard, setDeleteCard] = useState(false);
+
+  const [buttonChose, setButtonChose] = useState('');
+
   const [checkInput, setCheckInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+
+  // const consoleTest = () => {
+  //   console.log('print');
+  // };
+  // const test = eval('consoleTest');
+  // test();
 
   if (currency.isLoading) {
     return <h1>Loading....</h1>;
   }
 
   const currencyData = currency.data.data.currency;
+
+  const buttonPressed = (e) => {
+    setCheckPass(true);
+    setButtonChose(e.target.id);
+  };
 
   const updateCurrency = async (e) => {
     await patchCurrency({
@@ -28,15 +43,32 @@ function Settings() {
 
   const passwordValidation = async () => {
     const result = await confirmPassword(checkInput);
+    const setButton = eval(`set${buttonChose}Card`);
 
     if (result.data.success) {
       setCheckPass(false);
+      // Clear the input field
+      setCheckInput('');
+      setButton(true);
     }
+  };
+
+  const updateEmail = async () => {
+    console.log(emailInput);
+    await changeEmail(emailInput);
+    setEmailCard(false);
+    setEmailInput('');
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       passwordValidation();
+    }
+  };
+
+  const handleKeyPressEmail = (e) => {
+    if (e.key === 'Enter') {
+      updateEmail();
     }
   };
 
@@ -52,9 +84,15 @@ function Settings() {
             );
           })}
         </select>
-        <button onClick={() => setCheckPass(true)}>Password</button>
-        <button onClick={() => setCheckPass(true)}>Email</button>
-        <button onClick={() => setCheckPass(true)}>Delete</button>
+        <button id='Password' onClick={buttonPressed}>
+          Password
+        </button>
+        <button id='Email' onClick={buttonPressed}>
+          Email
+        </button>
+        <button id='Delete' onClick={buttonPressed}>
+          Delete
+        </button>
       </div>
       {/* Display the password check if a button is pressed  */}
       {checkPass && (
@@ -73,7 +111,21 @@ function Settings() {
         </div>
       )}
 
-      {}
+      {emailCard && (
+        <div className='pass_check'>
+          <div className='pass_check_card'>
+            <h1>Change Email</h1>
+            <input
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              className='border'
+              type='text'
+              onKeyDown={handleKeyPressEmail}
+            />
+            <button onClick={updateEmail}>Send</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
