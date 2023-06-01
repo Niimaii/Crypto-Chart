@@ -10,23 +10,9 @@ export const CryptoContextProvider = (props) => {
   const [days, setDays] = useState(1);
   const [buyCard, setBuyCard] = useState(false);
 
-  const portfolio = useQuery({
-    queryKey: ['portfolio'],
-    queryFn: getPortfolio,
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 30,
-  });
-
   const market = useQuery({
     queryKey: ['market'],
     queryFn: getMarket,
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 3,
-  });
-
-  const currency = useQuery({
-    queryKey: ['currency'],
-    queryFn: getCurrency,
     staleTime: 1000 * 60 * 3,
     refetchInterval: 1000 * 60 * 3,
   });
@@ -37,6 +23,23 @@ export const CryptoContextProvider = (props) => {
     }
     return false;
   };
+
+  const portfolio = isAuth()
+    ? useQuery({
+        queryKey: ['portfolio'],
+        queryFn: getPortfolio,
+        staleTime: 1000 * 60 * 3,
+        refetchInterval: 1000 * 60 * 30,
+      })
+    : null;
+  const currency = isAuth()
+    ? useQuery({
+        queryKey: ['currency'],
+        queryFn: getCurrency,
+        staleTime: 1000 * 60 * 3,
+        refetchInterval: 1000 * 60 * 3,
+      })
+    : null;
 
   const authenticateUser = () => {
     setAuth(true);
