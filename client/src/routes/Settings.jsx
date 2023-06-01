@@ -6,12 +6,9 @@ import { changeEmail, changePassword, confirmPassword } from '../api/authAPI';
 
 function Settings() {
   const { currency } = useContext(CryptoContext);
-  const [checkPass, setCheckPass] = useState(false);
   const [passwordCard, setPasswordCard] = useState(false);
   const [emailCard, setEmailCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
-
-  const [buttonChose, setButtonChose] = useState('');
 
   const [checkInput, setCheckInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
@@ -26,8 +23,9 @@ function Settings() {
   const currencyData = currency.data.data.currency;
 
   const buttonPressed = (e) => {
-    setCheckPass(true);
-    setButtonChose(e.target.id);
+    // Display the correct card based on input
+    const setButton = eval(`set${e.target.id}Card`);
+    setButton(true);
   };
 
   const updateCurrency = async (e) => {
@@ -40,22 +38,24 @@ function Settings() {
 
   const passwordValidation = async () => {
     const result = await confirmPassword(checkInput);
-    // This is equal to a useState based on the id of the button pressed
-    const setButton = eval(`set${buttonChose}Card`);
 
     if (result.data.success) {
       setCheckPass(false);
       // Clear the input field
       setCheckInput('');
-      setButton(true);
     }
   };
 
   const updateEmail = async () => {
     console.log(emailInput);
-    await changeEmail(emailInput);
+    const emailInfo = {
+      passwordCheck: passwordCheckInput,
+      email: emailInput,
+    };
+    await changeEmail(emailInfo);
     setEmailCard(false);
     setEmailInput('');
+    setPasswordCheckInput('');
   };
 
   const updatePassword = async () => {
@@ -111,27 +111,17 @@ function Settings() {
           Delete
         </button>
       </div>
-      {/* Display the password check if a button is pressed  */}
-      {checkPass && (
-        <div className='pass_check'>
-          <div className='pass_check_card'>
-            <h1>Password Check</h1>
-            <input
-              value={checkInput}
-              onChange={(e) => setCheckInput(e.target.value)}
-              className='border'
-              type='password'
-              onKeyDown={handleKeyPress}
-            />
-            <button onClick={passwordValidation}>Send</button>
-          </div>
-        </div>
-      )}
 
       {emailCard && (
         <div className='pass_check'>
           <div className='pass_check_card'>
             <h1>Change Email</h1>
+            <input
+              value={passwordCheckInput}
+              onChange={(e) => setPasswordCheckInput(e.target.value)}
+              className='border'
+              type='password'
+            />
             <input
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}

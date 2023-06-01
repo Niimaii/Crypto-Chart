@@ -26,9 +26,9 @@ router.get('/logout', logout);
 
 router.patch(
   '/change-email',
+  userAuth,
   emailValidation,
   validationMiddleware,
-  userAuth,
   changeEmail
 );
 router.patch(

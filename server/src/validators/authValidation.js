@@ -42,6 +42,26 @@ const passwordCheck = check('passwordCheck').custom(async (value, { req }) => {
   }
 });
 
+// Make sure the password matches in the database
+const emailPasswordCheck = check('passwordCheck').custom(
+  async (value, { req }) => {
+    // Get the id from passport middleware
+    const { id } = req.user;
+    const { passwordCheck } = req.body;
+    // Get access to the password based on th id
+    const user = await db.query('SELECT password FROM users WHERE id = $1', [
+      id,
+    ]);
+
+    // Compare the password inputted and the one in the DB
+    const validPassword = await compare(passwordCheck, user.rows[0].password);
+
+    if (!validPassword) {
+      throw new Error('Wrong password');
+    }
+  }
+);
+
 // Email
 const email = check('email')
   .isEmail()
@@ -81,6 +101,6 @@ const loginCheck = check('email').custom(async (value, { req }) => {
 module.exports = {
   registerValidation: [email, password, emailExists, confirmPassword],
   loginValidation: [loginCheck],
-  emailValidation: [email, emailExists],
+  emailValidation: [email, emailExists, emailPasswordCheck],
   passwordValidation: [passwordCheck, password, confirmPassword],
 };

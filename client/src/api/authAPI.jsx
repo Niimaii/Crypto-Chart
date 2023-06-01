@@ -35,10 +35,10 @@ export async function confirmPassword(password) {
   );
 }
 
-export async function changeEmail(email) {
+export async function changeEmail(emailInfo) {
   return await axios.patch(
     'http://localhost:8005/api/auth/change-email',
-    { email },
+    emailInfo,
     {
       withCredentials: true,
     }
