@@ -7,7 +7,7 @@ import { changeEmail, confirmPassword } from '../api/authAPI';
 function Settings() {
   const { currency } = useContext(CryptoContext);
   const [checkPass, setCheckPass] = useState(false);
-  const [passCard, setPassCard] = useState(false);
+  const [passwordCard, setPasswordCard] = useState(false);
   const [emailCard, setEmailCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
 
@@ -15,12 +15,6 @@ function Settings() {
 
   const [checkInput, setCheckInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
-
-  // const consoleTest = () => {
-  //   console.log('print');
-  // };
-  // const test = eval('consoleTest');
-  // test();
 
   if (currency.isLoading) {
     return <h1>Loading....</h1>;
@@ -43,6 +37,7 @@ function Settings() {
 
   const passwordValidation = async () => {
     const result = await confirmPassword(checkInput);
+    // This is equal to a useState based on the id of the button pressed
     const setButton = eval(`set${buttonChose}Card`);
 
     if (result.data.success) {

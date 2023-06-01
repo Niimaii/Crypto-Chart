@@ -9,6 +9,14 @@ const password = check('password')
   .isLength({ min: 6, max: 25 })
   .withMessage('Password has to be between 6-25 characters');
 
+const confirmPassword = check('confirmPassword').custom(
+  async (value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('Password does not match');
+    }
+  }
+);
+
 // Email
 const email = check('email')
   .isEmail()
@@ -19,7 +27,7 @@ const emailExists = check('email').custom(async (value) => {
   const { rows } = await db.query('SELECT * from users WHERE email = $1', [
     value,
   ]);
-
+  console.log(rows.length);
   if (rows.length) {
     throw new Error('Email already exists');
   }
@@ -46,6 +54,8 @@ const loginCheck = check('email').custom(async (value, { req }) => {
 });
 
 module.exports = {
-  registerValidation: [email, password, emailExists],
+  registerValidation: [email, password, emailExists, confirmPassword],
   loginValidation: [loginCheck],
+  emailValidation: [email, emailExists],
+  passwordValidation: [password],
 };
