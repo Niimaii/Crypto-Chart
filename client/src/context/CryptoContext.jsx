@@ -17,25 +17,27 @@ export const CryptoContextProvider = (props) => {
     refetchInterval: 1000 * 60 * 3,
   });
 
-  const portfolio = useQuery({
-    queryKey: ['portfolio'],
-    queryFn: getPortfolio,
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 30,
-  });
-  const currency = useQuery({
-    queryKey: ['currency'],
-    queryFn: getCurrency,
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 3,
-  });
-
   const isAuth = () => {
     if (localAuth || auth) {
       return true;
     }
     return false;
   };
+
+  const portfolio = useQuery({
+    queryKey: ['portfolio'],
+    queryFn: getPortfolio,
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 30,
+    enabled: isAuth(),
+  });
+  const currency = useQuery({
+    queryKey: ['currency'],
+    queryFn: getCurrency,
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 3,
+    enabled: isAuth(),
+  });
 
   const authenticateUser = () => {
     setAuth(true);
