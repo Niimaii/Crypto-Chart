@@ -44,3 +44,13 @@ export async function changeEmail(email) {
     }
   );
 }
+
+export async function changePassword(passwordInfo) {
+  return await axios.patch(
+    'http://localhost:8005/api/auth/change-password',
+    passwordInfo,
+    {
+      withCredentials: true,
+    }
+  );
+}

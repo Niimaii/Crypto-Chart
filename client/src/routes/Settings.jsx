@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import currencyCodes from '../data/Currency';
 import { CryptoContext } from '../context/CryptoContext';
 import { patchCurrency } from '../api/cryptoAPI';
-import { changeEmail, confirmPassword } from '../api/authAPI';
+import { changeEmail, changePassword, confirmPassword } from '../api/authAPI';
 
 function Settings() {
   const { currency } = useContext(CryptoContext);
@@ -15,6 +15,9 @@ function Settings() {
 
   const [checkInput, setCheckInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordConfirmInput, setPasswordConfirmInput] = useState('');
+  const [passwordCheckInput, setPasswordCheckInput] = useState('');
 
   if (currency.isLoading) {
     return <h1>Loading....</h1>;
@@ -55,6 +58,20 @@ function Settings() {
     setEmailInput('');
   };
 
+  const updatePassword = async () => {
+    console.log(emailInput);
+    const passwordInfo = {
+      passwordCheck: passwordCheckInput,
+      password: passwordInput,
+      confirmPassword: passwordConfirmInput,
+    };
+    await changePassword(passwordInfo);
+    setPasswordCard(false);
+    setPasswordInput('');
+    setPasswordCheckInput('');
+    setPasswordConfirmInput('');
+  };
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       passwordValidation();
@@ -64,6 +81,11 @@ function Settings() {
   const handleKeyPressEmail = (e) => {
     if (e.key === 'Enter') {
       updateEmail();
+    }
+  };
+  const handleKeyPressPassword = (e) => {
+    if (e.key === 'Enter') {
+      updatePassword();
     }
   };
 
@@ -118,6 +140,34 @@ function Settings() {
               onKeyDown={handleKeyPressEmail}
             />
             <button onClick={updateEmail}>Send</button>
+          </div>
+        </div>
+      )}
+
+      {passwordCard && (
+        <div className='pass_check'>
+          <div className='pass_check_card'>
+            <h1>Change Password</h1>
+            <input
+              value={passwordCheckInput}
+              onChange={(e) => setPasswordCheckInput(e.target.value)}
+              className='border'
+              type='password'
+            />
+            <input
+              value={passwordInput}
+              onChange={(e) => setPasswordInput(e.target.value)}
+              className='border'
+              type='password'
+            />
+            <input
+              value={passwordConfirmInput}
+              onChange={(e) => setPasswordConfirmInput(e.target.value)}
+              className='border'
+              type='password'
+              onKeyDown={handleKeyPressPassword}
+            />
+            <button onClick={updatePassword}>Send</button>
           </div>
         </div>
       )}
