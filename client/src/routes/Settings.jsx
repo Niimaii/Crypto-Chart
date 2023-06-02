@@ -1,3 +1,5 @@
+// TODO: Make it so the user goes to the home page when account is deleted
+
 import { useContext, useEffect, useState } from 'react';
 import currencyCodes from '../data/Currency';
 import { CryptoContext } from '../context/CryptoContext';
@@ -10,8 +12,11 @@ import {
   fetchProtectedInfo,
   onLogout,
 } from '../api/authAPI';
+import { useNavigate } from 'react-router-dom';
 
 function Settings() {
+  const navigate = useNavigate();
+
   const { currency, unAuthenticateUser } = useContext(CryptoContext);
   const [passwordCard, setPasswordCard] = useState(false);
   const [emailCard, setEmailCard] = useState(false);
@@ -92,7 +97,9 @@ function Settings() {
     await deleteUser(passwordCheckInput);
     setPasswordCheckInput('');
     setDeleteCard(false);
-    // Refresh page to log the user off (because they will fail auth)
+    // Remove user from page
+    unAuthenticateUser();
+    localStorage.removeItem('localAuth');
     window.location.reload(false);
   };
 
