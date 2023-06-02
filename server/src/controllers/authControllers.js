@@ -202,3 +202,22 @@ exports.changePassword = async (req, res) => {
     });
   }
 };
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    await db.query('DELETE FROM favorites WHERE user_id = $1', [id]);
+    await db.query('DELETE FROM investments WHERE user_id = $1', [id]);
+    await db.query('DELETE FROM users WHERE id = $1', [id]);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Account Deleted',
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({
+      error: error.message,
+    });
+  }
+};

@@ -8,6 +8,7 @@ const {
   passwordCheck,
   changeEmail,
   changePassword,
+  deleteUser,
 } = require('../controllers/authControllers');
 const { validationMiddleware } = require('../middleware/validation_middle');
 const {
@@ -15,6 +16,7 @@ const {
   loginValidation,
   emailValidation,
   passwordValidation,
+  deleteValidation,
 } = require('../validators/authValidation');
 const { userAuth } = require('../middleware/auth_middle');
 
@@ -37,6 +39,13 @@ router.patch(
   passwordValidation,
   validationMiddleware,
   changePassword
+);
+router.patch(
+  '/delete',
+  userAuth,
+  deleteValidation,
+  validationMiddleware,
+  deleteUser
 );
 
 router.post('/check-pass', userAuth, passwordCheck);

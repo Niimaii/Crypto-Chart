@@ -18,7 +18,7 @@ const confirmPassword = check('confirmPassword').custom(
   }
 );
 
-// Make sure the password matches in the database
+// Make sure the password matches in the database & the new password does not match the old one
 const passwordCheck = check('passwordCheck').custom(async (value, { req }) => {
   // Get the id from passport middleware
   const { id } = req.user;
@@ -42,8 +42,8 @@ const passwordCheck = check('passwordCheck').custom(async (value, { req }) => {
   }
 });
 
-// Make sure the password matches in the database
-const emailPasswordCheck = check('passwordCheck').custom(
+// This only checks for 1 password being passed down
+const singlePasswordCheck = check('passwordCheck').custom(
   async (value, { req }) => {
     // Get the id from passport middleware
     const { id } = req.user;
@@ -79,7 +79,6 @@ const emailExists = check('email').custom(async (value) => {
 });
 
 // Login validation check
-
 const loginCheck = check('email').custom(async (value, { req }) => {
   const user = await db.query('SELECT * from users WHERE email = $1', [value]);
 
@@ -101,6 +100,7 @@ const loginCheck = check('email').custom(async (value, { req }) => {
 module.exports = {
   registerValidation: [email, password, emailExists, confirmPassword],
   loginValidation: [loginCheck],
-  emailValidation: [email, emailExists, emailPasswordCheck],
+  emailValidation: [email, emailExists, singlePasswordCheck],
   passwordValidation: [passwordCheck, password, confirmPassword],
+  deleteValidation: [singlePasswordCheck],
 };

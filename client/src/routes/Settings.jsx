@@ -10,7 +10,6 @@ function Settings() {
   const [emailCard, setEmailCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
 
-  const [checkInput, setCheckInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [passwordConfirmInput, setPasswordConfirmInput] = useState('');
@@ -34,16 +33,6 @@ function Settings() {
     });
 
     currency.refetch();
-  };
-
-  const passwordValidation = async () => {
-    const result = await confirmPassword(checkInput);
-
-    if (result.data.success) {
-      setCheckPass(false);
-      // Clear the input field
-      setCheckInput('');
-    }
   };
 
   const updateEmail = async () => {
@@ -70,12 +59,6 @@ function Settings() {
     setPasswordInput('');
     setPasswordCheckInput('');
     setPasswordConfirmInput('');
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      passwordValidation();
-    }
   };
 
   const handleKeyPressEmail = (e) => {
@@ -112,6 +95,7 @@ function Settings() {
         </button>
       </div>
 
+      {/* Display the Email card */}
       {emailCard && (
         <div className='pass_check'>
           <div className='pass_check_card'>
@@ -133,6 +117,8 @@ function Settings() {
           </div>
         </div>
       )}
+
+      {/* Display the Password card */}
 
       {passwordCard && (
         <div className='pass_check'>
