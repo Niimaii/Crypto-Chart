@@ -1,5 +1,3 @@
-// TODO: Make it so the user goes to the home page when account is deleted
-
 import { useContext, useEffect, useState } from 'react';
 import currencyCodes from '../data/Currency';
 import { CryptoContext } from '../context/CryptoContext';
