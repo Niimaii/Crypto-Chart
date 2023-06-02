@@ -43,7 +43,7 @@ function CryptoTable() {
 
   const daysOption = [1, 30, 365];
 
-  const changeDays = (e) => {
+  const changeDays = async (e) => {
     // Remove the last letter to get the number
     const newChartDays = parseInt(e.target.value.slice(0, -1));
     setDays(newChartDays);

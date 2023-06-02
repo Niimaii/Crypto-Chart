@@ -23,6 +23,8 @@ function BuyCard() {
       amount: amount,
     };
     await buyCoin(coinPurchase);
+    // Refetch new purchase data so it displays current info
+    await queryClient.invalidateQueries('market');
   };
 
   // Make a hashmap that uses the name and id.
