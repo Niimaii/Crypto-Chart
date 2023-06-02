@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
-import { StarIcon } from '../icons/icons';
+import { LeftArrow, RightArrow, StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { getFavorites, patchFavorites } from '../api/cryptoAPI';
@@ -293,15 +293,24 @@ function CryptoTable() {
             })}
         </tbody>
       </table>
-      <div className='flex justify-center gap-5'>
+      <div className='flex justify-center gap-24 my-10'>
         <button
+          className='next_previous'
           onClick={() => setPage((prev) => prev - 1)}
           disabled={page === 1}
         >
-          Previous
+          <div className='mr-1'>
+            <LeftArrow />
+          </div>
         </button>
-        <button onClick={() => setPage((prev) => prev + 1)} disabled={page > 5}>
-          Next
+        <button
+          className='next_previous'
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={page > 5}
+        >
+          <div className='ml-1'>
+            <RightArrow />
+          </div>
         </button>
       </div>
     </div>

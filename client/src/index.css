@@ -238,6 +238,13 @@ body {
   top: 17px;
 }
 
+.next_previous {
+  background-color: #3e45ff;
+  color: white;
+  padding: 12px 12px;
+  border-radius: 100px;
+}
+
 /* Portfolio */
 
 .balance_display {
