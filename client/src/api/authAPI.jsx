@@ -54,3 +54,13 @@ export async function changePassword(passwordInfo) {
     }
   );
 }
+
+export async function deleteUser(passwordInfo) {
+  return await axios.patch(
+    'http://localhost:8005/api/auth/delete',
+    { passwordCheck: passwordInfo },
+    {
+      withCredentials: true,
+    }
+  );
+}

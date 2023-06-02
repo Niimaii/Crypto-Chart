@@ -210,7 +210,7 @@ exports.deleteUser = async (req, res) => {
     await db.query('DELETE FROM investments WHERE user_id = $1', [id]);
     await db.query('DELETE FROM users WHERE id = $1', [id]);
 
-    return res.status(200).json({
+    return res.status(200).clearCookie('token', { httpOnly: true }).json({
       success: true,
       message: 'Account Deleted',
     });

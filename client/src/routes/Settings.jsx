@@ -1,11 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import currencyCodes from '../data/Currency';
 import { CryptoContext } from '../context/CryptoContext';
 import { patchCurrency } from '../api/cryptoAPI';
-import { changeEmail, changePassword, confirmPassword } from '../api/authAPI';
+import {
+  changeEmail,
+  changePassword,
+  confirmPassword,
+  deleteUser,
+  fetchProtectedInfo,
+  onLogout,
+} from '../api/authAPI';
 
 function Settings() {
-  const { currency } = useContext(CryptoContext);
+  const { currency, unAuthenticateUser } = useContext(CryptoContext);
   const [passwordCard, setPasswordCard] = useState(false);
   const [emailCard, setEmailCard] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
@@ -14,8 +21,42 @@ function Settings() {
   const [passwordInput, setPasswordInput] = useState('');
   const [passwordConfirmInput, setPasswordConfirmInput] = useState('');
   const [passwordCheckInput, setPasswordCheckInput] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  if (currency.isLoading) {
+  // ↓↓↓↓↓↓↓↓ Authentication Check ↓↓↓↓↓↓↓↓
+  let protectedData = null;
+
+  const logout = async () => {
+    try {
+      // Clear cookies
+      await onLogout();
+
+      unAuthenticateUser();
+      localStorage.removeItem('localAuth');
+      window.location.reload(false);
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+
+  // Check to see if the user has a valid JWT token & not faking
+  const protectedInfo = async () => {
+    try {
+      const { data } = await fetchProtectedInfo();
+
+      protectedData = data.info;
+      setLoading(false);
+    } catch (error) {
+      logout();
+    }
+  };
+
+  useEffect(() => {
+    protectedInfo();
+  }, []);
+  // ↑↑↑↑↑↑↑↑↑↑ Authentication Check ↑↑↑↑↑↑↑↑↑↑
+
+  if (currency.isLoading || loading) {
     return <h1>Loading....</h1>;
   }
 
@@ -47,6 +88,14 @@ function Settings() {
     setPasswordCheckInput('');
   };
 
+  const deleteAccount = async () => {
+    await deleteUser(passwordCheckInput);
+    setPasswordCheckInput('');
+    setDeleteCard(false);
+    // Refresh page to log the user off (because they will fail auth)
+    window.location.reload(false);
+  };
+
   const updatePassword = async () => {
     console.log(emailInput);
     const passwordInfo = {
@@ -69,6 +118,11 @@ function Settings() {
   const handleKeyPressPassword = (e) => {
     if (e.key === 'Enter') {
       updatePassword();
+    }
+  };
+  const handleKeyPressDelete = (e) => {
+    if (e.key === 'Enter') {
+      deleteAccount();
     }
   };
 
@@ -144,6 +198,22 @@ function Settings() {
               onKeyDown={handleKeyPressPassword}
             />
             <button onClick={updatePassword}>Send</button>
+          </div>
+        </div>
+      )}
+
+      {deleteCard && (
+        <div className='pass_check'>
+          <div className='pass_check_card'>
+            <h1>Delete Account</h1>
+            <input
+              value={passwordCheckInput}
+              onChange={(e) => setPasswordCheckInput(e.target.value)}
+              className='border'
+              type='password'
+              onKeyDown={handleKeyPressDelete}
+            />
+            <button onClick={deleteAccount}>Send</button>
           </div>
         </div>
       )}
