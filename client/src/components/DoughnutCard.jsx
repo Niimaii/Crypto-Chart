@@ -103,11 +103,11 @@ function DoughnutCard() {
   return (
     <div className='doughnut'>
       <div className='doughnut_container'>
-        <div className='flex justify-center h-64 w-64'>
+        <div className='flex justify-center h-64 w-64 mt-14'>
           <Doughnut options={options} data={data} />
         </div>
 
-        <div>
+        <div className='doughnut_options mt-12'>
           {transactionCoins.map((transaction, index) => {
             // Get the percentage of individual transactions compared to their total sum
             const progressPercentage = `${
@@ -121,19 +121,26 @@ function DoughnutCard() {
 
             return (
               <div key={transaction}>
-                <div className='flex gap-5'>
-                  <p>{transaction}</p>
-                  <p>{formatter.format(transactionsSummed[index])}</p>
-                  <p>{shortPercentage}</p>
-                </div>
-                <div className='progressbar-outer'>
-                  <div
-                    style={{
-                      backgroundColor: colors[index],
-                      width: progressPercentage,
-                    }}
-                    className='progressbar-inner'
-                  ></div>
+                <hr className='doughnut_line' />
+                <div className='doughnut_row'>
+                  <div className='d_row'>
+                    <div className='flex justify-between'>
+                      <p>{transaction}</p>
+                      <div className='flex gap-7'>
+                        <p>{formatter.format(transactionsSummed[index])}</p>
+                        <p>{shortPercentage}</p>
+                      </div>
+                    </div>
+                    <div className='progressbar-outer'>
+                      <div
+                        style={{
+                          backgroundColor: colors[index],
+                          width: progressPercentage,
+                        }}
+                        className='progressbar-inner'
+                      ></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
