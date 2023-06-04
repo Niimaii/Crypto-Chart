@@ -36,7 +36,7 @@ function ActivityCard() {
   };
 
   return (
-    <div>
+    <div className='activity'>
       <h1>Recent Activity</h1>
       <div>
         {portfolio.map((coin, index) => {

@@ -48,7 +48,7 @@ function Portfolio() {
   }
 
   return (
-    <div>
+    <div className='portfolio'>
       <TotalBalanceCard />
       <YourPortfolioCard />
       <ActivityCard />

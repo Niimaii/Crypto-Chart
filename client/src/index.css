@@ -247,10 +247,76 @@ body {
 
 /* Portfolio */
 
-.balance_display {
+.portfolio {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.total_balance {
   background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   width: 325px;
   height: 225px;
+  border-radius: 5px;
+}
+
+.total_balance h4 {
+  color: #5f64ff;
+}
+
+.total_balance_content {
+  height: 100%;
+  padding: 25px;
+}
+.total_balance_body {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total_balance_amount {
+  width: 100%;
+  margin-top: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.total_balance_amount h2 {
+  font-size: 2rem;
+}
+
+.total_balance_amount p {
+  font-size: 1.5rem;
+}
+
+.total_balance_days {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.total_balance_days_columns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.total_balance_days_columns p {
+  font-size: 0.8rem;
+  color: #6f6e70;
+}
+
+.total_balance_days_columns h3 {
+  font-size: 1.25rem;
 }
 
 /* Doughnut Card */
@@ -409,6 +475,16 @@ body {
   }
 
   .coin_table thead th:nth-child(n + 5) {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .doughnut {
+    display: none;
+  }
+
+  .activity {
     display: none;
   }
 }
