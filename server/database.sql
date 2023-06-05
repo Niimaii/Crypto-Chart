@@ -73,3 +73,11 @@ CREATE TABLE crypto_chart (
   unix NUMERIC
 );
 
+CREATE TABLE past_prices (
+  id serial primary key,
+  coin VARCHAR(50),
+  timeAgo VARCHAR(50),
+  coin_value FLOAT
+);
+
+
