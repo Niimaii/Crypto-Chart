@@ -4,6 +4,7 @@ import { LeftArrow, RightArrow, StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { getFavorites, patchFavorites } from '../api/cryptoAPI';
+import { formatter, shortFormatter } from '../utils/Formatter';
 
 function CryptoTable() {
   let navigateTo = useNavigate();
@@ -64,10 +65,6 @@ function CryptoTable() {
     newNavFunctions.forEach((fn) => fn(false));
   };
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
   const chartPercent = (num) => {
     if (num > 0) {
       return '+' + num.toFixed(2);
@@ -91,19 +88,6 @@ function CryptoTable() {
       Name
     </>
   );
-
-  // Money formatter
-  const shortFormatter = (amount) => {
-    if (amount >= 1e9) {
-      return `$${(amount / 1e9).toFixed(1)}B`;
-    } else if (amount >= 1e6) {
-      return `$${(amount / 1e6).toFixed(1)}M`;
-    } else if (amount >= 1e3) {
-      return `$${(amount / 1e3).toFixed(1)}K`;
-    } else {
-      return `$${amount.toFixed(2)}`;
-    }
-  };
 
   // ========== Favorite Coin Retrieval Logic ==========
 

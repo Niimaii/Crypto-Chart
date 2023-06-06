@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
+import { formatterCustom } from '../utils/Formatter';
 
 function YourPortfolioCard() {
   const queryClient = useQueryClient();
@@ -8,11 +9,6 @@ function YourPortfolioCard() {
 
   const market = marketData;
   const portfolio = data.investments;
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
 
   // console.log(market);
 
@@ -57,38 +53,27 @@ function YourPortfolioCard() {
     }, {})
   ).sort((a, b) => b.invested - a.invested);
 
-  const formatCryptoValue = (number) => {
-    if (Math.abs(number) >= 1) {
-      const suffixes = ['', 'K', 'M', 'B', 'T'];
-      const suffixIndex = Math.floor(Math.log10(Math.abs(number)) / 3);
-      const shortNumber = (number / Math.pow(1000, suffixIndex)).toFixed(2);
-      return shortNumber + suffixes[suffixIndex];
-    }
-
-    return number.toFixed(3);
-  };
-
   return (
-    <div className='flex flex-col justify-center'>
+    <section className='your_portfolio'>
       <h1>Your Portfolio</h1>
-      <div>
+      <div className='your_portfolio_body'>
         {investmentsOrganized.map((investment) => {
           return (
-            <div key={investment.coin} className='flex gap-4 items-center'>
-              <div className='flex gap-3'>
+            <div key={investment.coin} className='your_portfolio_row'>
+              <div className='your_portfolio_row_name'>
                 <img className='h-10 w-10' src={investment.image} alt='' />
                 <div>
-                  <p>{investment.symbol}</p>
+                  <h4>{investment.symbol.toUpperCase()}</h4>
                   <p>{investment.name}</p>
                 </div>
               </div>
-              <p>{formatter.format(investment.current)}</p>
-              <p>{formatter.format(investment.invested)}</p>
+              <p>{formatterCustom(investment.current, 0)}</p>
+              <p>{formatterCustom(investment.invested, 0)}</p>
             </div>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
 

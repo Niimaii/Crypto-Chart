@@ -319,6 +319,51 @@ body {
   font-size: 1.25rem;
 }
 
+/* Your Portfolio Card */
+
+.your_portfolio {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+
+.your_portfolio_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.your_portfolio_row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.your_portfolio_row_name {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.your_portfolio_row_name div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 120px;
+}
+
+.your_portfolio_row_name div h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.your_portfolio_row_name div p {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
 /* Doughnut Card */
 
 .progressbar-outer {
