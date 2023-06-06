@@ -286,14 +286,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
 .total_balance_amount h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .total_balance_amount p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .total_balance_days {

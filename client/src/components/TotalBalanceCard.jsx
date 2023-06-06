@@ -1,15 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
+import { smartFormatter } from '../utils/Formatter';
 
 function TotalBalanceCard() {
   const queryClient = useQueryClient();
   const { data } = queryClient.getQueryData(['portfolio']);
   const portfolio = data.total_balance;
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
 
   const total_balance = portfolio.total.toFixed(2);
   const difference = (
@@ -21,11 +17,17 @@ function TotalBalanceCard() {
         <h4>Total Balance</h4>
         <div className='total_balance_body'>
           <div className='total_balance_amount'>
-            <h2>{`${formatter.format(total_balance)}`} &ensp;</h2>
+            <h2>{`${smartFormatter(total_balance, 3, 0)}`}</h2>
             <p
               className={`${difference >= 0 ? 'textPurple' : 'percentRed'}`}
               // Math.abs is there to make the number output as positive, while keeping the actual value true
-            >{`${difference >= 0 ? '+ ' : '- '}(${Math.abs(difference)})`}</p>
+              // smartFormatter is a custom function that formats based on my needs
+            >{`${difference >= 0 ? '+ ' : '- '}(${smartFormatter(
+              Math.abs(difference),
+              5,
+              0,
+              false
+            )})`}</p>
           </div>
           <div className='total_balance_days'>
             <div className='total_balance_days_columns'>
