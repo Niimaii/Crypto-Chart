@@ -4,7 +4,6 @@ const { PORT, CLIENT_URL } = require('./constants/index');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const cors = require('cors');
-const fetchMarket = require('./hooks/cryptoMarketFetch');
 
 // Import passport middleware
 require('./middleware/passport_middleware');
@@ -18,7 +17,7 @@ app.use(passport.initialize());
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const cryptoRoutes = require('./routes/cryptoRoutes');
-const cryptoDataFetch = require('./hooks/cryptoFetch');
+const { fetchChartData } = require('./hooks/fetchChartData');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/crypto', cryptoRoutes);
@@ -90,6 +89,17 @@ const callOrder = {
 
 let orderCount = 1;
 let blockCount = 1;
+
+let test = 0;
+
+// fetchChartData(7);
+
+// setInterval(() => {
+//   test += 1;
+//   fetchTest(test);
+//   console.log(`Test ${test} ran`);
+// }, 2 * 1000);
+// fetchTest(1);
 
 // setInterval(async () => {
 //   console.log(`index = Ordercount: ${orderCount}, Blockcount: ${blockCount}`);
