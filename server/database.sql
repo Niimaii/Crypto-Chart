@@ -76,9 +76,9 @@ CREATE TABLE crypto_chart (
 CREATE TABLE past_prices (
   id serial primary key,
   coin VARCHAR(50),
-  timeAgo VARCHAR(50),
-  coin_value FLOAT
-  CONSTRAINT coin_time UNIQUE (coin, timeAgo)
+  time_ago VARCHAR(50),
+  coin_value FLOAT,
+  CONSTRAINT coin_time UNIQUE (coin, time_ago)
 );
 
 
