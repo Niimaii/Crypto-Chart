@@ -92,7 +92,7 @@ let blockCount = 1;
 
 let test = 0;
 
-// fetchChartData(7);
+fetchChartData(7);
 
 // setInterval(() => {
 //   test += 1;

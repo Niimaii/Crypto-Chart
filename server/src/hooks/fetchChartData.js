@@ -19,11 +19,19 @@ exports.fetchChartData = (days) => {
         reject('Fetch market Error');
       }
 
-      //   Reduce the top 100 coin market data into an array of coin names
-      const coinList = market.data.reduce((acc, coin) => {
-        acc.push(coin.id);
-        return acc;
-      }, []);
+      // //   Reduce the top 100 coin market data into an array of coin names
+      // const coinList = market.data.reduce((acc, coin) => {
+      //   acc.push(coin.id);
+      //   return acc;
+      // }, []);
+
+      const coinList = [
+        'bitcoin',
+        'ethereum',
+        'tether',
+        'binancecoin',
+        'usd-coin',
+      ];
 
       //   Since coinList will be modified, this is meant to be a copy of the initial array.
       const ogCoinList = [...coinList];
@@ -60,6 +68,7 @@ exports.fetchChartData = (days) => {
 
       await new Promise(async (resolve, reject) => {
         if (market) {
+          // Fetch before waiting for setInterval to kick in
           periodicallyFetch();
           const interval = setInterval(() => {
             // Check to see if coinList has contents
@@ -116,22 +125,28 @@ const insertData = async (chartData, days, coinArray) => {
     //   Remove last coma
     values = values.slice(0, -1);
 
-    // Deleting old chart data
-    await db.query(
-      `DELETE FROM crypto_chart WHERE crypto_id = $1 AND chartDays = $2;`,
-      [coinID, days]
-    );
-    // Adding data to our crypto chart Table
-    await db.query(
-      `INSERT INTO crypto_chart (crypto_id, chartDays, timestamp, price, unix) VALUES ${values};`
-    );
+    try {
+      // Deleting old chart data
+      await db.query(
+        `DELETE FROM crypto_chart WHERE crypto_id = $1 AND chartDays = $2;`,
+        [coinID, days]
+      );
+      // Adding data to our crypto chart Table
+      await db.query(
+        `INSERT INTO crypto_chart (crypto_id, chartDays, timestamp, price, unix) VALUES ${values};`
+      );
+
+      const priceArray = chartData[coin].prices;
+      const priceAtDay = priceArray[priceArray.length - 1][1];
+      // console.log(priceArray[priceArray.length - 1][1]);
+      await db.query(
+        `INSERT INTO past_prices (coin, time_ago, coin_value) VALUES ($1, $2, $3) ON CONFLICT (coin, time_ago) DO UPDATE SET coin_value = EXCLUDED.coin_value`,
+        [coin, days, priceAtDay]
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
   });
 };
 
 //  ================= ↑↑↑↑↑↑↑↑ Insert Into Database ↑↑↑↑↑↑↑↑ =================
-
-/*  This part needs explaining, this section cancels the interval
-            and resolves the inner loop. Issue is that it waits too long and
-            can be resolves earlier. The issue is if I do that, then my function
-            "insertData" gets an error saying that the argument "chartData" is
-            undefined? */

@@ -78,6 +78,7 @@ CREATE TABLE past_prices (
   coin VARCHAR(50),
   timeAgo VARCHAR(50),
   coin_value FLOAT
+  CONSTRAINT coin_time UNIQUE (coin, timeAgo)
 );
 
 
