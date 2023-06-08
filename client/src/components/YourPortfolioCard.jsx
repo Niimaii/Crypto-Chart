@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
-import { formatterCustom } from '../utils/Formatter';
+import { formatterCustom, smartFormatter } from '../utils/Formatter';
 
 function YourPortfolioCard() {
   const queryClient = useQueryClient();
@@ -58,6 +58,11 @@ function YourPortfolioCard() {
       <h1>Your Portfolio</h1>
       <div className='your_portfolio_body'>
         {investmentsOrganized.map((investment) => {
+          const cryptoValue = investment.current / investment.coin_value;
+          const formattedValue =
+            cryptoValue > 1
+              ? smartFormatter(cryptoValue, 3, 0, false)
+              : cryptoValue.toFixed(3);
           return (
             <div key={investment.coin} className='your_portfolio_row'>
               <div className='your_portfolio_row_name'>
@@ -67,8 +72,10 @@ function YourPortfolioCard() {
                   <p>{investment.name}</p>
                 </div>
               </div>
-              <p>{formatterCustom(investment.current, 0)}</p>
-              <p>{formatterCustom(investment.invested, 0)}</p>
+              <div className='your_portfolio_row_value'>
+                <p>{formattedValue}</p>
+                <p>{formatterCustom(investment.current, 0)}</p>
+              </div>
             </div>
           );
         })}

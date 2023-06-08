@@ -339,6 +339,7 @@ body {
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: space-between;
 }
 
 .your_portfolio_row_name {
@@ -363,6 +364,14 @@ body {
 .your_portfolio_row_name div p {
   font-size: 0.8rem;
   font-weight: 300;
+}
+
+.your_portfolio_row_value {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Doughnut Card */
@@ -471,6 +480,28 @@ body {
   color: white;
   padding: 10px 20px;
   border-radius: 10px;
+}
+
+/* Recent Activity */
+
+.activity {
+  width: 500px;
+  height: 300px;
+  overflow-y: auto;
+
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.activity h4 {
+  color: #5f64ff;
+}
+
+/* Removes Scrollbar */
+.activity::-webkit-scrollbar {
+  display: none;
 }
 
 /* Responsive */

@@ -34,7 +34,7 @@ export const smartFormatter = (
   money,
   chamber = 6,
   decimal = 2,
-  dollar = true
+  dollar = false
 ) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',

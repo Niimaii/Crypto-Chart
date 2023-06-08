@@ -35,11 +35,11 @@ function TotalBalanceCard() {
               <h3>+41%</h3>
             </div>
             <div className='total_balance_days_columns'>
-              <p>30D</p>
+              <p>1M</p>
               <h3>-8.5%</h3>
             </div>
             <div className='total_balance_days_columns'>
-              <p>1Y</p>
+              <p>3M</p>
               <h3>N/A</h3>
             </div>
           </div>
