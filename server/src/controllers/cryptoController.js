@@ -251,11 +251,9 @@ exports.calculateDifference = async (req, res) => {
   // Comes from the userAuth middleware
   const { id } = req.user;
   // Current market price data passed from the frontend
-  // const { market } = req.body;
+  const { market } = req.body;
 
   try {
-    const marketData = await db.query('SELECT * FROM crypto_market');
-    const market = marketData.rows;
     // Get user investment data. Organize the data from recent to oldest
     const investmentFetch = await db.query(
       'SELECT * FROM investments WHERE user_id = $1 ORDER BY created_at DESC',
@@ -323,6 +321,7 @@ exports.calculateDifference = async (req, res) => {
         percentDifference: dayPercent,
         totalAtDay,
         netDayGain,
+        currentTotal,
       };
 
       return acc;

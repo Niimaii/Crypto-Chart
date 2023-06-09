@@ -61,10 +61,10 @@ export async function patchCurrency(currency) {
   );
 }
 
-export async function calculateDifference() {
+export async function calculateDifference(market) {
   return await axios.patch(
     'http://localhost:8005/api/crypto/difference',
-    {},
+    { market },
     {
       withCredentials: true,
     }

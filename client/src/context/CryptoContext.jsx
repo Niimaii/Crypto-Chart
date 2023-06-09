@@ -46,7 +46,7 @@ export const CryptoContextProvider = (props) => {
   });
   const difference = useQuery({
     queryKey: ['difference'],
-    queryFn: calculateDifference,
+    queryFn: () => calculateDifference(market.data),
     staleTime: 1000 * 60 * 3,
     refetchInterval: 1000 * 60 * 3,
     enabled: isAuth() && market.isSuccess,
