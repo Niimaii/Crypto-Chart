@@ -60,3 +60,13 @@ export async function patchCurrency(currency) {
     }
   );
 }
+
+export async function calculateDifference() {
+  return await axios.patch(
+    'http://localhost:8005/api/crypto/difference',
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+}

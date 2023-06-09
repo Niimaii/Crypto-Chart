@@ -249,7 +249,7 @@ exports.patchCurrency = async (req, res) => {
 
 exports.calculateDifference = async (req, res) => {
   // Comes from the userAuth middleware
-  const { id, email } = req.user;
+  const { id } = req.user;
   // Current market price data passed from the frontend
   // const { market } = req.body;
 
@@ -273,69 +273,63 @@ exports.calculateDifference = async (req, res) => {
     // Get the current time
     const currentDate = new Date();
 
-    const totalBasedOnDay = days.reduce(
-      (acc, day) => {
-        let totalAtDay = 0;
-        let currentTotal = 0;
-        let betweenTransactions = 0;
+    const totalBasedOnDay = days.reduce((acc, day) => {
+      let totalAtDay = 0;
+      let currentTotal = 0;
+      let betweenTransactions = 0;
 
-        investments.forEach((transaction) => {
-          // Isolate the price of the current coin based on the day of interest
-          const oldPrice = pastPrices.find(
-            (price) => price.coin == transaction.coin && price.time_ago == day
-          );
+      investments.forEach((transaction) => {
+        // Isolate the price of the current coin based on the day of interest
+        const oldPrice = pastPrices.find(
+          (price) => price.coin == transaction.coin && price.time_ago == day
+        );
 
-          const coinMarket = market.find(
-            (coin) => coin.crypto_id == transaction.coin
-          );
+        const coinMarket = market.find(
+          (coin) => coin.crypto_id == transaction.coin
+        );
 
-          // Get the day difference between now and transaction
-          const transactionDate = new Date(transaction.created_at);
-          const differenceInMilliseconds = currentDate - transactionDate;
-          const differenceInDays =
-            differenceInMilliseconds / (24 * 60 * 60 * 1000);
-          // If the transaction is older than day, then add it to 'totalAtDay'
-          if (differenceInDays > day) {
-            totalAtDay += transaction.crypto_total * oldPrice.coin_value;
-          } else {
-            // Get the transactions between the day and current
-            betweenTransactions += -transaction.amount;
-          }
+        // Get the day difference between now and transaction
+        const transactionDate = new Date(transaction.created_at);
+        const differenceInMilliseconds = currentDate - transactionDate;
+        const differenceInDays =
+          differenceInMilliseconds / (24 * 60 * 60 * 1000);
+        // If the transaction is older than day, then add it to 'totalAtDay'
+        if (differenceInDays > day) {
+          totalAtDay += transaction.crypto_total * oldPrice.coin_value;
+        } else {
+          // Get the transactions between the day and current
+          betweenTransactions += -transaction.amount;
+        }
 
-          currentTotal += transaction.crypto_total * coinMarket.current_price;
-        });
+        currentTotal += transaction.crypto_total * coinMarket.current_price;
+      });
 
-        // Get the percent difference between the profits between their current and old total (excluding transactions)
-        const calculatePercent = (value1, value2) => {
-          const difference = value2 - value1;
-          const percentDifference = (difference / value1) * 100;
-          return percentDifference;
-        };
+      // Get the percent difference between the profits between their current and old total (excluding transactions)
+      const calculatePercent = (value1, value2) => {
+        const difference = value2 - value1;
+        const percentDifference = (difference / value1) * 100;
+        return percentDifference;
+      };
 
-        acc.result.push({
-          percentDifference: calculatePercent(
-            totalAtDay,
-            currentTotal + betweenTransactions
-          ),
-          totalAtDay,
-          betweenTransactions,
-          currentTotal,
-          day,
-        });
-        acc.previousDay = day;
+      const dayPercent = calculatePercent(
+        totalAtDay,
+        currentTotal + betweenTransactions
+      );
 
-        return acc;
-      },
-      {
-        result: [],
-        previousDay: 0,
-      }
-    );
+      const netDayGain =
+        totalAtDay + (totalAtDay * dayPercent) / 100 - totalAtDay;
+
+      acc[day] = {
+        percentDifference: dayPercent,
+        totalAtDay,
+        netDayGain,
+      };
+
+      return acc;
+    }, {});
 
     res.status(201).json({
-      totalBasedOnDay,
-      pastPrices,
-      investments,
+      ...totalBasedOnDay,
     });
   } catch (error) {
     console.log(error.message);

@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState, createContext } from 'react';
-import { getCurrency, getMarket, getPortfolio } from '../api/cryptoAPI';
+import {
+  calculateDifference,
+  getCurrency,
+  getMarket,
+  getPortfolio,
+} from '../api/cryptoAPI';
 
 export const CryptoContext = createContext();
 
@@ -24,6 +29,7 @@ export const CryptoContextProvider = (props) => {
     return false;
   };
 
+  // Need isAuth() so that it doesn't error when user isn't logged in
   const portfolio = useQuery({
     queryKey: ['portfolio'],
     queryFn: getPortfolio,
@@ -37,6 +43,13 @@ export const CryptoContextProvider = (props) => {
     staleTime: 1000 * 60 * 3,
     refetchInterval: 1000 * 60 * 3,
     enabled: isAuth(),
+  });
+  const difference = useQuery({
+    queryKey: ['difference'],
+    queryFn: calculateDifference,
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 3,
+    enabled: isAuth() && market.isSuccess,
   });
 
   const authenticateUser = () => {
@@ -68,6 +81,7 @@ export const CryptoContextProvider = (props) => {
         market,
         portfolio,
         currency,
+        difference,
       }}
     >
       {props.children}

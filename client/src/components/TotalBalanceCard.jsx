@@ -5,6 +5,9 @@ import { smartFormatter } from '../utils/Formatter';
 function TotalBalanceCard() {
   const queryClient = useQueryClient();
   const { data } = queryClient.getQueryData(['portfolio']);
+  const differenceData = queryClient.getQueryData(['difference']);
+  const userDif = differenceData.data;
+  const totalDayGains = userDif[1].netDayGain.toFixed(0);
   const portfolio = data.total_balance;
 
   const total_balance = portfolio.total.toFixed(2);
@@ -19,11 +22,11 @@ function TotalBalanceCard() {
           <div className='total_balance_amount'>
             <h2>{`${smartFormatter(total_balance, 3, 0)}`}</h2>
             <p
-              className={`${difference >= 0 ? 'textPurple' : 'percentRed'}`}
+              className={`${totalDayGains >= 0 ? 'textPurple' : 'percentRed'}`}
               // Math.abs is there to make the number output as positive, while keeping the actual value true
               // smartFormatter is a custom function that formats based on my needs
-            >{`${difference >= 0 ? '+ ' : '- '}(${smartFormatter(
-              Math.abs(difference),
+            >{`${totalDayGains >= 0 ? '+ ' : '- '}(${smartFormatter(
+              Math.abs(totalDayGains),
               5,
               0,
               false
