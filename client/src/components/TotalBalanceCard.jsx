@@ -9,11 +9,39 @@ function TotalBalanceCard() {
   const userDif = differenceData.data;
   const totalDayGains = userDif[1].netDayGain.toFixed(0);
   const portfolio = data.total_balance;
-
   const total_balance = portfolio.total.toFixed(2);
-  const difference = (
-    total_balance - portfolio.initial_investment.toFixed(2)
-  ).toFixed(2);
+
+  /* Check to see if 'userDif[x]' is valid and contains that days  
+  percent changes. If so then make it look like a typical percent 
+  symbol (i.e -20%). Else return 'N/A'.
+  */
+  const getDayPercentage = () => {
+    const dayPercentage = {
+      7: userDif[7]?.percentDifference?.toFixed(2) ?? 'N/A',
+      30: userDif[30]?.percentDifference?.toFixed(2) ?? 'N/A',
+      90: userDif[90]?.percentDifference?.toFixed(2) ?? 'N/A',
+    };
+
+    if (dayPercentage[7] != 'N/A') {
+      dayPercentage[7] =
+        dayPercentage[7] > 0
+          ? '+' + dayPercentage[7] + '%'
+          : dayPercentage[7] + '%';
+    }
+    if (dayPercentage[30] != 'N/A') {
+      dayPercentage[30] =
+        dayPercentage[30] > 0
+          ? '+' + dayPercentage[30] + '%'
+          : dayPercentage[30] + '%';
+    }
+    if (dayPercentage[90] != 'N/A') {
+      dayPercentage[90] =
+        dayPercentage[90] > 0
+          ? '+' + dayPercentage[90] + '%'
+          : dayPercentage[90] + '%';
+    }
+    return dayPercentage;
+  };
   return (
     <div className='total_balance'>
       <div className='total_balance_content'>
@@ -35,15 +63,15 @@ function TotalBalanceCard() {
           <div className='total_balance_days'>
             <div className='total_balance_days_columns'>
               <p>7D</p>
-              <h3>+41%</h3>
+              <h3>{getDayPercentage()[7]}</h3>
             </div>
             <div className='total_balance_days_columns'>
               <p>1M</p>
-              <h3>-8.5%</h3>
+              <h3>{getDayPercentage()[30]}</h3>
             </div>
             <div className='total_balance_days_columns'>
               <p>3M</p>
-              <h3>N/A</h3>
+              <h3>{getDayPercentage()[90]}</h3>
             </div>
           </div>
         </div>

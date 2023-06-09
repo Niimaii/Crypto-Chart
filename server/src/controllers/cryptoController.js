@@ -260,14 +260,14 @@ exports.calculateDifference = async (req, res) => {
       [id]
     );
 
-    // Get past prices
+    // Get past crypto prices
     const pastPriceData = await db.query('SELECT * FROM past_prices');
     const pastPrices = pastPriceData.rows;
 
     const investments = investmentFetch.rows;
 
     // Check if they have investments from 1, 7, 30 and 90 days ago
-    const days = [1, 7];
+    const days = [1, 7, 30, 90];
     // Get the current time
     const currentDate = new Date();
 
@@ -292,7 +292,8 @@ exports.calculateDifference = async (req, res) => {
         const differenceInDays =
           differenceInMilliseconds / (24 * 60 * 60 * 1000);
         // If the transaction is older than day, then add it to 'totalAtDay'
-        if (differenceInDays > day) {
+        // Also check if oldPrice?.time_ago is valid to prevent errors
+        if (differenceInDays > day && oldPrice?.time_ago) {
           totalAtDay += transaction.crypto_total * oldPrice.coin_value;
         } else {
           // Get the transactions between the day and current
@@ -322,6 +323,7 @@ exports.calculateDifference = async (req, res) => {
         totalAtDay,
         netDayGain,
         currentTotal,
+        betweenTransactions,
       };
 
       return acc;
