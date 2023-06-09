@@ -55,7 +55,7 @@ function YourPortfolioCard() {
 
   return (
     <section className='your_portfolio'>
-      <h1>Your Portfolio</h1>
+      <h4>Your Portfolio</h4>
       <div className='your_portfolio_body'>
         {investmentsOrganized.map((investment) => {
           const cryptoValue = investment.current / investment.coin_value;

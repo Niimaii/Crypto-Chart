@@ -329,6 +329,10 @@ body {
   padding: 25px;
 }
 
+.your_portfolio h4 {
+  color: #5f64ff;
+}
+
 .your_portfolio_body {
   display: flex;
   flex-direction: column;
@@ -340,6 +344,7 @@ body {
   gap: 16px;
   align-items: center;
   justify-content: space-between;
+  margin: 10px 0;
 }
 
 .your_portfolio_row_name {

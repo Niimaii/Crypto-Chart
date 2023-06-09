@@ -37,7 +37,7 @@ function ActivityCard() {
 
   return (
     <div className='activity'>
-      <h4>Recent Activity</h4>
+      <h4 className='hello'>Recent Activity</h4>
       <div>
         {portfolio.map((coin, index) => {
           // get the date
