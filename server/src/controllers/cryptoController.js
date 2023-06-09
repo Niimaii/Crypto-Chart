@@ -246,3 +246,84 @@ exports.patchCurrency = async (req, res) => {
     });
   }
 };
+
+exports.calculateDifference = async (req, res) => {
+  // Comes from the userAuth middleware
+  const { id, email } = req.user;
+  // Current market price data passed from the frontend
+  // const { market } = req.body;
+
+  try {
+    const marketData = await db.query('SELECT * FROM crypto_market');
+    const market = marketData.rows;
+    // Get user investment data. Organize the data from recent to oldest
+    const investmentFetch = await db.query(
+      'SELECT * FROM investments WHERE user_id = $1 ORDER BY created_at DESC',
+      [id]
+    );
+
+    // Get past prices
+    const pastPriceData = await db.query('SELECT * FROM past_prices');
+    const pastPrices = pastPriceData.rows;
+
+    const investments = investmentFetch.rows;
+
+    // Check if they have investments from 1, 7, 30 and 90 days ago
+    const days = [1, 7];
+    // Get the current time
+    const currentDate = new Date();
+
+    const investedOnDay = days.reduce(
+      (acc, day) => {
+        const pastUserPrices = [];
+        // See which coins they held that day and get the market price for those coins on that day
+        investments.forEach((transaction) => {
+          // Date of transaction
+          const transactionDate = new Date(transaction.created_at);
+
+          // Get the difference in days
+          const differenceInMilliseconds = currentDate - transactionDate;
+          const differenceInDays =
+            differenceInMilliseconds / (24 * 60 * 60 * 1000);
+
+          if (acc.previousDay < differenceInDays && differenceInDays < day) {
+            // Get the coin past price based on the coin & day
+            const { coin_value } = pastPrices.find(
+              (price) =>
+                price.coin === transaction.coin &&
+                price.time_ago === day.toString()
+            );
+
+            // Return the price of the users coin on that day
+            pastUserPrices.push({
+              coin: transaction.coin,
+              price: transaction.crypto_total * coin_value,
+              daysAgo: differenceInDays,
+              transactionID: transaction.id,
+            });
+          }
+        });
+
+        acc.result[day] = pastUserPrices;
+        acc.previousDay = day;
+
+        return acc;
+      },
+      { result: {}, previousDay: 0 }
+    );
+
+    // Else return "N/A" for X day
+
+    // With this data, calculate what the price was that day
+
+    // Get all transactions between X day and current. Neutralize the price by adding sold price and subtraction purchases and compare the difference
+
+    res.status(201).json({
+      investedOnDay: investedOnDay.result,
+      investments,
+      market,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

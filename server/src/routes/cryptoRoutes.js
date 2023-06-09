@@ -9,6 +9,7 @@ const {
   getFavorites,
   getCurrency,
   patchCurrency,
+  calculateDifference,
 } = require('../controllers/cryptoController');
 const { userAuth } = require('../middleware/auth_middle');
 const extractEmail = require('../middleware/userInfo');
@@ -23,6 +24,7 @@ router.get('/currency', userAuth, extractEmail, getCurrency);
 
 router.post('/buy', userAuth, extractEmail, buyCoin);
 
+router.patch('/difference', userAuth, calculateDifference);
 router.patch('/patch-favorites', userAuth, extractEmail, patchFavorites);
 router.patch('/patch-currency', userAuth, extractEmail, patchCurrency);
 

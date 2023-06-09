@@ -19,19 +19,19 @@ exports.fetchChartData = (days) => {
         reject('Fetch market Error');
       }
 
-      // //   Reduce the top 100 coin market data into an array of coin names
-      // const coinList = market.data.reduce((acc, coin) => {
-      //   acc.push(coin.id);
-      //   return acc;
-      // }, []);
+      //   Reduce the top 100 coin market data into an array of coin names
+      const coinList = market.data.reduce((acc, coin) => {
+        acc.push(coin.id);
+        return acc;
+      }, []);
 
-      const coinList = [
-        'bitcoin',
-        'ethereum',
-        'tether',
-        'binancecoin',
-        'usd-coin',
-      ];
+      // const coinList = [
+      //   'bitcoin',
+      //   'ethereum',
+      //   'tether',
+      //   'binancecoin',
+      //   'usd-coin',
+      // ];
 
       //   Since coinList will be modified, this is meant to be a copy of the initial array.
       const ogCoinList = [...coinList];
@@ -137,7 +137,7 @@ const insertData = async (chartData, days, coinArray) => {
       );
 
       const priceArray = chartData[coin].prices;
-      const priceAtDay = priceArray[priceArray.length - 1][1];
+      const priceAtDay = priceArray[0][1];
       // console.log(priceArray[priceArray.length - 1][1]);
       await db.query(
         `INSERT INTO past_prices (coin, time_ago, coin_value) VALUES ($1, $2, $3) ON CONFLICT (coin, time_ago) DO UPDATE SET coin_value = EXCLUDED.coin_value`,

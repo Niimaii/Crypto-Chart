@@ -205,6 +205,7 @@ exports.changePassword = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
+    // Comes from the userAuth middleware
     const { id } = req.user;
     await db.query('DELETE FROM favorites WHERE user_id = $1', [id]);
     await db.query('DELETE FROM investments WHERE user_id = $1', [id]);
