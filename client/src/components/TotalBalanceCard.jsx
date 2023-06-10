@@ -7,7 +7,9 @@ function TotalBalanceCard() {
   const { data } = queryClient.getQueryData(['portfolio']);
   const differenceData = queryClient.getQueryData(['difference']);
   const userDif = differenceData.data;
-  const totalDayGains = userDif[1].netDayGain.toFixed(0);
+  const totalDayGains = userDif[1]?.netDayGain
+    ? userDif[1]?.netDayGain.toFixed(0)
+    : 0;
   const portfolio = data.total_balance;
   const total_balance = portfolio.total.toFixed(2);
 
@@ -17,29 +19,40 @@ function TotalBalanceCard() {
   */
   const getDayPercentage = () => {
     const dayPercentage = {
-      7: userDif[7]?.percentDifference?.toFixed(2) ?? 'N/A',
-      30: userDif[30]?.percentDifference?.toFixed(2) ?? 'N/A',
-      90: userDif[90]?.percentDifference?.toFixed(2) ?? 'N/A',
+      7: {
+        result: userDif[7]?.percentDifference?.toFixed(2) ?? 'N/A',
+        greaterThanZero: userDif[7]?.percentDifference > 0 ? true : false,
+      },
+      30: {
+        result: userDif[30]?.percentDifference?.toFixed(2) ?? 'N/A',
+        greaterThanZero: userDif[30]?.percentDifference > 0 ? true : false,
+      },
+      90: {
+        result: userDif[90]?.percentDifference?.toFixed(2) ?? 'N/A',
+        greaterThanZero: userDif[90]?.percentDifference > 0 ? true : false,
+      },
     };
 
-    if (dayPercentage[7] != 'N/A') {
-      dayPercentage[7] =
-        dayPercentage[7] > 0
-          ? '+' + dayPercentage[7] + '%'
-          : dayPercentage[7] + '%';
+    if (dayPercentage[7].result != 'N/A') {
+      dayPercentage[7].result =
+        dayPercentage[7].result > 0
+          ? '+' + dayPercentage[7].result + '%'
+          : dayPercentage[7].result + '%';
     }
-    if (dayPercentage[30] != 'N/A') {
-      dayPercentage[30] =
-        dayPercentage[30] > 0
-          ? '+' + dayPercentage[30] + '%'
-          : dayPercentage[30] + '%';
+    if (dayPercentage[30].result != 'N/A') {
+      dayPercentage[30].result =
+        dayPercentage[30].result > 0
+          ? '+' + dayPercentage[30].result + '%'
+          : dayPercentage[30].result + '%';
     }
-    if (dayPercentage[90] != 'N/A') {
-      dayPercentage[90] =
-        dayPercentage[90] > 0
-          ? '+' + dayPercentage[90] + '%'
-          : dayPercentage[90] + '%';
+    if (dayPercentage[90].result != 'N/A') {
+      dayPercentage[90].result =
+        dayPercentage[90].result > 0
+          ? '+' + dayPercentage[90].result + '%'
+          : dayPercentage[90].result + '%';
     }
+
+    console.log(dayPercentage);
     return dayPercentage;
   };
   return (
@@ -51,8 +64,6 @@ function TotalBalanceCard() {
             <h2>{`${smartFormatter(total_balance, 3, 0)}`}</h2>
             <p
               className={`${totalDayGains >= 0 ? 'textPurple' : 'percentRed'}`}
-              // Math.abs is there to make the number output as positive, while keeping the actual value true
-              // smartFormatter is a custom function that formats based on my needs
             >{`${totalDayGains >= 0 ? '+ ' : '- '}(${smartFormatter(
               Math.abs(totalDayGains),
               5,
@@ -63,15 +74,39 @@ function TotalBalanceCard() {
           <div className='total_balance_days'>
             <div className='total_balance_days_columns'>
               <p>7D</p>
-              <h3>{getDayPercentage()[7]}</h3>
+              <h3
+                className={`${
+                  getDayPercentage()[7].greaterThanZero
+                    ? 'money_green'
+                    : 'percentRed'
+                }`}
+              >
+                {getDayPercentage()[7].result}
+              </h3>
             </div>
             <div className='total_balance_days_columns'>
               <p>1M</p>
-              <h3>{getDayPercentage()[30]}</h3>
+              <h3
+                className={`${
+                  getDayPercentage()[30].greaterThanZero
+                    ? 'money_green'
+                    : 'percentRed'
+                }`}
+              >
+                {getDayPercentage()[30].result}
+              </h3>
             </div>
             <div className='total_balance_days_columns'>
               <p>3M</p>
-              <h3>{getDayPercentage()[90]}</h3>
+              <h3
+                className={`${
+                  getDayPercentage()[90].greaterThanZero
+                    ? 'money_green'
+                    : 'percentRed'
+                }`}
+              >
+                {getDayPercentage()[90].result}
+              </h3>
             </div>
           </div>
         </div>

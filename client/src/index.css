@@ -309,6 +309,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  width: 73px;
 }
 
 .total_balance_days_columns p {
