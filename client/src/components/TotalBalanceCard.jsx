@@ -52,7 +52,6 @@ function TotalBalanceCard() {
           : dayPercentage[90].result + '%';
     }
 
-    console.log(dayPercentage);
     return dayPercentage;
   };
   return (

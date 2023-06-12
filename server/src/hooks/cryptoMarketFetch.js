@@ -3,7 +3,7 @@ const db = require('../db/indexDB');
 
 let count = 0;
 
-const fetchMarket = async (chartInfo) => {
+const fetchMarket = async () => {
   // How many cryptos do you want to gather
   let cryptoAmount = 100;
   const { data } = await axios(
@@ -18,8 +18,7 @@ const fetchMarket = async (chartInfo) => {
       const current = now.getTime();
       data.forEach((coin, index) => {
         let rank = index + 1;
-        let volume24hr =
-          coin.id in chartInfo ? chartInfo[coin.id].volume_24hr : 0;
+        let volume24hr = 0;
         values += `(${rank},'${coin.id}','${coin.symbol}', '${coin.name}', '${coin.image}', ${coin.current_price}, ${coin.market_cap}, ${coin.market_cap_rank}, ${coin.fully_diluted_valuation}, ${coin.total_volume}, ${volume24hr}, ${coin.high_24h}, ${coin.low_24h}, ${coin.price_change_24h}, ${coin.price_change_percentage_24h}, ${coin.market_cap_change_24h}, ${coin.market_cap_change_percentage_24h}, ${coin.circulating_supply}, ${coin.total_supply}, ${coin.max_supply}, ${current}, ${coin.ath}, ${coin.atl}),`;
       });
 

@@ -82,3 +82,11 @@ CREATE TABLE past_prices (
 );
 
 
+CREATE TABLE test (
+  id serial primary key,
+  circulating_supply FLOAT,
+  total_supply FLOAT,
+  max_supply FLOAT,
+  CONSTRAINT coin_time UNIQUE (coin, time_ago)
+);
+

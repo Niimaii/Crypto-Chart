@@ -18,6 +18,7 @@ app.use(passport.initialize());
 const authRoutes = require('./routes/authRoutes');
 const cryptoRoutes = require('./routes/cryptoRoutes');
 const { fetchChartData } = require('./hooks/fetchChartData');
+const fetchMarket = require('./hooks/cryptoMarketFetch');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/crypto', cryptoRoutes);
@@ -37,3 +38,4 @@ appStart();
 
 // Fetch Data
 // fetchChartData(7);
+fetchMarket();

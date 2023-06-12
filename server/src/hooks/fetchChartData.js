@@ -91,6 +91,7 @@ exports.fetchChartData = (days) => {
           await insertData(chartInfo, days, ogCoinList);
           // End the promise if we went through all "coinList" items
           console.log(`fetchCoinDays(${days}) is complete!`);
+          return chartInfo;
         } catch (error) {
           console.log(error.message);
         }
