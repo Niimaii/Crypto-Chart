@@ -7,6 +7,7 @@ import TotalBalanceCard from '../components/TotalBalanceCard';
 import YourPortfolioCard from '../components/YourPortfolioCard';
 import ActivityCard from '../components/ActivityCard';
 import DoughnutCard from '../components/DoughnutCard';
+import ChartCard from '../components/ChartCard';
 
 function Portfolio() {
   const {
@@ -61,6 +62,7 @@ function Portfolio() {
   return (
     <div className='portfolio'>
       <TotalBalanceCard />
+      <ChartCard />
       <YourPortfolioCard />
       <ActivityCard />
       <DoughnutCard />

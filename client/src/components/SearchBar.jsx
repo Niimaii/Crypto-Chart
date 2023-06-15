@@ -24,7 +24,6 @@ function SearchBar() {
     setInput(searchWord);
 
     const search = document.getElementById('search');
-    // const searchInput = document.getElementById('searchInput');
 
     // Filter through each data set and find the correct object(s)
 
@@ -60,8 +59,6 @@ function SearchBar() {
       <div id='search' className='searchOptions'>
         {filteredData.length != 0 &&
           filteredData.slice(0, 15).map((coin) => {
-            let searchDisplay = '0px';
-
             return (
               <NavLink
                 className='searchResults'

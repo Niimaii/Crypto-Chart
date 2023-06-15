@@ -44,7 +44,7 @@ function Navbar() {
           </button>
           <div className='flex justify-between w-full'>
             <div className='nav_response w-full flex justify-center items-center'>
-              <div className='portfolio nav_options w-60 flex items-center justify-between'>
+              <div className='nav_options w-60 flex items-center justify-between'>
                 <NavLink to='/portfolio'>
                   <span className='text-white'>Portfolio</span>
                 </NavLink>
