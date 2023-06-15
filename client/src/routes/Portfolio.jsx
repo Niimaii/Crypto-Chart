@@ -63,9 +63,9 @@ function Portfolio() {
     <div className='portfolio'>
       <TotalBalanceCard />
       <ChartCard />
+      <DoughnutCard />
       <YourPortfolioCard />
       <ActivityCard />
-      <DoughnutCard />
     </div>
   );
 }

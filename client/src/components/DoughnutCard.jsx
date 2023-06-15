@@ -103,7 +103,7 @@ function DoughnutCard() {
   return (
     <div className='doughnut'>
       <div className='doughnut_container'>
-        <div className='flex justify-center h-64 w-64 mt-14'>
+        <div className='flex justify-center h-56 w-56 mt-14'>
           <Doughnut options={options} data={data} />
         </div>
 
