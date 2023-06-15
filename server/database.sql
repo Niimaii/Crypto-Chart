@@ -90,3 +90,12 @@ CREATE TABLE test (
   CONSTRAINT coin_time UNIQUE (coin, time_ago)
 );
 
+CREATE TABLE otherdays (
+  id serial primary key,
+  coin varchar(255) NOT NULL,
+  coin_value FLOAT NOT NULL,
+  amount FLOAT NOT NULL,
+  crypto_total FLOAT NOT NULL,
+  image VARCHAR(350),
+  CONSTRAINT coin_time UNIQUE (coin, time_ago)
+);
