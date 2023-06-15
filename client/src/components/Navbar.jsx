@@ -23,7 +23,7 @@ function Navbar() {
   };
 
   return (
-    <div className='nav_bg mb-5'>
+    <div className='nav_bg'>
       {/* I have no idea why, but having flex here causes the bg color to display properly */}
       <nav className='flex'>
         <div className='flex items-center w-full m-3'>

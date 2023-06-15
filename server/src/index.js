@@ -37,5 +37,5 @@ const appStart = () => {
 appStart();
 
 // Fetch Data
-// fetchChartData(7);
+// fetchChartData(1);
 fetchMarket();
