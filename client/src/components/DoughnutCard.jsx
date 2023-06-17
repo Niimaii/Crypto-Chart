@@ -103,11 +103,11 @@ function DoughnutCard() {
   return (
     <div className='doughnut'>
       <div className='doughnut_container'>
-        <div className='flex justify-center h-56 w-56 mt-14'>
+        <div className='flex justify-center h-56 w-56 mt-8'>
           <Doughnut options={options} data={data} />
         </div>
 
-        <div className='doughnut_options mt-12'>
+        <div className='doughnut_options mt-8'>
           {transactionCoins.map((transaction, index) => {
             // Get the percentage of individual transactions compared to their total sum
             const progressPercentage = `${

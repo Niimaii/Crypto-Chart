@@ -249,9 +249,11 @@ body {
 
 .portfolio {
   display: grid;
-  height: 100vh;
+  margin: 0 auto;
+  height: 800px;
+  width: 1175px;
   grid-template-columns: 1fr 1.1fr 1.3fr;
-  grid-template-rows: 1fr 0.6fr 1fr;
+  grid-template-rows: 0.5fr 0.389fr 1fr;
   grid-template-areas:
     'balance chart chart'
     'doughnut chart chart'
@@ -262,10 +264,12 @@ body {
 
 .total_balance {
   grid-area: balance;
+  margin-bottom: 50px !important;
 }
 
 .chart_card {
   grid-area: chart;
+  margin-left: 50px;
 }
 
 .doughnut {
@@ -274,10 +278,12 @@ body {
 
 .your_portfolio {
   grid-area: portfolio;
+  margin-left: 50px;
 }
 
 .activity {
   grid-area: activity;
+  margin-left: 50px;
 }
 
 .total_balance {
@@ -496,21 +502,21 @@ body {
 
 .doughnut {
   width: 325px;
-  height: 550px;
+  height: 475px;
   background-color: #fff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
 
 .doughnut_options {
-  height: 188px;
+  height: 187px;
   overflow-y: auto;
 }
 
 .doughnut_row {
   display: flex;
   justify-content: center;
-  padding: 12px 0;
+  padding: 12.55px 0;
 }
 
 .doughnut_line {
@@ -577,7 +583,7 @@ body {
 /* Recent Activity */
 
 .activity {
-  width: 500px;
+  width: 375px;
   height: 300px;
   overflow-y: auto;
 
@@ -684,7 +690,9 @@ body {
   /* Portfolio */
 
   .your_portfolio {
-    width: 400px;
+    width: 375px;
+    height: 300px;
+    overflow: hidden;
     padding: 25px 25px 0 25px;
   }
 
