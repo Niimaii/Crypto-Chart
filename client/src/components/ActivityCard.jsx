@@ -38,7 +38,7 @@ function ActivityCard() {
   return (
     <div className='activity'>
       <h4 className='hello'>Recent Activity</h4>
-      <div>
+      <div className='activity_body'>
         {portfolio.map((coin, index) => {
           // get the date
           const date = new Date(coin.created_at);
@@ -47,11 +47,27 @@ function ActivityCard() {
             month: 'short',
           });
           return (
-            <div key={coin.name + index} className='flex gap-5'>
-              <div>{coin.amount >= 0 ? <UpArrow /> : <DownArrow />}</div>
-              <p>{formatNumber(coin.crypto_total)}</p>
-              <p>{moneyManager(coin.amount)}</p>
-              <p>{formattedDate}</p>
+            <div key={coin.name + index} className='activity_row'>
+              <div className='activity_purchase'>
+                <div className='activity_arrow_container'>
+                  <div className='activity_arrow_circle'></div>
+                  <div className='activity_arrow'>
+                    {coin.amount >= 0 ? <UpArrow /> : <DownArrow />}
+                  </div>
+                </div>
+                <div className='activity_name'>
+                  <h3>Sent Coin</h3>
+                  <p>
+                    {coin.name.length > 8
+                      ? coin.symbol.toUpperCase()
+                      : coin.name}
+                  </p>
+                </div>
+              </div>
+              <div className='activity_stats'>
+                <p className='activity_amount'>{moneyManager(coin.amount)}</p>
+                <p className='activity_date'>{formattedDate}</p>
+              </div>
             </div>
           );
         })}

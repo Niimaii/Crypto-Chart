@@ -461,8 +461,8 @@ body {
 }
 
 .your_portfolio_row_name div p {
-  font-size: 0.8rem;
-  font-weight: 300;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .your_portfolio_row_value {
@@ -587,21 +587,79 @@ body {
 .activity {
   width: 375px;
   height: 300px;
-  overflow-y: auto;
-
   background-color: #fff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 20px;
+  overflow: hidden;
 }
 
 .activity h4 {
   color: #5f64ff;
 }
 
+.activity_body {
+  height: 100%;
+  overflow-y: auto;
+}
 /* Removes Scrollbar */
-.activity::-webkit-scrollbar {
+.activity_body::-webkit-scrollbar {
   display: none;
+}
+
+.activity_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.activity_arrow_container {
+  position: relative;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.activity_arrow_circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background-color: #ccf0ff;
+}
+
+.activity_arrow {
+  position: absolute;
+  z-index: 2;
+  left: 8px;
+  top: 8px;
+}
+
+.activity_purchase {
+  display: flex;
+}
+
+.activity_name {
+  line-height: 1.3;
+  width: 80px;
+  max-width: 80px;
+}
+
+.activity_name p {
+  color: #6f6e70;
+  font-weight: 300;
+}
+
+.activity_date {
+  color: #6f6e70;
+}
+
+.activity_stats {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 35px;
 }
 
 /* Responsive */
@@ -700,6 +758,7 @@ body {
 
   .your_portfolio_body {
     overflow-y: auto;
+    /* Please don't ask, because I don't even know */
     height: calc(100% - 20px);
     justify-content: start;
   }
