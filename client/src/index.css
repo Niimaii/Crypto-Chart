@@ -250,6 +250,7 @@ body {
 .portfolio {
   display: grid;
   margin: 0 auto;
+  margin-top: 50px;
   height: 800px;
   width: 1175px;
   grid-template-columns: 1fr 1.1fr 1.3fr;
@@ -478,7 +479,7 @@ body {
   background-color: #cccccc;
   border-radius: 20px;
   height: 9px;
-  width: 325px;
+  width: 100%;
 
   margin-top: 3px;
 }
@@ -516,7 +517,7 @@ body {
 .doughnut_row {
   display: flex;
   justify-content: center;
-  padding: 12.55px 0;
+  padding: 13.5px 10px;
 }
 
 .doughnut_line {
@@ -528,7 +529,8 @@ body {
 }
 
 .d_row {
-  width: 325px;
+  width: 100%;
+  font-size: 0.9rem;
 }
 
 /* Removes Scrollbar */
@@ -698,7 +700,7 @@ body {
 
   .your_portfolio_body {
     overflow-y: auto;
-    max-height: 300px;
+    height: calc(100% - 20px);
     justify-content: start;
   }
 
