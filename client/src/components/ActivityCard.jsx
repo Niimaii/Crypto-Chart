@@ -50,13 +50,17 @@ function ActivityCard() {
             <div key={coin.name + index} className='activity_row'>
               <div className='activity_purchase'>
                 <div className='activity_arrow_container'>
-                  <div className='activity_arrow_circle'></div>
+                  <div
+                    className={`activity_arrow_circle ${
+                      coin.amount >= 0 ? 'sent' : 'sold'
+                    }`}
+                  ></div>
                   <div className='activity_arrow'>
                     {coin.amount >= 0 ? <UpArrow /> : <DownArrow />}
                   </div>
                 </div>
                 <div className='activity_name'>
-                  <h3>Sent Coin</h3>
+                  <h3>{`${coin.amount >= 0 ? 'Sent' : 'Sold'} Coin`}</h3>
                   <p>
                     {coin.name.length > 8
                       ? coin.symbol.toUpperCase()
