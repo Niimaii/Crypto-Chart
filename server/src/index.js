@@ -38,4 +38,4 @@ appStart();
 
 // Fetch Data
 // fetchChartData(1);
-fetchMarket();
+// fetchMarket();

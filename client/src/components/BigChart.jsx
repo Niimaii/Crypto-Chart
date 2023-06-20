@@ -61,7 +61,7 @@ function BigChart({ chartData, coin }) {
     // Makes the chart adjust to the div size
     responsive: true,
     // Change aspect Ratio
-    aspectRatio: 2 / 1,
+    aspectRatio: 5 / 2,
     scales: {
       x: {
         grid: {
@@ -109,7 +109,7 @@ function BigChart({ chartData, coin }) {
         fill: true,
         data: cryptoData.map((value) => value.y),
         borderColor: 'rgb(127, 195, 121)',
-        backgroundColor: 'rgb(127, 195, 121, 0.05)',
+        backgroundColor: 'rgb(127, 195, 121, 0.0)',
         // Smoothens line
         tension: 0.4,
         // Removes dots
@@ -121,30 +121,32 @@ function BigChart({ chartData, coin }) {
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Chart Setup ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
   return (
-    <div>
-      <div className='flex justify-between'>
-        <div className='flex items-center m-0'>
+    <div className='big_chart'>
+      <div className='big_chart_top'>
+        <div className='big_chart_coin'>
           <img
-            className='h-12 mr-3'
+            className='h-10 mr-3'
             src={coinMarket.image}
             alt={coinMarket.name}
           />
 
           <div>
-            <h1 className='text-base m-0 h-5 font-medium'>{coinMarket.name}</h1>
-            <h1 className='text-base m-0 font-extralight'>
+            <h4 className='text-base m-0 h-5 font-medium'>{coinMarket.name}</h4>
+            <h4 className='text-base m-0 font-extralight'>
               {coinMarket.symbol.toUpperCase()}
-            </h1>
+            </h4>
           </div>
         </div>
-        <div className='flex gap-3'>
-          <p>1D</p>
-          <p>1M</p>
-          <p>1Y</p>
+        <div className='big_chart_days'>
+          <h4>1D</h4>
+          <h4>1M</h4>
+          <h4>1Y</h4>
         </div>
       </div>
-      <h1>{formatter.format(coinMarket.current_price)}</h1>
-      <div className='h-80'>
+      <h1 className='big_chart_price'>
+        {formatter.format(coinMarket.current_price)}
+      </h1>
+      <div>
         <Line options={options} data={data} />
       </div>
     </div>
