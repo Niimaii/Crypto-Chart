@@ -124,7 +124,7 @@ function CoinPage() {
   return (
     <div>
       <BigChart chartData={chartData} coin={coin} />
-      <div className=''>
+      <section className=''>
         <div className='converter'>
           <input
             onChange={converter}
@@ -142,9 +142,9 @@ function CoinPage() {
             type='number'
           />
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section>
         <div id='CoinInfoRow1' className='flex gap-5'>
           <div>
             <p>Price</p>
@@ -189,7 +189,7 @@ function CoinPage() {
             <h2>{formatter.format(coinMarket.atl)}</h2>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
