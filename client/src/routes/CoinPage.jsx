@@ -4,6 +4,7 @@ import { CryptoContext } from '../context/CryptoContext';
 import { getChart } from '../api/cryptoAPI';
 import BigChart from '../components/BigChart';
 import { useParams } from 'react-router-dom';
+import { Exchange, RightArrow } from '../icons/icons';
 
 function CoinPage() {
   const [crypto, setCrypto] = useState(0);
@@ -124,23 +125,31 @@ function CoinPage() {
   return (
     <div>
       <BigChart chartData={chartData} coin={coin} />
-      <section className=''>
-        <div className='converter'>
-          <input
-            onChange={converter}
-            id='Money'
-            value={money}
-            className='w-96 h-14 border-2'
-            type='text'
-            ref={inputRef}
-          />
-          <input
-            onChange={converter}
-            id='Crypto'
-            value={crypto}
-            className='w-96 h-14 border-2'
-            type='number'
-          />
+      <section className='converter'>
+        <div className='converter_body'>
+          <div className='w-full relative'>
+            <input
+              onChange={converter}
+              id='Money'
+              value={money}
+              className='converter_input'
+              type='text'
+              ref={inputRef}
+            />
+            <p className='converter_input_text'>You Pay</p>
+          </div>
+          <Exchange />
+
+          <div className='w-full relative'>
+            <input
+              onChange={converter}
+              id='Crypto'
+              value={crypto}
+              className='converter_input'
+              type='number'
+            />
+            <p className='converter_input_text'>You Get</p>
+          </div>
         </div>
       </section>
 

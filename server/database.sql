@@ -99,3 +99,10 @@ CREATE TABLE otherdays (
   image VARCHAR(350),
   CONSTRAINT coin_time UNIQUE (coin, time_ago)
 );
+
+CREATE TABLE settings (
+  id serial primary key,
+  lightMode BOOLEAN,
+  currency FLOAT,
+
+);

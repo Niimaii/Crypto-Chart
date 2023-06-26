@@ -552,12 +552,41 @@ body {
 }
 
 /* Coin Page */
-
 .converter {
+  background-color: #ffffff;
+  margin: 40px 0;
+  padding: 30px 30px;
+
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.converter_body {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
-  gap: 20px;
+  gap: 5px;
+}
+
+.converter_input {
+  width: 100%;
+  height: 55px;
+  border: 1.5px solid #c7c7c7;
+  border-radius: 10px;
+
+  color: #9d9d9d;
+  font-size: 1.2rem;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.converter_input_text {
+  position: absolute;
+  color: #9d9d9d;
+
+  font-size: 0.8rem;
+  top: 4px;
+  left: 16px;
 }
 
 .big_chart {
