@@ -13,6 +13,8 @@ function CoinPage() {
   const inputRef = useRef(null);
   const { coin } = useParams();
 
+  const [cryptoCurrency, setCryptoCUrrency] = useState('BTC');
+
   const { portfolio, market } = useContext(CryptoContext);
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['coin'],
@@ -122,6 +124,7 @@ function CoinPage() {
 
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Crypto Converter ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+  const currency = 'USD';
   return (
     <div>
       <BigChart chartData={chartData} coin={coin} />
@@ -137,6 +140,7 @@ function CoinPage() {
               ref={inputRef}
             />
             <p className='converter_input_text'>You Pay</p>
+            <p className='converter_input_text2'>{currency}</p>
           </div>
           <Exchange />
 
@@ -149,6 +153,7 @@ function CoinPage() {
               type='number'
             />
             <p className='converter_input_text'>You Get</p>
+            <p className='converter_input_text2'>{cryptoCurrency}</p>
           </div>
         </div>
       </section>

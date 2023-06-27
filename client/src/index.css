@@ -589,6 +589,15 @@ body {
   left: 16px;
 }
 
+.converter_input_text2 {
+  position: absolute;
+  color: #9d9d9d;
+
+  font-size: 1.05rem;
+  bottom: 4px;
+  right: 10px;
+}
+
 .big_chart {
   width: 100%;
   /* height: 250px; */
