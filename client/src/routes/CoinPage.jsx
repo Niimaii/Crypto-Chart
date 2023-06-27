@@ -158,48 +158,50 @@ function CoinPage() {
         </div>
       </section>
 
-      <section>
-        <div id='CoinInfoRow1' className='flex gap-5'>
+      <section className='coin_data'>
+        <div className='coin_data_rows'>
           <div>
-            <p>Price</p>
+            <h4>Price</h4>
             <h2>{formatter.format(coinMarket.current_price)}</h2>
           </div>
           <div>
-            <p>Market Cap</p>
-            <h2>{shortFormatter(coinMarket.market_cap)}</h2>
-          </div>
-          <div>
-            <p>Market Cap Rank</p>
-            <h2>{`#${coinMarket.market_cap_rank}`}</h2>
-          </div>
-        </div>
-
-        <div id='CoinInfoRow2' className='flex gap-5'>
-          <div>
-            <p>24h High</p>
+            <h4>24h High</h4>
             <h2>{formatter.format(coinMarket.high_24h)}</h2>
           </div>
           <div>
-            <p>Volume</p>
-            <h2>{shortFormatter(coinMarket.total_volume)}</h2>
-          </div>
-          <div>
-            <p>All Time High</p>
-            <h2>{formatter.format(coinMarket.ath)}</h2>
+            <h4>24h Low</h4>
+            <h2>{formatter.format(coinMarket.low_24h)}</h2>
           </div>
         </div>
 
-        <div id='CoinInfoRow3' className='flex gap-5'>
+        <div className='coin_data_rows'>
           <div>
-            <p>24h Low</p>
-            <h2>{formatter.format(coinMarket.low_24h)}</h2>
+            <h4>Market Cap</h4>
+            <h2>{shortFormatter(coinMarket.market_cap)}</h2>
           </div>
           <div>
-            <p>Circulating Supply</p>
+            <h4>Volume</h4>
+            <h2>{shortFormatter(coinMarket.total_volume)}</h2>
+          </div>
+          <div>
+            <h4>Supply</h4>
             <h2>{shortFormatter(coinMarket.circulating_supply)}</h2>
           </div>
+        </div>
+
+        <div className='coin_data_rows'>
           <div>
-            <p>All Time Low</p>
+            <h4>Market Rank</h4>
+            <h2>{`#${coinMarket.market_cap_rank}`}</h2>
+          </div>
+
+          <div>
+            <h4>All Time High</h4>
+            <h2>{formatter.format(coinMarket.ath)}</h2>
+          </div>
+
+          <div>
+            <h4>All Time Low</h4>
             <h2>{formatter.format(coinMarket.atl)}</h2>
           </div>
         </div>
