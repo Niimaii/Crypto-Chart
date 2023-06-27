@@ -126,86 +126,88 @@ function CoinPage() {
 
   const currency = 'USD';
   return (
-    <div>
+    <div className='coin_page'>
       <BigChart chartData={chartData} coin={coin} />
-      <section className='converter'>
-        <div className='converter_body'>
-          <div className='w-full relative'>
-            <input
-              onChange={converter}
-              id='Money'
-              value={money}
-              className='converter_input'
-              type='text'
-              ref={inputRef}
-            />
-            <p className='converter_input_text'>You Pay</p>
-            <p className='converter_input_text2'>{currency}</p>
-          </div>
-          <Exchange />
+      <div className='coin_detail'>
+        <section className='converter'>
+          <div className='converter_body'>
+            <div className='w-full relative'>
+              <input
+                onChange={converter}
+                id='Money'
+                value={money}
+                className='converter_input'
+                type='text'
+                ref={inputRef}
+              />
+              <p className='converter_input_text'>You Pay</p>
+              <p className='converter_input_text2'>{currency}</p>
+            </div>
+            <Exchange />
 
-          <div className='w-full relative'>
-            <input
-              onChange={converter}
-              id='Crypto'
-              value={crypto}
-              className='converter_input'
-              type='number'
-            />
-            <p className='converter_input_text'>You Get</p>
-            <p className='converter_input_text2'>{cryptoCurrency}</p>
+            <div className='w-full relative'>
+              <input
+                onChange={converter}
+                id='Crypto'
+                value={crypto}
+                className='converter_input'
+                type='number'
+              />
+              <p className='converter_input_text'>You Get</p>
+              <p className='converter_input_text2'>{cryptoCurrency}</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className='coin_data'>
-        <div className='coin_data_rows'>
-          <div>
-            <h4>Price</h4>
-            <h2>{formatter.format(coinMarket.current_price)}</h2>
-          </div>
-          <div>
-            <h4>24h High</h4>
-            <h2>{formatter.format(coinMarket.high_24h)}</h2>
-          </div>
-          <div>
-            <h4>24h Low</h4>
-            <h2>{formatter.format(coinMarket.low_24h)}</h2>
-          </div>
-        </div>
-
-        <div className='coin_data_rows'>
-          <div>
-            <h4>Market Cap</h4>
-            <h2>{shortFormatter(coinMarket.market_cap)}</h2>
-          </div>
-          <div>
-            <h4>Volume</h4>
-            <h2>{shortFormatter(coinMarket.total_volume)}</h2>
-          </div>
-          <div>
-            <h4>Supply</h4>
-            <h2>{shortFormatter(coinMarket.circulating_supply)}</h2>
-          </div>
-        </div>
-
-        <div className='coin_data_rows'>
-          <div>
-            <h4>Market Rank</h4>
-            <h2>{`#${coinMarket.market_cap_rank}`}</h2>
+        <section className='coin_data'>
+          <div className='coin_data_rows'>
+            <div>
+              <h4>Price</h4>
+              <h2>{formatter.format(coinMarket.current_price)}</h2>
+            </div>
+            <div>
+              <h4>24h High</h4>
+              <h2>{formatter.format(coinMarket.high_24h)}</h2>
+            </div>
+            <div>
+              <h4>24h Low</h4>
+              <h2>{formatter.format(coinMarket.low_24h)}</h2>
+            </div>
           </div>
 
-          <div>
-            <h4>All Time High</h4>
-            <h2>{formatter.format(coinMarket.ath)}</h2>
+          <div className='coin_data_rows'>
+            <div>
+              <h4>Market Cap</h4>
+              <h2>{shortFormatter(coinMarket.market_cap)}</h2>
+            </div>
+            <div>
+              <h4>Volume</h4>
+              <h2>{shortFormatter(coinMarket.total_volume)}</h2>
+            </div>
+            <div>
+              <h4>Supply</h4>
+              <h2>{shortFormatter(coinMarket.circulating_supply)}</h2>
+            </div>
           </div>
 
-          <div>
-            <h4>All Time Low</h4>
-            <h2>{formatter.format(coinMarket.atl)}</h2>
+          <div className='coin_data_rows'>
+            <div>
+              <h4>Market Rank</h4>
+              <h2>{`#${coinMarket.market_cap_rank}`}</h2>
+            </div>
+
+            <div>
+              <h4>All Time High</h4>
+              <h2>{formatter.format(coinMarket.ath)}</h2>
+            </div>
+
+            <div>
+              <h4>All Time Low</h4>
+              <h2>{formatter.format(coinMarket.atl)}</h2>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

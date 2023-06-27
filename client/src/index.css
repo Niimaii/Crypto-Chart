@@ -772,7 +772,64 @@ body {
   margin-left: 35px;
 }
 
-/* Responsive */
+/* New Responsive */
+@media (min-width: 500px) {
+  /* Coin Page */
+  .coin_page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .converter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 400px;
+    height: 220px;
+    border-radius: 5px;
+  }
+
+  .converter_body {
+    gap: 10px;
+  }
+
+  .coin_data {
+    align-items: center;
+
+    width: 400px;
+    border-radius: 5px;
+    height: 220px;
+  }
+
+  .coin_data_rows {
+    justify-content: space-around;
+
+    height: 100%;
+  }
+}
+
+@media (min-width: 850px) {
+  .big_chart {
+    width: 840px;
+    height: 420px;
+    margin-top: 30px;
+  }
+
+  .coin_detail {
+    display: flex;
+  }
+
+  .converter {
+    margin: 40px 40px 40px 0;
+  }
+
+  .coin_data {
+    margin: 40px 0 40px 0;
+  }
+}
+
+/* Old Responsive */
 
 @media (max-width: 600px) {
   .nav_response {
