@@ -19,6 +19,18 @@ body {
   border-radius: 0.375rem 0.375rem 0 0;
 }
 
+.background_clear {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.animate_down {
+  transform: translateY(100%) !important;
+}
+
+.animate_up {
+  transform: translateY(0%) !important;
+}
+
 /* Colors */
 
 .textPurple {
@@ -48,7 +60,7 @@ body {
 
 /* Buy Card */
 
-.buy_card {
+.buy_card_container {
   background-color: #0002264b;
   top: 0;
   left: 0;
@@ -57,10 +69,152 @@ body {
   z-index: 3;
 }
 
-.card {
+.buy_card {
+  display: flex;
+  flex-direction: column;
+
   background-color: #fff;
+  border-radius: 5px;
   width: 350px;
   height: 500px;
+
+  overflow: hidden;
+}
+
+.buy_card_top {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+
+  position: relative;
+
+  z-index: 0;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.buy_sell {
+  display: flex;
+  gap: 60px;
+  align-items: end;
+
+  color: #6a6a6a;
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.buy_sell_options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.buy_sell_underline {
+  width: 50px;
+  height: 1.5px;
+  background-color: #0009ff;
+  border: none;
+  z-index: 10;
+}
+
+.buy_card_close {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+
+.buy_card_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #f9f9ff;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.buy_card_amount {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  margin-top: 25px;
+  background-color: #fff;
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+
+  overflow: hidden;
+}
+
+.buy_card_purchase {
+  background-color: #fff;
+  height: 100%;
+
+  z-index: 1;
+  transition: transform 0.3s ease-out;
+}
+.buy_card_crypto {
+  /* flex: 1; */
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* background-color: #0009ff; */
+  height: 55px;
+  padding: 0 10px;
+}
+
+.buy_card_list {
+  height: 250px;
+  width: 100%;
+
+  z-index: 0;
+
+  overflow-y: auto;
+  position: absolute;
+  top: 49px;
+}
+
+.buy_card_list_options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  padding: 0 10px;
+}
+
+/* Removes Scrollbar */
+.buy_card_list::-webkit-scrollbar {
+  display: none;
+}
+
+.buy_card_options {
+}
+
+.buy_card_crypto_options {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.buy_card_crypto_options div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.buy_card_crypto_options div p {
+  line-height: 20px;
+  font-size: 1rem;
+}
+
+.buy_card_crypto_options div p:nth-child(2) {
+  font-weight: 200;
 }
 
 /* Small Chart */

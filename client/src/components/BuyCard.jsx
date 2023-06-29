@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CloseIcon } from '../icons/icons';
+import { CloseIcon, DownToggleArrow } from '../icons/icons';
 import { buyCoin, getMarket, getPortfolio } from '../api/cryptoAPI';
 import { useQueryClient } from '@tanstack/react-query';
 import { CryptoContext } from '../context/CryptoContext';
+import { DownArrow } from '../icons/icons';
+import { smartFormatter } from '../utils/Formatter';
 
 function BuyCard() {
   const queryClient = useQueryClient();
@@ -11,7 +13,7 @@ function BuyCard() {
   const { buyCard, closeBuyCard } = useContext(CryptoContext);
   const [amount, setAmount] = useState(0);
   const [cryptoName, setCryptoName] = useState('bitcoin');
-  const [displayCard, setDisplayCard] = useState(false);
+  const [buy, setBuy] = useState(true);
 
   const cryptoTable = {};
   const coinNames = [];
@@ -33,44 +35,112 @@ function BuyCard() {
     coinNames.push(coin.name);
   });
 
+  // Change the buy/sell underline display and interaction
+  const handleBuySell = (e) => {
+    if (e.target.id === 'buy') {
+      setBuy(true);
+    } else {
+      setBuy(false);
+    }
+  };
+
+  // Find the object with that matches the current selected coin
+  const currentCrypto = coinResponse.find(
+    (coin) => coin.crypto_id === cryptoName
+  );
+
+  const handleOptions = (e) => {
+    const purchase = document.getElementById('purchase');
+    purchase.classList.remove('animate_up');
+    purchase.classList.add('animate_down');
+  };
+
+  const handleCoinSelect = (coin) => {
+    setCryptoName(coin);
+    const purchase = document.getElementById('purchase');
+    purchase.classList.remove('animate_down');
+    purchase.classList.add('animate_up');
+  };
+
   return (
-    <div className={`buy_card absolute ${buyCard ? 'block' : 'hidden'}`}>
+    <main
+      className={`buy_card_container absolute ${buyCard ? 'block' : 'hidden'}`}
+    >
       <div className='flex justify-center mt-32'>
-        <div className='card'>
-          <div className='flex'>
-            <div className=''>
-              <button>Buy</button>
-              <button>Sell</button>
-            </div>
-            <button onClick={closeBuyCard}>
+        <article className='buy_card'>
+          <header className='buy_card_top'>
+            <title className='buy_sell'>
+              <div className='buy_sell_options'>
+                <button id='buy' onClick={handleBuySell}>
+                  Buy
+                </button>
+                <hr
+                  className={`buy_sell_underline ${
+                    buy ? '' : 'background_clear'
+                  }`}
+                />
+              </div>
+              <div className='buy_sell_options'>
+                <button id='sell' onClick={handleBuySell}>
+                  Sell
+                </button>
+                <hr
+                  className={`buy_sell_underline ${
+                    buy ? 'background_clear' : ''
+                  }`}
+                />
+              </div>
+            </title>
+            <button className='buy_card_close' onClick={closeBuyCard}>
               <CloseIcon />
             </button>
-          </div>
-          <div>
-            <input
-              onChange={(e) => {
-                setAmount(e.target.value);
-              }}
-              type='number'
-              min={0}
-              max={1000000}
-              value={amount}
-            />
-            <select
-              onChange={(e) => {
-                setCryptoName(cryptoTable[e.target.value]);
-              }}
-              name=''
-              id=''
-            >
-              {coinNames.map((coin) => {
-                return (
-                  <option key={coin} value={coin}>
-                    {coin}
-                  </option>
-                );
-              })}
-            </select>
+          </header>
+          <section className='buy_card_body'>
+            <div className='buy_card_amount'>
+              <button onClick={handleOptions} className='buy_card_crypto'>
+                <div className='buy_card_crypto_options'>
+                  <img
+                    className='h-9 w-9'
+                    src={currentCrypto.image}
+                    alt={currentCrypto.name}
+                  />
+                  <div>
+                    <p>{currentCrypto.name}</p>
+                    <p>{currentCrypto.symbol.toUpperCase()}</p>
+                  </div>
+                </div>
+                <DownToggleArrow />
+              </button>
+              <hr />
+              <section className='buy_card_list'>
+                {coinResponse.map((coin) => {
+                  return (
+                    <button
+                      key={coin.crypto_id}
+                      onClick={() => handleCoinSelect(coin.crypto_id)}
+                      className='buy_card_list_options'
+                    >
+                      <div className='flex items-center gap-3'>
+                        <img className='h-8 w-8' src={coin.image} alt='' />
+                        <p>{coin.name}</p>
+                      </div>
+                      <p>{smartFormatter(coin.current_price, 6, 2, true)}</p>
+                    </button>
+                  );
+                })}
+              </section>
+              <div id='purchase' className='buy_card_purchase'>
+                <input
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                  }}
+                  type='number'
+                  min={0}
+                  max={1000000}
+                  value={amount}
+                />
+              </div>
+            </div>
             <button
               onClick={() => {
                 purchaseCoin(cryptoName);
@@ -78,10 +148,10 @@ function BuyCard() {
             >
               Purchase
             </button>
-          </div>
-        </div>
+          </section>
+        </article>
       </div>
-    </div>
+    </main>
   );
 }
 
