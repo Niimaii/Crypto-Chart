@@ -184,7 +184,9 @@ function Settings() {
         </div>
       </article>
 
-      <button className='settings_logout'>Log Off</button>
+      <button className='settings_logout' onClick={logout}>
+        Log Off
+      </button>
 
       {/* Display the Email card */}
       {emailCard && (
