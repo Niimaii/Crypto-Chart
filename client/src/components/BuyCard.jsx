@@ -62,6 +62,24 @@ function BuyCard() {
     purchase.classList.add('animate_up');
   };
 
+  const handleInput = (e) => {
+    setAmount(e.target.value);
+    const inputField = document.getElementById('buy_input');
+    const dollarSign = document.getElementById('buy_symbol');
+
+    inputField.addEventListener('input', () => {
+      const inputWidth = inputField.offsetWidth;
+      const dollarSignWidth = dollarSign.offsetWidth;
+      const dollarLeft = parseInt(
+        getComputedStyle(dollarSign).left.slice(0, -2)
+      );
+
+      console.log('input:', inputWidth);
+
+      // dollarSign.style.left = `${23}px`;
+    });
+  };
+
   return (
     <main
       className={`buy_card_container absolute ${buyCard ? 'block' : 'hidden'}`}
@@ -124,21 +142,33 @@ function BuyCard() {
                         <img className='h-8 w-8' src={coin.image} alt='' />
                         <p>{coin.name}</p>
                       </div>
-                      <p>{smartFormatter(coin.current_price, 6, 2, true)}</p>
+                      <p>{smartFormatter(coin.current_price, 3, 2, true)}</p>
                     </button>
                   );
                 })}
               </section>
               <div id='purchase' className='buy_card_purchase'>
-                <input
-                  onChange={(e) => {
-                    setAmount(e.target.value);
-                  }}
-                  type='number'
-                  min={0}
-                  max={1000000}
-                  value={amount}
-                />
+                <div>
+                  <div className='relative'>
+                    <div
+                      id='buy_input'
+                      contentEditable='true'
+                      onChange={handleInput}
+                      type='number'
+                      min={0}
+                      max={1000000}
+                    >
+                      {amount}
+                    </div>
+                    <span id='buy_symbol' className='buy_card_dollar'>
+                      $
+                    </span>
+                  </div>
+
+                  <p>
+                    {smartFormatter(currentCrypto.current_price, 3, 2, true)}
+                  </p>
+                </div>
               </div>
             </div>
             <button

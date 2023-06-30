@@ -15,6 +15,13 @@ body {
 
 /* General */
 
+/* Turns off the scroll option in the number input field*/
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .removeBottomRadius {
   border-radius: 0.375rem 0.375rem 0 0;
 }
@@ -150,12 +157,60 @@ body {
 }
 
 .buy_card_purchase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+
   background-color: #fff;
   height: 100%;
+  padding: 20px 0;
 
   z-index: 1;
   transition: transform 0.3s ease-out;
+
+  position: relative;
 }
+
+.buy_card_purchase div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 175px;
+}
+
+#buy_input {
+  margin: 0;
+  border: none;
+
+  color: #6a6a6a;
+  font-size: 5rem;
+  text-align: center;
+
+  height: 100px;
+  width: 100%;
+  min-width: 50px;
+}
+
+#buy_input:focus {
+  outline: none;
+}
+
+.buy_card_purchase p {
+  color: #6a6a6a;
+}
+
+.buy_card_dollar {
+  position: absolute;
+  top: 21px;
+  left: -15px;
+
+  color: #6a6a6a;
+  font-size: 1.5rem;
+}
+
 .buy_card_crypto {
   /* flex: 1; */
 
@@ -186,11 +241,6 @@ body {
 
   width: 100%;
   padding: 0 10px;
-}
-
-/* Removes Scrollbar */
-.buy_card_list::-webkit-scrollbar {
-  display: none;
 }
 
 .buy_card_options {
