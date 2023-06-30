@@ -873,6 +873,23 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  padding: 20px;
+}
+
+.settings select {
+  margin-left: 100%;
+  margin-right: 75px;
+
+  padding: 8px 5px;
+  border: 2px solid #656565;
+  border-radius: 7px;
+
+  color: #222af3;
+}
+
+.settings select:focus {
+  outline: none;
 }
 
 .settings_card {
@@ -884,9 +901,10 @@ input[type='number']::-webkit-outer-spin-button {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 
-  width: 90%;
+  width: 100%;
   max-width: 500px;
   padding: 25px 25px 0 25px;
+  margin-top: 60px;
 }
 
 .settings_card h1 {
@@ -1085,6 +1103,12 @@ input[type='number']::-webkit-outer-spin-button {
 
   .coin_data {
     margin: 40px 0 40px 0;
+  }
+
+  /* Settings */
+
+  .settings {
+    padding: 20px 10%;
   }
 }
 
