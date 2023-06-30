@@ -11,6 +11,12 @@ import {
   onLogout,
 } from '../api/authAPI';
 import { useNavigate } from 'react-router-dom';
+import {
+  EmailIcon,
+  PasswordIcon,
+  RightToggleArrow,
+  TrashIcon,
+} from '../icons/icons';
 
 function Settings() {
   const navigate = useNavigate();
@@ -132,27 +138,51 @@ function Settings() {
   };
 
   return (
-    <div className=''>
-      <div className='flex gap-5'>
-        <select value={currencyData} onChange={updateCurrency} id=''>
-          {currencyCodes.map((currency) => {
-            return (
-              <option key={currency} value={currency}>
-                {currency}
-              </option>
-            );
-          })}
-        </select>
-        <button id='Password' onClick={buttonPressed}>
-          Password
-        </button>
-        <button id='Email' onClick={buttonPressed}>
-          Email
-        </button>
-        <button id='Delete' onClick={buttonPressed}>
-          Delete
-        </button>
-      </div>
+    <main className='settings'>
+      <select value={currencyData} onChange={updateCurrency} id=''>
+        {currencyCodes.map((currency) => {
+          return (
+            <option key={currency} value={currency}>
+              {currency}
+            </option>
+          );
+        })}
+      </select>
+      <article className='settings_card'>
+        <h1>User Options</h1>
+        <div className='settings_options'>
+          <button id='Password' onClick={buttonPressed}>
+            <div className='settings_icons'>
+              <div>
+                <PasswordIcon />
+              </div>
+              <h3>Password</h3>
+            </div>
+            <RightToggleArrow />
+          </button>
+          <hr />
+
+          <button id='Email' onClick={buttonPressed}>
+            <div className='settings_icons'>
+              <div>
+                <EmailIcon />
+              </div>
+              <h3>Email</h3>
+            </div>
+            <RightToggleArrow />
+          </button>
+          <hr />
+          <button id='Delete' onClick={buttonPressed}>
+            <div className='settings_icons'>
+              <div>
+                <TrashIcon />
+              </div>
+              <h3>Delete</h3>
+            </div>
+            <RightToggleArrow />
+          </button>
+        </div>
+      </article>
 
       {/* Display the Email card */}
       {emailCard && (
@@ -222,7 +252,7 @@ function Settings() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }
 

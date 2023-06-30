@@ -64,20 +64,6 @@ function BuyCard() {
 
   const handleInput = (e) => {
     setAmount(e.target.value);
-    const inputField = document.getElementById('buy_input');
-    const dollarSign = document.getElementById('buy_symbol');
-
-    inputField.addEventListener('input', () => {
-      const inputWidth = inputField.offsetWidth;
-      const dollarSignWidth = dollarSign.offsetWidth;
-      const dollarLeft = parseInt(
-        getComputedStyle(dollarSign).left.slice(0, -2)
-      );
-
-      console.log('input:', inputWidth);
-
-      // dollarSign.style.left = `${23}px`;
-    });
   };
 
   return (
