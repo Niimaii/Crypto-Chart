@@ -942,6 +942,18 @@ input[type='number']::-webkit-outer-spin-button {
   width: 50px;
 }
 
+.settings_logout {
+  margin-top: 80px;
+
+  background-color: #454bff;
+  color: #fff;
+  border-radius: 15px;
+  font-size: 1.25rem;
+
+  width: 180px;
+  height: 65px;
+}
+
 .pass_check {
   background-color: #0002264b;
   top: 0;
