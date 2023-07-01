@@ -66,7 +66,7 @@ function BuyCard() {
     setAmount(e.target.value);
   };
 
-  // Update the position of '$' so that it adjusts to the input
+  // Update the position of '$' so that it adjusts to the input text
   useEffect(() => {
     const inputComparison = document.getElementById('buy_card_comparison');
     const dollarInput = document.getElementById('buy_card_dollar');
@@ -74,11 +74,19 @@ function BuyCard() {
     const adjustedInputLength = inputComparison.offsetWidth / 2;
     const offSet = -15;
 
-    if (inputComparison.offsetWidth <= 50) {
+    const buyInput = document.getElementById('buy_input');
+    const baseFontSize = 5;
+
+    if (inputComparison.offsetWidth === 0) {
       dollarInput.style.left = '111px';
     } else {
       const differenceInLength = halfOfContainer - adjustedInputLength + offSet;
       dollarInput.style.left = `${differenceInLength}px`;
+
+      const textLength = inputComparison.textContent.length;
+      const fontSize = Math.max(baseFontSize - textLength * 0.215, 1) + 'rem';
+      buyInput.style.fontSize = fontSize;
+      inputComparison.style.fontSize = fontSize;
     }
 
     console.log(adjustedInputLength);
