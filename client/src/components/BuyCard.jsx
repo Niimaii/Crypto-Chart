@@ -66,6 +66,24 @@ function BuyCard() {
     setAmount(e.target.value);
   };
 
+  // Update the position of '$' so that it adjusts to the input
+  useEffect(() => {
+    const inputComparison = document.getElementById('buy_card_comparison');
+    const dollarInput = document.getElementById('buy_card_dollar');
+    const halfOfContainer = 150;
+    const adjustedInputLength = inputComparison.offsetWidth / 2;
+    const offSet = -15;
+
+    if (inputComparison.offsetWidth <= 50) {
+      dollarInput.style.left = '111px';
+    } else {
+      const differenceInLength = halfOfContainer - adjustedInputLength + offSet;
+      dollarInput.style.left = `${differenceInLength}px`;
+    }
+
+    console.log(adjustedInputLength);
+  }, [amount]);
+
   return (
     <main
       className={`buy_card_container absolute ${buyCard ? 'block' : 'hidden'}`}
@@ -134,26 +152,24 @@ function BuyCard() {
                 })}
               </section>
               <div id='purchase' className='buy_card_purchase'>
-                <div>
+                <div className='relative'>
                   <div className='relative'>
-                    <div
+                    <input
                       id='buy_input'
-                      contentEditable='true'
                       onChange={handleInput}
                       type='number'
                       min={0}
                       max={1000000}
-                    >
-                      {amount}
-                    </div>
-                    <span id='buy_symbol' className='buy_card_dollar'>
-                      $
-                    </span>
+                      value={amount}
+                    />
+                    <span id='buy_card_dollar'>$</span>
                   </div>
 
                   <p>
                     {smartFormatter(currentCrypto.current_price, 3, 2, true)}
                   </p>
+
+                  <p id='buy_card_comparison'>{amount}</p>
                 </div>
               </div>
             </div>

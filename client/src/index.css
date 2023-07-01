@@ -143,7 +143,6 @@ input[type='number']::-webkit-outer-spin-button {
 .buy_card_amount {
   display: flex;
   flex-direction: column;
-
   position: relative;
 
   margin-top: 25px;
@@ -178,6 +177,7 @@ input[type='number']::-webkit-outer-spin-button {
   justify-content: space-between;
   align-items: center;
 
+  width: 100%;
   height: 175px;
 }
 
@@ -191,7 +191,6 @@ input[type='number']::-webkit-outer-spin-button {
 
   height: 100px;
   width: 100%;
-  min-width: 50px;
 }
 
 #buy_input:focus {
@@ -202,13 +201,21 @@ input[type='number']::-webkit-outer-spin-button {
   color: #6a6a6a;
 }
 
-.buy_card_dollar {
+#buy_card_dollar {
   position: absolute;
-  top: 21px;
-  left: -15px;
+  top: 13px;
+  left: 111px;
 
-  color: #6a6a6a;
   font-size: 1.5rem;
+  color: #6a6a6a;
+}
+
+#buy_card_comparison {
+  position: absolute;
+  bottom: -200px;
+
+  font-size: 5rem;
+  min-width: 50px;
 }
 
 .buy_card_crypto {
@@ -218,7 +225,6 @@ input[type='number']::-webkit-outer-spin-button {
   justify-content: space-between;
   align-items: center;
 
-  /* background-color: #0009ff; */
   height: 55px;
   padding: 0 10px;
 }
