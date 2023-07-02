@@ -70,9 +70,16 @@ function BuyCard() {
   useEffect(() => {
     const inputComparison = document.getElementById('buy_card_comparison');
     const dollarInput = document.getElementById('buy_card_dollar');
+    // Horizontal
     const halfOfContainer = 150;
     const adjustedInputLength = inputComparison.offsetWidth / 2;
     const offSet = -15;
+    // Vertical
+    const verticalContainer = 14;
+    const inputHeight = inputComparison.offsetHeight;
+    const baseInputHeight = 120;
+
+    // console.log('height', inputHeight);
 
     const buyInput = document.getElementById('buy_input');
     const baseFontSize = 5;
@@ -80,16 +87,24 @@ function BuyCard() {
     if (inputComparison.offsetWidth === 0) {
       dollarInput.style.left = '111px';
     } else {
-      const differenceInLength = halfOfContainer - adjustedInputLength + offSet;
-      dollarInput.style.left = `${differenceInLength}px`;
+      // // // Adjust $ height based on input
+      // const differenceInHeight = baseInputHeight - inputHeight;
+      // dollarInput.style.top = `${verticalContainer + differenceInHeight / 4}px`;
 
+      // Adjust font size based on text length
       const textLength = inputComparison.textContent.length;
-      const fontSize = Math.max(baseFontSize - textLength * 0.215, 1) + 'rem';
+      const fontSize = Math.max(baseFontSize - textLength * 0.22, 1) + 'rem';
       buyInput.style.fontSize = fontSize;
       inputComparison.style.fontSize = fontSize;
-    }
 
-    console.log(adjustedInputLength);
+      // Adjust the height of the
+
+      const differenceInLength =
+        halfOfContainer - inputComparison.offsetWidth / 2 + offSet;
+      dollarInput.style.left = `${differenceInLength}px`;
+
+      console.log(inputComparison.offsetWidth);
+    }
   }, [amount]);
 
   return (

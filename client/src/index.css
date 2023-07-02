@@ -203,7 +203,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 #buy_card_dollar {
   position: absolute;
-  top: 13px;
+  top: 14px;
   left: 111px;
 
   font-size: 1.5rem;
