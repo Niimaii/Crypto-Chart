@@ -77,7 +77,8 @@ function BuyCard() {
     // Vertical
     const verticalContainer = 14;
     const inputHeight = inputComparison.offsetHeight;
-    const baseInputHeight = 120;
+    const baseInputHeight = 68;
+    const verticalOffSet = 3;
 
     // console.log('height', inputHeight);
 
@@ -86,22 +87,26 @@ function BuyCard() {
 
     if (inputComparison.offsetWidth === 0) {
       dollarInput.style.left = '111px';
+    } else if (inputComparison.offsetHeight === 0) {
+      dollarInput.style.top = '14px';
     } else {
-      // // // Adjust $ height based on input
-      // const differenceInHeight = baseInputHeight - inputHeight;
-      // dollarInput.style.top = `${verticalContainer + differenceInHeight / 4}px`;
-
       // Adjust font size based on text length
       const textLength = inputComparison.textContent.length;
       const fontSize = Math.max(baseFontSize - textLength * 0.22, 1) + 'rem';
       buyInput.style.fontSize = fontSize;
       inputComparison.style.fontSize = fontSize;
 
-      // Adjust the height of the
-
+      // Adjust the horizontal position of $ based on text size
       const differenceInLength =
         halfOfContainer - inputComparison.offsetWidth / 2 + offSet;
       dollarInput.style.left = `${differenceInLength}px`;
+
+      // Adjust the vertical position of $ based on text size
+      // In all honesty, I just kinda kept moving numbers around until the formatting looked good lol
+      const differenceInHeight = baseInputHeight - inputComparison.offsetHeight;
+      dollarInput.style.top = `${
+        verticalContainer + differenceInHeight / 4 + verticalOffSet
+      }px`;
 
       console.log(inputComparison.offsetWidth);
     }
