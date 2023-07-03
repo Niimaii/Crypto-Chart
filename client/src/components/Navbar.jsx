@@ -4,6 +4,7 @@ import vscodium from '../assets/vscodium.png';
 import {
   AboutIcon,
   Hamburger,
+  LoginIcon,
   LogoutIcon,
   PieChartIcon,
   PortfolioIcon,
@@ -100,10 +101,21 @@ function Navbar() {
             </div>
             <hr />
             <div className='nav_dropdown_bottom'>
-              <button onClick={logout} className='nav_dropdown_button'>
-                <LogoutIcon />
-                <p>Logout</p>
-              </button>
+              {isAuth() ? (
+                <button onClick={logout} className='nav_dropdown_button'>
+                  <LogoutIcon />
+                  <p>Logout</p>
+                </button>
+              ) : (
+                <NavLink
+                  onClick={() => setIsDropdownOpen(false)}
+                  to='/signin'
+                  className='nav_dropdown_button'
+                >
+                  <LoginIcon />
+                  <p>Login</p>
+                </NavLink>
+              )}
             </div>
           </article>
           <div className='flex justify-between w-full'>
@@ -122,7 +134,7 @@ function Navbar() {
             </div>
             <div className='nav_response ml-5'>
               {isAuth() ? (
-                <button onClick={logout}>
+                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                   <UserIcon />
                 </button>
               ) : (

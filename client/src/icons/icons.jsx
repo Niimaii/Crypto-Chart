@@ -496,3 +496,34 @@ export const LogoutIcon = () => (
     <path d='M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z' />
   </svg>
 );
+
+export const LoginIcon = () => (
+  <svg
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    className='w-7 h-7'
+  >
+    <path
+      d='M13 12L21 12'
+      stroke='#6F6E70'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+    />
+    <path
+      d='M16 15L13.087 12.087V12.087C13.039 12.039 13.039 11.961 13.087 11.913V11.913L16 9'
+      stroke='#6F6E70'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+    />
+    <path
+      d='M16 5V4.5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19.5V19'
+      stroke='#6F6E70'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+    />
+  </svg>
+);

@@ -347,6 +347,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 .nav_bg {
   background-color: #454bff;
+  max-height: 80px;
 }
 
 .searchOptions {
@@ -512,7 +513,7 @@ input[type='number']::-webkit-outer-spin-button {
 
   z-index: 2;
   overflow: hidden;
-  transition: 0.7s ease 0.3s;
+  transition: 0.7s ease 0.2s;
 }
 
 .nav_dropdown_button {
@@ -547,7 +548,7 @@ input[type='number']::-webkit-outer-spin-button {
   margin-left: 43px;
 }
 
-.nav_dropdown_bottom button {
+.nav_dropdown_bottom .nav_dropdown_button:first-child {
   display: flex;
   align-items: center;
   gap: 15px;

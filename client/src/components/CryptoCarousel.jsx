@@ -13,11 +13,11 @@ function CryptoCarousel() {
   const queryClient = useQueryClient();
   const cachedMarket = queryClient.getQueryData(['market']);
 
-  const loop = [0, 1, 2, 3, 4];
+  // This is duct tape and fucking glue to get ChartJS to actually loop without issues
+  const loop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
   return (
     <Swiper
-      // TODO: Fix loop
       centeredSlides={true}
       // centerInsufficientSlides={true}
       loop={true}
@@ -34,12 +34,12 @@ function CryptoCarousel() {
           spaceBetween: 1,
         },
         '@1.00': {
-          slidesPerView: 1,
-          spaceBetween: 1,
+          slidesPerView: 3,
+          spaceBetween: 0.5,
         },
         '@1.50': {
-          slidesPerView: 1,
-          spaceBetween: 1,
+          slidesPerView: 3,
+          spaceBetween: 0.5,
         },
       }}
     >
