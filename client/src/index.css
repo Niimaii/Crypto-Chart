@@ -13,6 +13,10 @@ body {
   background-color: #f9f9ff;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* General */
 
 /* Turns off the scroll option in the number input field*/
@@ -76,6 +80,11 @@ input[type='number']::-webkit-outer-spin-button {
   z-index: 3;
 }
 
+.buy_card_container_2 {
+  display: flex;
+  justify-content: center;
+}
+
 .buy_card {
   display: flex;
   flex-direction: column;
@@ -84,6 +93,11 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 5px;
   width: 350px;
   height: 500px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   overflow: hidden;
 }

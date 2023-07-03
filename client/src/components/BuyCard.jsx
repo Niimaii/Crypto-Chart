@@ -34,7 +34,7 @@ function BuyCard() {
   const coinNames = [];
 
   // Reset text input text formatting
-  const fontReset = () => {
+  const inputReset = () => {
     const buyInput = document.getElementById('buy_input');
     const inputComparison = document.getElementById('buy_card_comparison');
     buyInput.style.fontSize = '5rem';
@@ -45,7 +45,7 @@ function BuyCard() {
 
   // Buy coins with API
   const purchaseCoin = async (crypto) => {
-    fontReset();
+    inputReset();
     const coinPurchase = {
       crypto: crypto,
       amount: buy ? amount : -amount,
@@ -97,7 +97,7 @@ function BuyCard() {
 
     // Reset text value and format
     setIsOpen(false);
-    fontReset();
+    inputReset();
   };
 
   const handleInput = (e) => {
@@ -108,7 +108,8 @@ function BuyCard() {
 
   const handleClose = () => {
     closeBuyCard();
-    fontReset();
+    inputReset();
+    setBuy(true);
   };
 
   // Update the position of '$' so that it adjusts to the input text
@@ -117,11 +118,9 @@ function BuyCard() {
     const dollarInput = document.getElementById('buy_card_dollar');
     // Horizontal
     const halfOfContainer = 150;
-    const adjustedInputLength = inputComparison.offsetWidth / 2;
     const offSet = -15;
     // Vertical
     const verticalContainer = 14;
-    const inputHeight = inputComparison.offsetHeight;
     const baseInputHeight = 68;
     const verticalOffSet = 3;
 
@@ -158,11 +157,19 @@ function BuyCard() {
     }
   }, [amount]);
 
+  useEffect(() => {
+    buyCard
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'visible');
+
+    console.log('ran');
+  }, [buyCard]);
+
   return (
     <main
       className={`buy_card_container absolute ${buyCard ? 'block' : 'hidden'}`}
     >
-      <div className='flex justify-center mt-32'>
+      <div className='buy_card_container_2'>
         <article className='buy_card'>
           <header className='buy_card_top'>
             <title className='buy_sell'>
