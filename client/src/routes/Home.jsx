@@ -25,7 +25,6 @@ function Home() {
       <div className='mt-8 flex justify-center'>
         <CryptoTable volume='123' key='CryptoTable' />
       </div>
-      <BuyCard />
     </div>
   );
 }
