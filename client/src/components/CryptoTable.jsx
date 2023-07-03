@@ -73,9 +73,9 @@ function CryptoTable() {
     }
   };
 
-  const handleTradeBtn = () => {
+  const handleTradeBtn = (coin) => {
     if (isAuth()) {
-      openBuyCard();
+      openBuyCard(coin);
     } else {
       navigateTo('/signin');
     }
@@ -267,7 +267,10 @@ function CryptoTable() {
                   </td>
                   <td>
                     <div className=''>
-                      <button onClick={handleTradeBtn} className='table_btn'>
+                      <button
+                        onClick={() => handleTradeBtn(coin.crypto_id)}
+                        className='table_btn'
+                      >
                         Trade
                       </button>
                     </div>

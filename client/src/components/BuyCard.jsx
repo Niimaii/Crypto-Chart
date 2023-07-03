@@ -10,17 +10,20 @@ function BuyCard() {
   const queryClient = useQueryClient();
   const coinResponse = queryClient.getQueryData(['market']);
 
-  const { buyCard, closeBuyCard, portfolio } = useContext(CryptoContext);
+  const { buyCard, closeBuyCard, portfolio, buyCardCoin, changeBuyCoin } =
+    useContext(CryptoContext);
+
   const [amount, setAmount] = useState('');
-  const [cryptoName, setCryptoName] = useState('bitcoin');
   const [buy, setBuy] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
   // Get the users coin data for the current coin of interest
-  const coinMarket = coinResponse.find((coin) => coin.crypto_id === cryptoName);
+  const coinMarket = coinResponse.find(
+    (coin) => coin.crypto_id === buyCardCoin
+  );
   const userInvestments = portfolio.data.data.investments;
   const usersCoinAmount = userInvestments.reduce((sum, transaction) => {
-    if (transaction.coin === cryptoName) {
+    if (transaction.coin === buyCardCoin) {
       sum = sum + transaction.crypto_total * coinMarket.current_price;
     }
 
@@ -29,6 +32,16 @@ function BuyCard() {
 
   const cryptoTable = {};
   const coinNames = [];
+
+  // Reset text input text formatting
+  const fontReset = () => {
+    const buyInput = document.getElementById('buy_input');
+    const inputComparison = document.getElementById('buy_card_comparison');
+    buyInput.style.fontSize = '5rem';
+    inputComparison.style.fontSize = '5rem';
+
+    setAmount('');
+  };
 
   // Buy coins with API
   const purchaseCoin = async (crypto) => {
@@ -58,7 +71,7 @@ function BuyCard() {
 
   // Find the object with that matches the current selected coin
   const currentCrypto = coinResponse.find(
-    (coin) => coin.crypto_id === cryptoName
+    (coin) => coin.crypto_id === buyCardCoin
   );
 
   const handleOptions = () => {
@@ -76,24 +89,25 @@ function BuyCard() {
   };
 
   const handleCoinSelect = (coin) => {
-    setCryptoName(coin);
+    changeBuyCoin(coin);
     const purchase = document.getElementById('purchase');
     purchase.classList.remove('animate_down');
     purchase.classList.add('animate_up');
 
     // Reset text value and format
-    setAmount(0);
     setIsOpen(false);
-    const buyInput = document.getElementById('buy_input');
-    const inputComparison = document.getElementById('buy_card_comparison');
-    buyInput.style.fontSize = '5rem';
-    inputComparison.style.fontSize = '5rem';
+    fontReset();
   };
 
   const handleInput = (e) => {
     if (e.target.value <= 9999999) {
       setAmount(e.target.value);
     }
+  };
+
+  const handleClose = () => {
+    closeBuyCard();
+    fontReset();
   };
 
   // Update the position of '$' so that it adjusts to the input text
@@ -172,7 +186,7 @@ function BuyCard() {
                 />
               </div>
             </title>
-            <button className='buy_card_close' onClick={closeBuyCard}>
+            <button className='buy_card_close' onClick={handleClose}>
               <CloseIcon />
             </button>
           </header>
@@ -222,6 +236,7 @@ function BuyCard() {
                       max={1000000}
                       value={amount}
                       placeholder='0'
+                      onWheel={(e) => e.preventDefault()}
                     />
                     <span id='buy_card_dollar'>$</span>
                   </div>
@@ -242,7 +257,7 @@ function BuyCard() {
             <button
               className='buy_card_button'
               onClick={() => {
-                purchaseCoin(cryptoName);
+                purchaseCoin(buyCardCoin);
               }}
             >
               {buy ? 'Buy' : 'Sell'}

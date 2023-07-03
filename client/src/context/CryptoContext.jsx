@@ -14,6 +14,7 @@ export const CryptoContextProvider = (props) => {
   const [auth, setAuth] = useState(false);
   const [days, setDays] = useState(1);
   const [buyCard, setBuyCard] = useState(false);
+  const [buyCardCoin, setBuyCardCoin] = useState('bitcoin');
 
   const market = useQuery({
     queryKey: ['market'],
@@ -59,12 +60,18 @@ export const CryptoContextProvider = (props) => {
     setAuth(false);
   };
 
-  const openBuyCard = () => {
+  const openBuyCard = (coin) => {
     setBuyCard(true);
+    setBuyCardCoin(coin);
   };
 
   const closeBuyCard = () => {
     setBuyCard(false);
+    setBuyCardCoin('bitcoin');
+  };
+
+  const changeBuyCoin = (coin) => {
+    setBuyCardCoin(coin);
   };
 
   return (
@@ -76,6 +83,8 @@ export const CryptoContextProvider = (props) => {
         days,
         setDays,
         buyCard,
+        buyCardCoin,
+        changeBuyCoin,
         openBuyCard,
         closeBuyCard,
         market,
