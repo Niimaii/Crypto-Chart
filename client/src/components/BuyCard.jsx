@@ -10,10 +10,25 @@ function BuyCard() {
   const queryClient = useQueryClient();
   const coinResponse = queryClient.getQueryData(['market']);
 
-  const { buyCard, closeBuyCard } = useContext(CryptoContext);
+  const { buyCard, closeBuyCard, portfolio } = useContext(CryptoContext);
   const [amount, setAmount] = useState(0);
   const [cryptoName, setCryptoName] = useState('bitcoin');
   const [buy, setBuy] = useState(true);
+
+  if (portfolio.isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  // Get the users coin data for the current coin of interest
+  const coinMarket = coinResponse.find((coin) => coin.crypto_id === cryptoName);
+  const userInvestments = portfolio.data.data.investments;
+  const usersCoinAmount = userInvestments.reduce((sum, transaction) => {
+    if (transaction.coin === cryptoName) {
+      sum = sum + transaction.crypto_total * coinMarket.current_price;
+    }
+
+    return sum;
+  }, 0);
 
   const cryptoTable = {};
   const coinNames = [];
@@ -22,7 +37,7 @@ function BuyCard() {
   const purchaseCoin = async (crypto) => {
     const coinPurchase = {
       crypto: crypto,
-      amount: amount,
+      amount: buy ? amount : -amount,
     };
     await buyCoin(coinPurchase);
     // Refetch new purchase data so it displays current info
@@ -63,7 +78,9 @@ function BuyCard() {
   };
 
   const handleInput = (e) => {
-    setAmount(e.target.value);
+    if (e.target.value <= 9999999) {
+      setAmount(e.target.value);
+    }
   };
 
   // Update the position of '$' so that it adjusts to the input text
@@ -107,8 +124,6 @@ function BuyCard() {
       dollarInput.style.top = `${
         verticalContainer + differenceInHeight / 4 + verticalOffSet
       }px`;
-
-      console.log(inputComparison.offsetWidth);
     }
   }, [amount]);
 
@@ -194,7 +209,12 @@ function BuyCard() {
                   </div>
 
                   <p>
-                    {smartFormatter(currentCrypto.current_price, 3, 2, true)}
+                    {smartFormatter(
+                      buy ? currentCrypto.current_price : usersCoinAmount,
+                      3,
+                      2,
+                      true
+                    )}
                   </p>
 
                   <p id='buy_card_comparison'>{amount}</p>
@@ -206,7 +226,7 @@ function BuyCard() {
                 purchaseCoin(cryptoName);
               }}
             >
-              Purchase
+              {buy ? 'Purchase' : 'Sell'}
             </button>
           </section>
         </article>
