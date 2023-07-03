@@ -11,7 +11,7 @@ function BuyCard() {
   const coinResponse = queryClient.getQueryData(['market']);
 
   const { buyCard, closeBuyCard, portfolio } = useContext(CryptoContext);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [cryptoName, setCryptoName] = useState('bitcoin');
   const [buy, setBuy] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -221,6 +221,7 @@ function BuyCard() {
                       min={0}
                       max={1000000}
                       value={amount}
+                      placeholder='0'
                     />
                     <span id='buy_card_dollar'>$</span>
                   </div>
