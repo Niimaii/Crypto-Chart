@@ -460,6 +460,8 @@ input[type='number']::-webkit-outer-spin-button {
   min-width: 148px;
 }
 
+/* Navbar */
+
 .table_nav_on {
   background-color: rgba(212, 213, 254, 0.33);
   color: #0009ff;
@@ -496,6 +498,64 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 100px;
 }
 
+.nav_dropdown {
+  position: absolute;
+  right: 0;
+  top: 80px;
+
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 250px;
+  height: 0;
+  padding: 0px;
+
+  z-index: 2;
+  overflow: hidden;
+  transition: 0.7s ease 0.3s;
+}
+
+.nav_dropdown_button {
+  margin: 15px 0;
+}
+
+.nav_dropdown hr {
+  border: none;
+  height: 1.5px;
+  background-color: #d5d7d6;
+}
+
+.nav_dropdown_pages * {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav_dropdown_pages .nav_dropdown_button:first-child {
+  margin-top: 0;
+}
+
+.nav_dropdown_settings {
+  position: relative;
+}
+.nav_dropdown_settings div {
+  position: absolute;
+  left: -4px;
+}
+
+.nav_dropdown_settings p {
+  margin-left: 43px;
+}
+
+.nav_dropdown_bottom button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav_dropdown_bottom .nav_dropdown_button:last-child {
+  margin-bottom: 0;
+}
 /* Portfolio */
 
 .portfolio {
