@@ -222,11 +222,12 @@ function BuyCard() {
               </div>
             </div>
             <button
+              className='buy_card_button'
               onClick={() => {
                 purchaseCoin(cryptoName);
               }}
             >
-              {buy ? 'Purchase' : 'Sell'}
+              {buy ? 'Buy' : 'Sell'}
             </button>
           </section>
         </article>

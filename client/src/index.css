@@ -275,6 +275,17 @@ input[type='number']::-webkit-outer-spin-button {
   font-weight: 200;
 }
 
+.buy_card_button {
+  background-color: #454bff;
+  width: 180px;
+  height: 60px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+
+  margin-top: 30px;
+}
+
 /* Small Chart */
 
 .small_chart {
