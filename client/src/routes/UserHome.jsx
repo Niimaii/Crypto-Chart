@@ -6,7 +6,7 @@ import CryptoTable from '../components/CryptoTable';
 import BuyCard from '../components/BuyCard';
 
 function UserHome() {
-  const { unAuthenticateUser, market } = useContext(CryptoContext);
+  const { unAuthenticateUser, market, portfolio } = useContext(CryptoContext);
   const [loading, setLoading] = useState(true);
   let protectedData = null;
 
@@ -39,7 +39,7 @@ function UserHome() {
     protectedInfo();
   }, []);
 
-  if (market.isLoading || loading) {
+  if (market.isLoading || portfolio.isLoading || loading) {
     return <h1>Loading...</h1>;
   }
 

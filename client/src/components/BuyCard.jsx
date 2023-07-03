@@ -15,10 +15,6 @@ function BuyCard() {
   const [cryptoName, setCryptoName] = useState('bitcoin');
   const [buy, setBuy] = useState(true);
 
-  if (portfolio.isLoading) {
-    return <h1>Loading...</h1>;
-  }
-
   // Get the users coin data for the current coin of interest
   const coinMarket = coinResponse.find((coin) => coin.crypto_id === cryptoName);
   const userInvestments = portfolio.data.data.investments;
@@ -200,6 +196,9 @@ function BuyCard() {
                     <input
                       id='buy_input'
                       onChange={handleInput}
+                      onClick={(e) =>
+                        e.target.value === 0 ? setAmount('') : {}
+                      }
                       type='number'
                       min={0}
                       max={1000000}
