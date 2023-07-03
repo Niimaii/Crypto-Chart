@@ -14,6 +14,7 @@ function BuyCard() {
   const [amount, setAmount] = useState(0);
   const [cryptoName, setCryptoName] = useState('bitcoin');
   const [buy, setBuy] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Get the users coin data for the current coin of interest
   const coinMarket = coinResponse.find((coin) => coin.crypto_id === cryptoName);
@@ -60,10 +61,18 @@ function BuyCard() {
     (coin) => coin.crypto_id === cryptoName
   );
 
-  const handleOptions = (e) => {
+  const handleOptions = () => {
     const purchase = document.getElementById('purchase');
-    purchase.classList.remove('animate_up');
-    purchase.classList.add('animate_down');
+
+    if (!isOpen) {
+      purchase.classList.remove('animate_up');
+      purchase.classList.add('animate_down');
+    } else {
+      purchase.classList.remove('animate_down');
+      purchase.classList.add('animate_up');
+    }
+
+    setIsOpen(!isOpen);
   };
 
   const handleCoinSelect = (coin) => {
@@ -71,6 +80,14 @@ function BuyCard() {
     const purchase = document.getElementById('purchase');
     purchase.classList.remove('animate_down');
     purchase.classList.add('animate_up');
+
+    // Reset text value and format
+    setAmount(0);
+    setIsOpen(false);
+    const buyInput = document.getElementById('buy_input');
+    const inputComparison = document.getElementById('buy_card_comparison');
+    buyInput.style.fontSize = '5rem';
+    inputComparison.style.fontSize = '5rem';
   };
 
   const handleInput = (e) => {
@@ -98,7 +115,10 @@ function BuyCard() {
     const buyInput = document.getElementById('buy_input');
     const baseFontSize = 5;
 
-    if (inputComparison.offsetWidth === 0) {
+    if (
+      inputComparison.offsetWidth === 0 ||
+      inputComparison.offsetWidth === 50
+    ) {
       dollarInput.style.left = '111px';
     } else if (inputComparison.offsetHeight === 0) {
       dollarInput.style.top = '14px';
@@ -196,9 +216,7 @@ function BuyCard() {
                     <input
                       id='buy_input'
                       onChange={handleInput}
-                      onClick={(e) =>
-                        e.target.value === 0 ? setAmount('') : {}
-                      }
+                      onClick={() => (amount == 0 ? setAmount('') : {})}
                       type='number'
                       min={0}
                       max={1000000}
