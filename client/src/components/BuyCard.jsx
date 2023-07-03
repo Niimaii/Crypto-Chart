@@ -45,6 +45,7 @@ function BuyCard() {
 
   // Buy coins with API
   const purchaseCoin = async (crypto) => {
+    fontReset();
     const coinPurchase = {
       crypto: crypto,
       amount: buy ? amount : -amount,
