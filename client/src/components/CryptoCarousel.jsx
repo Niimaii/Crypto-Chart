@@ -44,13 +44,13 @@ function CryptoCarousel() {
       }}
     >
       {cachedMarket &&
-        loop.map((i) => {
+        loop.map((i, index) => {
           let coin = cachedMarket[i];
           return (
             // You need to add SwiperSlide for Swiper to work properly
             <SwiperSlide key={coin.crypto_id}>
               <NavLink to={`/${coin.crypto_id}`}>
-                <SmallChart coin={coin} key={coin.crypto_id} />
+                <SmallChart coin={coin} key={coin.crypto_id + index} />
               </NavLink>
             </SwiperSlide>
           );

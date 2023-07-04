@@ -244,7 +244,6 @@ function BuyCard() {
                       max={1000000}
                       value={amount}
                       placeholder='0'
-                      onWheel={(e) => e.preventDefault()}
                     />
                     <span id='buy_card_dollar'>$</span>
                   </div>

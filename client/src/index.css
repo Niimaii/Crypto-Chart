@@ -75,7 +75,7 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: #0002264b;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   z-index: 3;
 }
@@ -1221,6 +1221,17 @@ input[type='number']::-webkit-outer-spin-button {
 
   .settings {
     padding: 20px 10%;
+  }
+}
+
+@media (max-width: 430px) {
+  .buy_card {
+    width: 100vw;
+
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    transform: translate(-0%, -0%);
   }
 }
 
