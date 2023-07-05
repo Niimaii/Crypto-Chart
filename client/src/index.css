@@ -654,13 +654,8 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* Chart Card */
-.chart_card {
-  width: 800px;
-  height: 400px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
 
+.chart_card {
   display: none;
 }
 
@@ -1188,6 +1183,76 @@ input[type='number']::-webkit-outer-spin-button {
   }
 }
 
+@media (min-width: 700px) {
+  .portfolio {
+    display: grid;
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 800px;
+    width: 650px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      'chart chart'
+      'balance balance'
+      'portfolio activity';
+
+    align-items: normal;
+  }
+
+  .chart_card {
+    grid-area: chart;
+
+    width: 650px;
+    height: 300px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+    display: initial;
+  }
+
+  .total_balance {
+    grid-area: balance;
+
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 160px;
+  }
+
+  .your_portfolio {
+    grid-area: portfolio;
+
+    width: 300px;
+    height: 320px;
+    overflow: hidden;
+    padding: 25px 25px 0 25px;
+  }
+
+  .your_portfolio_row_value p:first-child {
+    display: none;
+  }
+
+  .activity {
+    grid-area: activity;
+    display: initial;
+
+    margin-left: 25px;
+
+    width: 300px;
+    height: 320px;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .activity_stats p:last-child {
+    display: none;
+  }
+}
+
 @media (min-width: 850px) {
   .big_chart {
     width: 840px;
@@ -1234,11 +1299,21 @@ input[type='number']::-webkit-outer-spin-button {
 
   .total_balance {
     grid-area: balance;
+    /* Reset previous margin */
+    margin: 0;
     margin-bottom: 50px !important;
   }
 
   .chart_card {
+    width: 800px;
+    height: 400px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
     grid-area: chart;
+    /* Reset previous margin */
+    margin: 0;
     margin-left: 50px;
 
     display: initial;
@@ -1252,13 +1327,39 @@ input[type='number']::-webkit-outer-spin-button {
 
   .your_portfolio {
     grid-area: portfolio;
+    /* Reset previous margin */
+
+    width: 375px;
+    height: 300px;
+    overflow: hidden;
+    padding: 25px 25px 0 25px;
+
+    margin: 0;
     margin-left: 50px;
+  }
+
+  .your_portfolio_row_value p:first-child {
+    display: initial;
   }
 
   .activity {
     grid-area: activity;
+    /* Reset previous margin */
+    margin: 0;
     margin-left: 50px;
 
+    width: 375px;
+    height: 300px;
+    background-color: #fff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    overflow: hidden;
+
+    display: initial;
+  }
+
+  .activity_stats p:last-child {
     display: initial;
   }
 }
@@ -1369,33 +1470,6 @@ input[type='number']::-webkit-outer-spin-button {
 
   .coin_table thead th:nth-child(n + 6) {
     display: none;
-  }
-}
-
-@media (min-width: 1050px) {
-  .hamburger {
-    display: none;
-  }
-
-  /* Portfolio */
-
-  .your_portfolio {
-    width: 375px;
-    height: 300px;
-    overflow: hidden;
-    padding: 25px 25px 0 25px;
-  }
-
-  .your_portfolio_body {
-    overflow-y: auto;
-    /* Please don't ask, because I don't even know */
-    height: calc(100% - 20px);
-    justify-content: start;
-  }
-
-  /* Total Balance */
-  .total_balance {
-    margin-bottom: 0px;
   }
 }
 
