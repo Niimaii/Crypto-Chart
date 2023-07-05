@@ -1,7 +1,3 @@
-/*
-TODO: ADD BUTTON LOGIC
-*/
-
 import useAxios from '../hooks/useAxios';
 import moment from 'moment';
 
@@ -18,10 +14,11 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { TempIcon } from '../icons/icons';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import useDB from '../hooks/useDB';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getChart } from '../api/cryptoAPI';
 
 ChartJS.register(
   CategoryScale,
@@ -34,9 +31,10 @@ ChartJS.register(
   Legend
 );
 
-function BigChart({ chartData, coin }) {
+function BigChart({ coin }) {
   const queryClient = useQueryClient();
   const market = queryClient.getQueryData(['market']);
+  const [coinDay, setCoinDay] = useState(30);
 
   //   Locate the correct crypto market data based on the coin of interest
   const coinMarket = market.find((crypto) => crypto.crypto_id === coin);
@@ -46,6 +44,23 @@ function BigChart({ chartData, coin }) {
     style: 'currency',
     currency: 'USD',
   });
+
+  const coinChart = useQuery({
+    queryKey: ['coin'],
+    queryFn: () => getChart(coin, coinDay),
+    staleTime: 1000 * 60 * 3,
+    refetchInterval: 1000 * 60 * 3,
+  });
+
+  useEffect(() => {
+    coinChart.refetch();
+  }, [coinDay]);
+
+  if (coinChart.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const chartData = coinChart.data.data.chart;
 
   //   ↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Chart Setup ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
@@ -138,9 +153,10 @@ function BigChart({ chartData, coin }) {
           </div>
         </div>
         <div className='big_chart_days'>
-          <h4>1D</h4>
-          <h4>1M</h4>
-          <h4>1Y</h4>
+          <button onClick={() => setCoinDay(1)}>1D</button>
+          <button onClick={() => setCoinDay(7)}>7D</button>
+          <button onClick={() => setCoinDay(30)}>1M</button>
+          <button onClick={() => setCoinDay(365)}>1Y</button>
         </div>
       </div>
       <h1 className='big_chart_price'>

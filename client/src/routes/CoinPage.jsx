@@ -16,17 +16,6 @@ function CoinPage() {
   const [cryptoCurrency, setCryptoCUrrency] = useState('BTC');
 
   const { portfolio, market } = useContext(CryptoContext);
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['coin'],
-    queryFn: () => getChart(coin, 30),
-    staleTime: 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 3,
-  });
-
-  // Update the graph data when user visits another coin page
-  useEffect(() => {
-    refetch();
-  }, [coin, refetch]);
 
   // Update the cursor position when converting
   useEffect(() => {
@@ -37,13 +26,12 @@ function CoinPage() {
     }
   }, [cursorPos]);
 
-  if (portfolio.isLoading || isLoading || market.isLoading) {
+  if (portfolio.isLoading || market.isLoading) {
     return <h1>Loading...</h1>;
   }
 
   //   Locate the correct crypto market data based on the coin of interest
   const coinMarket = market.data.find((crypto) => crypto.crypto_id === coin);
-  const chartData = data.data.chart;
 
   // Currency formatter
   const formatter = new Intl.NumberFormat('en-US', {
@@ -127,7 +115,7 @@ function CoinPage() {
   const currency = 'USD';
   return (
     <div className='coin_page'>
-      <BigChart chartData={chartData} coin={coin} />
+      <BigChart coin={coin} />
       <div className='coin_detail'>
         <section className='converter'>
           <div className='converter_body'>

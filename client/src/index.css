@@ -935,10 +935,6 @@ input[type='number']::-webkit-outer-spin-button {
   margin-bottom: 25px;
 }
 
-.big_chart_top h4 {
-  font-size: 1.2rem;
-}
-
 .big_chart_coin {
   display: flex;
   align-items: center;
@@ -949,6 +945,10 @@ input[type='number']::-webkit-outer-spin-button {
   color: #6f6e70;
   font-weight: 300;
   gap: 15px;
+}
+
+.big_chart_top button {
+  font-size: 1.2rem;
 }
 
 .big_chart_price {
