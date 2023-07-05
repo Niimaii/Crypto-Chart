@@ -6,23 +6,22 @@ import { NavLink } from 'react-router-dom';
 function SearchBar() {
   const [input, setInput] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-  const ref = useRef(null);
+  const inputRef = useRef(null);
+  const searchOptions = useRef(null);
 
   const queryClient = useQueryClient();
   const market = queryClient.getQueryData(['market']);
 
   useEffect(() => {
-    const search = document.getElementById('search');
-    const searchRadius = document.getElementById('searchInput');
-
     const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      console.log('testr');
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
         // Reset search when clicking off input
         setFilteredData([]);
         setInput('');
-        search.style.height = '0px';
-        search.style.padding = '0px';
-        searchRadius.style.borderRadius = '0.375rem';
+        searchOptions.current.style.height = '0px';
+        searchOptions.current.style.padding = '0px';
+        inputRef.current.style.borderRadius = '0.375rem';
       }
     };
 
@@ -76,7 +75,7 @@ function SearchBar() {
         <SearchIcon />
         <input
           onChange={filterCoins}
-          ref={ref}
+          ref={inputRef}
           type='text'
           placeholder='Search Crypto Charts'
           className='search_input'
@@ -85,7 +84,11 @@ function SearchBar() {
         />
       </div>
 
-      <div id='search' className='search_options search_options_on'>
+      <div
+        ref={searchOptions}
+        id='search'
+        className='search_options search_options_on'
+      >
         {filteredData.length != 0 &&
           filteredData.slice(0, 15).map((coin) => {
             return (
