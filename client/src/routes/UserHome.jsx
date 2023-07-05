@@ -47,7 +47,7 @@ function UserHome() {
     <div className=''>
       <CryptoCarousel />
 
-      <div className='mt-8 flex justify-center'>
+      <div className='flex justify-center'>
         <CryptoTable volume='123' key='CryptoTable' />
       </div>
       <BuyCard />

@@ -1132,6 +1132,10 @@ input[type='number']::-webkit-outer-spin-button {
 
 /* 🌿🔥🔥🔥🌿 */
 @media (min-width: 420px) {
+  .total_balance {
+    margin: 50px 0;
+  }
+
   .your_portfolio {
     width: 375px;
     height: 300px;
@@ -1280,6 +1284,8 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 @media (min-width: 1200px) {
+  /* Navbar */
+
   /* Portfolio */
   .portfolio {
     display: grid;

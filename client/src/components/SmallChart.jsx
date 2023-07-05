@@ -126,7 +126,7 @@ function SmallChart({ coin }) {
   };
 
   return (
-    <div className='flex justify-center my-10'>
+    <div className='flex justify-center mt-12 my-8'>
       <div className='small_chart bg-white w-56 h-56 rounded-xl p-4 flex flex-col justify-between'>
         <div className='flex items-center m-0'>
           <img className='h-10 mr-3' src={coin.image} alt={coin.name} />
