@@ -1046,7 +1046,7 @@ input[type='number']::-webkit-outer-spin-button {
   height: 65px;
 }
 
-.pass_check {
+.settings_popup_container {
   background-color: #0002264b;
   top: 0;
   left: 0;
@@ -1061,17 +1061,53 @@ input[type='number']::-webkit-outer-spin-button {
   position: absolute;
 }
 
-.pass_check_card {
-  background-color: white;
-  width: 300px;
-  height: 200px;
+.settings_popup {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 8px;
+
+  height: 250px;
+  width: 350px;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-.pass_check_card button {
+.settings_popup h2 {
+  font-size: 1.25rem;
+}
+
+.settings_popup input {
+  border-radius: 5px;
+  height: 35px;
+  width: 70%;
+  margin: 8px 0;
+
+  padding-left: 10px;
+}
+
+.settings_popup_button {
   background-color: #454bff;
   color: white;
   padding: 10px 20px;
   border-radius: 10px;
+}
+
+.popup_close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+}
+
+.email_popup {
+  justify-content: space-around;
+}
+
+.delete_popup {
+  justify-content: space-around;
 }
 
 /* Recent Activity */

@@ -12,6 +12,7 @@ import {
 } from '../api/authAPI';
 import { useNavigate } from 'react-router-dom';
 import {
+  CloseIcon,
   EmailIcon,
   PasswordIcon,
   RightToggleArrow,
@@ -137,6 +138,25 @@ function Settings() {
     }
   };
 
+  // Clear the password card input and close element
+  const handlePassCard = () => {
+    setPasswordCard(false);
+    setPasswordCheckInput('');
+    setPasswordInput('');
+    setPasswordConfirmInput('');
+  };
+
+  const handleEmailCard = () => {
+    setEmailCard(false);
+    setPasswordCheckInput('');
+    setEmailInput('');
+  };
+
+  const handleDeleteCard = () => {
+    setDeleteCard(false);
+    setPasswordCheckInput('');
+  };
+
   return (
     <main className='settings'>
       <select value={currencyData} onChange={updateCurrency} id=''>
@@ -190,14 +210,15 @@ function Settings() {
 
       {/* Display the Email card */}
       {emailCard && (
-        <div className='pass_check'>
-          <div className='pass_check_card'>
-            <h1>Change Email</h1>
+        <div className='settings_popup_container'>
+          <div className='settings_popup email_popup'>
+            <h2>Change Email</h2>
             <input
               value={passwordCheckInput}
               onChange={(e) => setPasswordCheckInput(e.target.value)}
               className='border'
               type='password'
+              placeholder='Confirm Pass'
             />
             <input
               value={emailInput}
@@ -205,8 +226,14 @@ function Settings() {
               className='border'
               type='text'
               onKeyDown={handleKeyPressEmail}
+              placeholder='New Email'
             />
-            <button onClick={updateEmail}>Send</button>
+            <button className='settings_popup_button' onClick={updateEmail}>
+              Send
+            </button>
+            <button onClick={handleEmailCard} className='popup_close'>
+              <CloseIcon />
+            </button>
           </div>
         </div>
       )}
@@ -214,45 +241,59 @@ function Settings() {
       {/* Display the Password card */}
 
       {passwordCard && (
-        <div className='pass_check'>
-          <div className='pass_check_card'>
-            <h1>Change Password</h1>
+        <div className='settings_popup_container'>
+          <div className='settings_popup'>
+            <h2>Change Password</h2>
             <input
               value={passwordCheckInput}
               onChange={(e) => setPasswordCheckInput(e.target.value)}
-              className='border'
+              className='border pass_check_confirm'
               type='password'
+              placeholder='Old Password'
             />
             <input
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              className='border'
+              className='border pass_check_new'
               type='password'
+              placeholder='New Password'
             />
             <input
               value={passwordConfirmInput}
               onChange={(e) => setPasswordConfirmInput(e.target.value)}
-              className='border'
+              className='border pass_check_new'
               type='password'
+              placeholder='Confirm New Pass'
               onKeyDown={handleKeyPressPassword}
             />
-            <button onClick={updatePassword}>Send</button>
+            <button className='settings_popup_button' onClick={updatePassword}>
+              Send
+            </button>
+            <button onClick={handlePassCard} className='popup_close'>
+              <CloseIcon />
+            </button>
           </div>
         </div>
       )}
 
       {deleteCard && (
-        <div className='pass_check'>
-          <div className='pass_check_card'>
-            <h1>Delete Account</h1>
+        <div className='settings_popup_container'>
+          <div className='settings_popup delete_popup'>
+            <h2>Delete Account</h2>
             <input
               value={passwordCheckInput}
               onChange={(e) => setPasswordCheckInput(e.target.value)}
               className='border'
               type='password'
               onKeyDown={handleKeyPressDelete}
+              placeholder='Confirm Pass'
             />
-            <button onClick={deleteAccount}>Send</button>
+            <button className='settings_popup_button' onClick={deleteAccount}>
+              Send
+            </button>
+            <button onClick={handleDeleteCard} className='popup_close'>
+              <CloseIcon />
+            </button>
           </div>
         </div>
       )}

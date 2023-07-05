@@ -17,7 +17,7 @@ function SearchBar() {
     const handleClickOutside = (event) => {
       if (inputRef.current && !inputRef.current.contains(event.target)) {
         // Reset search when clicking off input
-        setSearchOpen(false);
+        setSearchOpen(false); // Removes event listener
         setFilteredData([]);
         setInput('');
         searchOptions.current.style.height = '0px';
@@ -26,6 +26,7 @@ function SearchBar() {
       }
     };
 
+    // ONly adds event listener if the search bar is changed
     if (searchOpen) {
       document.addEventListener('click', handleClickOutside);
     }

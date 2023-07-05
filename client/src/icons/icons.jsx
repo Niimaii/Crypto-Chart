@@ -301,9 +301,9 @@ export const PasswordIcon = () => (
     <path
       d='M9.66667 14.6333C9.66667 16.7503 7.95042 18.4666 5.83333 18.4666C3.71624 18.4666 2 16.7503 2 14.6333C2 12.5162 3.71624 10.7999 5.83333 10.7999C7.95042 10.7999 9.66667 12.5162 9.66667 14.6333ZM9.66667 14.6333H19.0583M19.0583 14.6333H24.6167C24.8284 14.6333 25 14.8048 25 15.0166V18.4666M19.0583 14.6333V18.4666'
       stroke='#6F6E70'
-      stroke-width='3'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='3'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M7.3 4.6C8.57025 4.6 9.6 3.57025 9.6 2.3C9.6 1.02974 8.57025 0 7.3 0C6.02974 0 5 1.02974 5 2.3C5 3.57025 6.02974 4.6 7.3 4.6Z'
@@ -331,37 +331,37 @@ export const TrashIcon = () => (
     <path
       d='M8.375 10.5V16.875'
       stroke='#6F6E70'
-      stroke-width='2.2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2.2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M12.625 10.5V16.875'
       stroke='#6F6E70'
-      stroke-width='2.2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2.2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M2 6.25H19'
       stroke='#6F6E70'
-      stroke-width='2.2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2.2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M4.125 6.25H10.5H16.875V17.9375C16.875 19.698 15.448 21.125 13.6875 21.125H7.3125C5.5521 21.125 4.125 19.698 4.125 17.9375V6.25Z'
       stroke='#6F6E70'
-      stroke-width='2.2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2.2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M7.3125 4.125C7.3125 2.95139 8.26389 2 9.4375 2H11.5625C12.7361 2 13.6875 2.95139 13.6875 4.125V6.25H7.3125V4.125Z'
       stroke='#6F6E70'
-      stroke-width='2.2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2.2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 );
@@ -377,15 +377,15 @@ export const EmailIcon = () => (
     <path
       d='M2.05469 3.11114L8.59913 8.01942C9.72509 8.86386 11.2732 8.86386 12.3991 8.01942L18.9436 3.11108'
       stroke='#6F6E70'
-      stroke-width='1.8'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='1.8'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M17.8889 1H3.11111C1.94518 1 1 1.94518 1 3.11111V13.6667C1 14.8326 1.94518 15.7778 3.11111 15.7778H17.8889C19.0548 15.7778 20 14.8326 20 13.6667V3.11111C20 1.94518 19.0548 1 17.8889 1Z'
       stroke='#6F6E70'
-      stroke-width='1.8'
-      stroke-linecap='round'
+      strokeWidth='1.8'
+      strokeLinecap='round'
     />
   </svg>
 );
@@ -506,23 +506,23 @@ export const LoginIcon = () => (
     <path
       d='M13 12L21 12'
       stroke='#6F6E70'
-      stroke-width='2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M16 15L13.087 12.087V12.087C13.039 12.039 13.039 11.961 13.087 11.913V11.913L16 9'
       stroke='#6F6E70'
-      stroke-width='2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M16 5V4.5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19.5V19'
       stroke='#6F6E70'
-      stroke-width='2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 );
