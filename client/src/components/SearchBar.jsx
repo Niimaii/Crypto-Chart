@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 function SearchBar() {
   const [input, setInput] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [searchOpen, setSearchOpen] = useState(false);
   const inputRef = useRef(null);
   const searchOptions = useRef(null);
 
@@ -14,9 +15,9 @@ function SearchBar() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log('testr');
       if (inputRef.current && !inputRef.current.contains(event.target)) {
         // Reset search when clicking off input
+        setSearchOpen(false);
         setFilteredData([]);
         setInput('');
         searchOptions.current.style.height = '0px';
@@ -25,12 +26,14 @@ function SearchBar() {
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
+    if (searchOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [searchOpen]);
 
   if (!market) {
     return <h1>Loading...</h1>;
@@ -44,6 +47,7 @@ function SearchBar() {
   const filterCoins = (e) => {
     const searchWord = e.target.value;
     setInput(searchWord);
+    setSearchOpen(true);
 
     const search = document.getElementById('search');
     const searchRadius = document.getElementById('searchInput');
@@ -58,6 +62,7 @@ function SearchBar() {
 
     if (searchWord === '') {
       setFilteredData([]);
+      setSearchOpen(false);
       search.style.height = '0px';
       search.style.padding = '0px';
       searchRadius.style.borderRadius = '0.375rem';
