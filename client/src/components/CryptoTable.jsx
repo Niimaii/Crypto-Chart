@@ -224,6 +224,7 @@ function CryptoTable() {
                 <tr
                   onClick={() => handleTable(coin.crypto_id)}
                   key={coin.crypto_id}
+                  className='crypto_table_row'
                 >
                   <td className='relative'>
                     <div className='pl-12'>

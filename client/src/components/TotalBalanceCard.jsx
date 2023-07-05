@@ -13,8 +13,6 @@ function TotalBalanceCard() {
   const portfolio = data.total_balance;
   const total_balance = portfolio.total.toFixed(2);
 
-  console.log(userDif);
-
   /* Check to see if 'userDif[x]' is valid and contains that days  
   percent changes. If so then make it look like a typical percent 
   symbol (i.e -20%). Else return 'N/A'.

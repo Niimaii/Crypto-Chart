@@ -36,9 +36,11 @@ function SearchBar() {
     if (searchWord === '') {
       setFilteredData([]);
       search.style.height = '0px';
+      search.style.padding = '0px';
     } else {
       setFilteredData(coinsFiltered);
       search.style.height = '300px';
+      search.style.padding = '5px 15px';
     }
   };
 
@@ -50,23 +52,25 @@ function SearchBar() {
           onChange={filterCoins}
           type='text'
           placeholder='Search Crypto Charts'
-          className='search_input'
+          className='search_input search_input_on'
           id='searchInput'
           value={input}
         />
       </div>
 
-      <div id='search' className='searchOptions'>
+      <div id='search' className='search_options search_options_on'>
         {filteredData.length != 0 &&
           filteredData.slice(0, 15).map((coin) => {
             return (
               <NavLink
-                className='searchResults'
+                className='search_rows'
                 key={coin.crypto_id}
                 to={`/${coin.crypto_id}`}
               >
-                <img className='h-10 w-10' src={coin.image} alt='' />
-                <h1>{coin.name}</h1>
+                <div className='search_rows_coin'>
+                  <img className='h-10 w-10' src={coin.image} alt='' />
+                  <h1>{coin.name}</h1>
+                </div>
                 <p>{formatter.format(coin.current_price)}</p>
               </NavLink>
             );
