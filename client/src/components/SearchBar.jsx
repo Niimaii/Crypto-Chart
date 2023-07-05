@@ -6,9 +6,32 @@ import { NavLink } from 'react-router-dom';
 function SearchBar() {
   const [input, setInput] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const ref = useRef(null);
 
   const queryClient = useQueryClient();
   const market = queryClient.getQueryData(['market']);
+
+  useEffect(() => {
+    const search = document.getElementById('search');
+    const searchRadius = document.getElementById('searchInput');
+
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        // Reset search when clicking off input
+        setFilteredData([]);
+        setInput('');
+        search.style.height = '0px';
+        search.style.padding = '0px';
+        searchRadius.style.borderRadius = '0.375rem';
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   if (!market) {
     return <h1>Loading...</h1>;
@@ -24,6 +47,7 @@ function SearchBar() {
     setInput(searchWord);
 
     const search = document.getElementById('search');
+    const searchRadius = document.getElementById('searchInput');
 
     // Filter through each data set and find the correct object(s)
 
@@ -37,10 +61,12 @@ function SearchBar() {
       setFilteredData([]);
       search.style.height = '0px';
       search.style.padding = '0px';
+      searchRadius.style.borderRadius = '0.375rem';
     } else {
       setFilteredData(coinsFiltered);
       search.style.height = '300px';
       search.style.padding = '5px 15px';
+      searchRadius.style.borderRadius = '0.375rem 0.375rem 0 0';
     }
   };
 
@@ -50,9 +76,10 @@ function SearchBar() {
         <SearchIcon />
         <input
           onChange={filterCoins}
+          ref={ref}
           type='text'
           placeholder='Search Crypto Charts'
-          className='search_input search_input_on'
+          className='search_input'
           id='searchInput'
           value={input}
         />

@@ -18,7 +18,7 @@ import { fetchProtectedInfo, onLogout } from '../api/authAPI';
 import SearchBar from './SearchBar';
 
 function Navbar() {
-  const { isAuth, unAuthenticateUser } = useContext(CryptoContext);
+  const { isAuth, unAuthenticateUser, market } = useContext(CryptoContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const logout = async () => {
