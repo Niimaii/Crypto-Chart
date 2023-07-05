@@ -40,8 +40,8 @@ function ChartCard() {
   const market = queryClient.getQueryData(['market']);
   const portfolioData = queryClient.getQueryData(['portfolio']);
   const [coinDay, setCoinDay] = useState(30);
+  const [coin, setCoin] = useState('bitcoin');
   const portfolio = portfolioData.data.investments;
-  const coin = 'bitcoin';
   const coinChart = useQuery({
     queryKey: ['coin'],
     queryFn: () => getChart(coin, coinDay),
@@ -51,7 +51,7 @@ function ChartCard() {
 
   useEffect(() => {
     coinChart.refetch();
-  }, [coinDay]);
+  }, [coinDay, coin]);
 
   if (coinChart.isLoading) {
     return <div>Loading...</div>;
@@ -141,6 +141,11 @@ function ChartCard() {
 
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Chart Setup ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+  const changeCoin = (e) => {
+    console.log(e.target.value);
+    setCoin(e.target.value);
+  };
+
   return (
     <div className='chart_card'>
       <div className='chart_card_body'>
@@ -173,10 +178,10 @@ function ChartCard() {
             <button onClick={() => setCoinDay(365)}>1Y</button>
           </div>
 
-          <select className='chart_card_coins'>
+          <select onChange={changeCoin} className='chart_card_coins'>
             {portfolio.map((investment, index) => {
               return (
-                <option key={investment.name + index} value=''>
+                <option key={investment.name + index} value={investment.coin}>
                   {investment.symbol.toUpperCase()}
                 </option>
               );
