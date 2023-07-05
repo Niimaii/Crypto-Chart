@@ -18,7 +18,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { TempIcon } from '../icons/icons';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import useDB from '../hooks/useDB';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -39,14 +39,19 @@ function ChartCard() {
   const queryClient = useQueryClient();
   const market = queryClient.getQueryData(['market']);
   const portfolioData = queryClient.getQueryData(['portfolio']);
+  const [coinDay, setCoinDay] = useState(30);
   const portfolio = portfolioData.data.investments;
   const coin = 'bitcoin';
   const coinChart = useQuery({
     queryKey: ['coin'],
-    queryFn: () => getChart(coin, 30),
+    queryFn: () => getChart(coin, coinDay),
     staleTime: 1000 * 60 * 3,
     refetchInterval: 1000 * 60 * 3,
   });
+
+  useEffect(() => {
+    coinChart.refetch();
+  }, [coinDay]);
 
   if (coinChart.isLoading) {
     return <div>Loading...</div>;
@@ -162,10 +167,10 @@ function ChartCard() {
         </div>
         <div className='chart_card_body_right'>
           <div className='days_options'>
-            <p>1D</p>
-            <p>7D</p>
-            <p>1M</p>
-            <p>1Y</p>
+            <button onClick={() => setCoinDay(1)}>1D</button>
+            <button onClick={() => setCoinDay(7)}>7D</button>
+            <button onClick={() => setCoinDay(30)}>1M</button>
+            <button onClick={() => setCoinDay(365)}>1Y</button>
           </div>
 
           <select className='chart_card_coins'>
