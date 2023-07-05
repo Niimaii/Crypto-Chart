@@ -43,14 +43,14 @@ function SearchBar() {
   };
 
   return (
-    <div>
-      <div className='nav_response flex items-center relative mx-10'>
+    <div className='search_bar'>
+      <div className='flex items-center relative'>
         <SearchIcon />
         <input
           onChange={filterCoins}
           type='text'
           placeholder='Search Crypto Charts'
-          className='searchBar'
+          className='search_input'
           id='searchInput'
           value={input}
         />
