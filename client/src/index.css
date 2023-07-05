@@ -560,43 +560,9 @@ input[type='number']::-webkit-outer-spin-button {
 /* Portfolio */
 
 .portfolio {
-  display: grid;
-  margin: 0 auto;
-  margin-top: 50px;
-  height: 800px;
-  width: 1175px;
-  grid-template-columns: 1fr 1.1fr 1.3fr;
-  grid-template-rows: 0.5fr 0.389fr 1fr;
-  grid-template-areas:
-    'balance chart chart'
-    'doughnut chart chart'
-    'doughnut portfolio activity';
-
-  /* display: flex; */
-}
-
-.total_balance {
-  grid-area: balance;
-  margin-bottom: 50px !important;
-}
-
-.chart_card {
-  grid-area: chart;
-  margin-left: 50px;
-}
-
-.doughnut {
-  grid-area: doughnut;
-}
-
-.your_portfolio {
-  grid-area: portfolio;
-  margin-left: 50px;
-}
-
-.activity {
-  grid-area: activity;
-  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .total_balance {
@@ -694,6 +660,8 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 5px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+
+  display: none;
 }
 
 .chart_card_body {
@@ -819,6 +787,8 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: #fff;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+
+  display: none;
 }
 
 .doughnut_options {
@@ -1092,6 +1062,8 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 5px;
   padding: 20px;
   overflow: hidden;
+
+  display: none;
 }
 
 .activity h4 {
@@ -1162,6 +1134,24 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* New Responsive */
+
+/* 🌿🔥🔥🔥🌿 */
+@media (min-width: 420px) {
+  .your_portfolio {
+    width: 375px;
+    height: 300px;
+    overflow: hidden;
+    padding: 25px 25px 0 25px;
+  }
+
+  .your_portfolio_body {
+    overflow-y: auto;
+    /* Please don't ask, because I don't even know */
+    height: calc(100% - 20px);
+    justify-content: start;
+  }
+}
+
 @media (min-width: 500px) {
   /* Coin Page */
   .coin_page {
@@ -1224,6 +1214,55 @@ input[type='number']::-webkit-outer-spin-button {
   }
 }
 
+@media (min-width: 1200px) {
+  /* Portfolio */
+  .portfolio {
+    display: grid;
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 800px;
+    width: 1175px;
+    grid-template-columns: 1fr 1.1fr 1.3fr;
+    grid-template-rows: 0.5fr 0.389fr 1fr;
+    grid-template-areas:
+      'balance chart chart'
+      'doughnut chart chart'
+      'doughnut portfolio activity';
+
+    align-items: normal;
+  }
+
+  .total_balance {
+    grid-area: balance;
+    margin-bottom: 50px !important;
+  }
+
+  .chart_card {
+    grid-area: chart;
+    margin-left: 50px;
+
+    display: initial;
+  }
+
+  .doughnut {
+    grid-area: doughnut;
+
+    display: initial;
+  }
+
+  .your_portfolio {
+    grid-area: portfolio;
+    margin-left: 50px;
+  }
+
+  .activity {
+    grid-area: activity;
+    margin-left: 50px;
+
+    display: initial;
+  }
+}
+
 @media (max-width: 430px) {
   .buy_card {
     width: 100vw;
@@ -1232,6 +1271,24 @@ input[type='number']::-webkit-outer-spin-button {
     top: 10vh;
     left: 0;
     transform: translate(-0%, -0%);
+  }
+}
+
+@media (max-width: 300px) {
+  .your_portfolio {
+    padding: 3px;
+  }
+
+  .your_portfolio p {
+    font-size: 0.9rem;
+  }
+
+  .your_portfolio_row {
+    gap: 8px;
+  }
+
+  .your_portfolio_row_name {
+    gap: 5px;
   }
 }
 

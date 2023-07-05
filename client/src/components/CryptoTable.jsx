@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import { LeftArrow, RightArrow, StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getFavorites, patchFavorites } from '../api/cryptoAPI';
 import { formatter, shortFormatter } from '../utils/Formatter';
 
@@ -15,6 +15,8 @@ function CryptoTable() {
   const [favorites, setFavorites] = useState(false);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+
+  const navigate = useNavigate();
 
   // Context function to open buy card
   const { openBuyCard, isAuth, buyCard } = useContext(CryptoContext);
@@ -73,7 +75,8 @@ function CryptoTable() {
     }
   };
 
-  const handleTradeBtn = (coin) => {
+  const handleTradeBtn = (coin, e) => {
+    e.stopPropagation();
     if (isAuth()) {
       openBuyCard(coin);
     } else {
@@ -123,12 +126,17 @@ function CryptoTable() {
   };
 
   // Update the users favorite coin in the DB & screen
-  const handleFavorites = async (coin, fill) => {
+  const handleFavorites = async (coin, fill, e) => {
+    e.stopPropagation();
     setFavoriteList({ ...favoriteList, [coin]: !fill });
     await patchFavorites({
       coin: coin,
       is_favorite: !fill,
     });
+  };
+
+  const handleTable = (coin) => {
+    navigate(`/${coin}`);
   };
 
   useEffect(() => {
@@ -213,7 +221,10 @@ function CryptoTable() {
               }
 
               return (
-                <tr key={coin.crypto_id}>
+                <tr
+                  onClick={() => handleTable(coin.crypto_id)}
+                  key={coin.crypto_id}
+                >
                   <td className='relative'>
                     <div className='pl-12'>
                       <div className='flex items-center justify-start gap-3'>
@@ -227,7 +238,7 @@ function CryptoTable() {
                       </div>
                     </div>
                     <button
-                      onClick={() => handleFavorites(coin.crypto_id, fill)}
+                      onClick={(e) => handleFavorites(coin.crypto_id, fill, e)}
                       className='absolute left-1 top-8'
                     >
                       <StarIcon fill={fill} />
@@ -268,7 +279,7 @@ function CryptoTable() {
                   <td>
                     <div className=''>
                       <button
-                        onClick={() => handleTradeBtn(coin.crypto_id)}
+                        onClick={(e) => handleTradeBtn(coin.crypto_id, e)}
                         className='table_btn'
                       >
                         Trade

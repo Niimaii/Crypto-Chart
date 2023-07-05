@@ -169,9 +169,9 @@ function ChartCard() {
           </div>
 
           <select className='chart_card_coins'>
-            {portfolio.map((investment) => {
+            {portfolio.map((investment, index) => {
               return (
-                <option key={investment.name} value=''>
+                <option key={investment.name + index} value=''>
                   {investment.symbol.toUpperCase()}
                 </option>
               );
