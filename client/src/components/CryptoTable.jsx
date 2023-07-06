@@ -44,7 +44,7 @@ function CryptoTable() {
 
   const { days, setDays } = useContext(CryptoContext);
 
-  const daysOption = [1, 30, 365];
+  const daysOption = [1, 7, 30, 365];
 
   const changeDays = async (e) => {
     // Remove the last letter to get the number

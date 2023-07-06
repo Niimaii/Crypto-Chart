@@ -15,18 +15,18 @@ function CoinPage() {
 
   const [cryptoCurrency, setCryptoCUrrency] = useState('BTC');
 
-  const { portfolio, market } = useContext(CryptoContext);
+  const { portfolio, market, isAuth } = useContext(CryptoContext);
 
   // Update the cursor position when converting
   useEffect(() => {
     if (inputRef.current) {
-      console.log('this tan');
       const position = cursorPos.cursor;
       inputRef.current.setSelectionRange(position, position);
     }
   }, [cursorPos]);
 
-  if (portfolio.isLoading || market.isLoading) {
+  // If the user is logged in, then check for portfolio; else don't.
+  if (isAuth() ? portfolio.isLoading : false || market.isLoading) {
     return <h1>Loading...</h1>;
   }
 
