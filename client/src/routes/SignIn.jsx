@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { onLogin } from '../api/authAPI';
+import { NavLink } from 'react-router-dom';
 import { CryptoContext } from '../context/CryptoContext';
 
 function SignIn() {
@@ -29,13 +30,8 @@ function SignIn() {
   };
 
   return (
-    <form onSubmit={(e) => onSubmit(e)} className='mt-3'>
-      <h1>Register</h1>
-
-      <div className='mb-3'>
-        <label htmlFor='email' className=''>
-          Email address
-        </label>
+    <form onSubmit={(e) => onSubmit(e)} className='sign_card_container'>
+      <section className='sign_card'>
         <input
           onChange={(e) => onChange(e)}
           type='email'
@@ -43,15 +39,10 @@ function SignIn() {
           id='email'
           name='email'
           value={values.email}
-          placeholder='test@gmail.com'
+          placeholder='Email'
           required
         />
-      </div>
 
-      <div className='mb-3'>
-        <label htmlFor='password' className=''>
-          Password
-        </label>
         <input
           onChange={(e) => onChange(e)}
           type='password'
@@ -59,16 +50,23 @@ function SignIn() {
           className=''
           id='password'
           name='password'
-          placeholder='password'
+          placeholder='Password'
           required
         />
-      </div>
 
-      <div style={{ color: 'red', margin: '10px 0' }}>{error}</div>
+        <div className='signin_error'>{error}</div>
 
-      <button type='submit' className=''>
-        Submit
-      </button>
+        <button type='submit' className=''>
+          Submit
+        </button>
+
+        <div className='sign_link'>
+          <p>No Account?</p>
+          <NavLink className='sign_nav_link' to={'/signup'}>
+            Register
+          </NavLink>
+        </div>
+      </section>
     </form>
   );
 }

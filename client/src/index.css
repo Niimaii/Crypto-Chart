@@ -1191,6 +1191,91 @@ input[type='number']::-webkit-outer-spin-button {
   margin-left: 35px;
 }
 
+/* Signin & Signup */
+
+.sign_card_container {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 15vh;
+}
+
+.sign_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 300px;
+  height: 300px;
+  background-color: #fff;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  padding: 25px;
+  position: relative;
+}
+
+.sign_card input {
+  border: 1.5px solid #c7c7c7;
+  border-radius: 7px;
+  padding: 7px 8px;
+  margin: 10px 0;
+
+  width: 250px;
+}
+
+.sign_card button {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-radius: 7px;
+  width: 100px;
+  height: 40px;
+
+  background-color: #454bff;
+  color: #fff;
+}
+
+.sign_link {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sign_nav_link {
+  color: #0009ff;
+}
+
+.signin_error {
+  color: red;
+  margin: 10px 0;
+  width: 300px;
+  text-align: center;
+
+  position: absolute;
+  bottom: 108px;
+  left: 0px;
+}
+
+.signup_card {
+  height: 375px;
+}
+
+.signup_card button {
+  margin-top: 60px;
+}
+
+.signup_error {
+  color: red;
+  margin: 10px 0;
+  width: 300px;
+  text-align: center;
+
+  position: absolute;
+  bottom: 120px;
+  left: 0px;
+}
+
 /* New Responsive */
 
 /* 🌿🔥🔥🔥🌿 */
