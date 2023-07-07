@@ -37,30 +37,32 @@ const appStart = () => {
 
 appStart();
 
-// Fetch Crypto Data
-fetchChartData('max');
+// 3 AM, 9 AM, 3 PM, and 9 PM,
+cron.schedule('0 3,9,15,21 * * *', () => {
+  fetchChartData(1);
+});
 
-// // 3 AM, 9 AM, 3 PM, and 9 PM,
-// cron.schedule('0 3,9,15,21 * * *', () => {
-//   fetchChartData(1);
-// });
+// At 12 PM and 12 AM
+cron.schedule('0 0,12 * * *', () => {
+  fetchChartData(7);
+});
 
-// // At 12 PM and 12 AM
-// cron.schedule('0 0,12 * * *', () => {
-//   fetchChartData(7);
-// });
+// Once a day at 6 PM
+cron.schedule('0 18 * * *', () => {
+  fetchChartData(30);
+});
 
-// // Once a day at 6 PM
-// cron.schedule('0 18 * * *', () => {
-//   fetchChartData(30);
-// });
+// Once every 2 days at 6 AM
+cron.schedule('0 6 */2 * *', () => {
+  fetchChartData(365);
+});
 
-// // Once every 3 days at 6 AM
-// cron.schedule('0 6 */3 * *', () => {
-//   fetchChartData(365);
-// });
+// Once every 3 days at 4 AM
+cron.schedule('0 4 */3 * *', () => {
+  fetchChartData('max');
+});
 
-// // Every 5 minutes
-// cron.schedule('*/5 * * * *', () => {
-//   fetchMarket();
-// });
+// Every 5 minutes
+cron.schedule('*/5 * * * *', () => {
+  fetchMarket();
+});
