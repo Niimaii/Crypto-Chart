@@ -1301,9 +1301,11 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .about p {
-  width: 60vw;
+  width: 75vw;
+  max-width: 700px;
   line-height: 2;
   font-size: 1.25rem;
+  text-align: center;
 }
 
 .about h1 {
@@ -1311,6 +1313,9 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .about_intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 40px;
 }
 .about_intro p {

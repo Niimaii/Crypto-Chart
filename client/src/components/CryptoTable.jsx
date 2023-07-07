@@ -128,6 +128,7 @@ function CryptoTable() {
   // Update the users favorite coin in the DB & screen
   const handleFavorites = async (coin, fill, e) => {
     e.stopPropagation();
+    if (!isAuth()) navigateTo('/signin');
     setFavoriteList({ ...favoriteList, [coin]: !fill });
     await patchFavorites({
       coin: coin,
