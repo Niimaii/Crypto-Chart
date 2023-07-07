@@ -40,8 +40,20 @@ function ChartCard() {
   const market = queryClient.getQueryData(['market']);
   const portfolioData = queryClient.getQueryData(['portfolio']);
   const [coinDay, setCoinDay] = useState(30);
-  const [coin, setCoin] = useState('bitcoin');
   const portfolio = portfolioData.data.investments;
+  const uniqueCoins = portfolio.reduce((coinNames, transaction) => {
+    if (!coinNames.some((crypto) => crypto.coin === transaction.coin)) {
+      const uniqueCrypto = {
+        coin: transaction.coin,
+        name: transaction.name,
+        symbol: transaction.symbol,
+      };
+      coinNames.push(uniqueCrypto);
+    }
+
+    return coinNames;
+  }, []);
+  const [coin, setCoin] = useState(uniqueCoins[0].coin);
   const coinChart = useQuery({
     queryKey: ['coin'],
     queryFn: () => getChart(coin, coinDay),
@@ -179,7 +191,7 @@ function ChartCard() {
           </div>
 
           <select onChange={changeCoin} className='chart_card_coins'>
-            {portfolio.map((investment, index) => {
+            {uniqueCoins.map((investment, index) => {
               return (
                 <option key={investment.name + index} value={investment.coin}>
                   {investment.symbol.toUpperCase()}
