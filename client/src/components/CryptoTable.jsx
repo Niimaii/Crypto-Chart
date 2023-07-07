@@ -44,6 +44,7 @@ function CryptoTable() {
 
   const { days, setDays } = useContext(CryptoContext);
 
+  console.log('Test');
   const daysOption = [1, 7, 30, 365, 0];
   const selectDays = ['1D', '1W', '30D', '1Y', 'All'];
 
@@ -145,6 +146,7 @@ function CryptoTable() {
   useEffect(() => {
     if (isAuth()) insertUserFavorites();
     setLoading(false);
+    setDays(1);
   }, []);
 
   if (loading) {
