@@ -1,8 +1,6 @@
 const axios = require('axios');
 const db = require('../db/indexDB');
 
-let count = 0;
-
 const fetchMarket = async () => {
   // How many cryptos do you want to gather
   let cryptoAmount = 100;
@@ -32,8 +30,7 @@ const fetchMarket = async () => {
       console.error(err.message);
     }
   }
-  count++;
-  console.log('cryptoMarketFetch has completed', count);
+  console.log('Fetched Market');
 };
 
 module.exports = fetchMarket;

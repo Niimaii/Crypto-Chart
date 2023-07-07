@@ -4,6 +4,7 @@ const { PORT, CLIENT_URL } = require('./constants/index');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const cors = require('cors');
+const cron = require('node-cron');
 
 // Import passport middleware
 require('./middleware/passport_middleware');
@@ -36,6 +37,29 @@ const appStart = () => {
 
 appStart();
 
-// Fetch Data
-// fetchChartData(30);
-// fetchMarket();
+// Fetch Crypto Data
+
+// 3 AM, 9 AM, 3 PM, and 9 PM,
+cron.schedule('0 3,9,15,21 * * *', () => {
+  fetchChartData(1);
+});
+
+// At 12 PM and 12 AM
+cron.schedule('0 0,12 * * *', () => {
+  fetchChartData(7);
+});
+
+// Once a day at 6 PM
+cron.schedule('0 18 * * *', () => {
+  fetchChartData(30);
+});
+
+// Once every 3 days at 6 AM
+cron.schedule('0 6 */3 * *', () => {
+  fetchChartData(365);
+});
+
+// Every 5 minutes
+cron.schedule('*/5 * * * *', () => {
+  fetchMarket();
+});
