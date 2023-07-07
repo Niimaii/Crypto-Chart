@@ -187,6 +187,7 @@ function ChartCard() {
                 <button onClick={() => setCoinDay(7)}>7D</button>
                 <button onClick={() => setCoinDay(30)}>1M</button>
                 <button onClick={() => setCoinDay(365)}>1Y</button>
+                <button onClick={() => setCoinDay(0)}>All</button>
               </div>
 
               <select onChange={changeCoin} className='chart_card_coins'>

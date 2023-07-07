@@ -44,12 +44,14 @@ function CryptoTable() {
 
   const { days, setDays } = useContext(CryptoContext);
 
-  const daysOption = [1, 7, 30, 365];
+  const daysOption = [1, 7, 30, 365, 0];
+  const selectDays = ['1D', '1W', '30D', '1Y', 'All'];
 
   const changeDays = async (e) => {
-    // Remove the last letter to get the number
-    const newChartDays = parseInt(e.target.value.slice(0, -1));
-    setDays(newChartDays);
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const selectedName = selectedOption.getAttribute('name');
+
+    setDays(selectedName);
   };
 
   // I couldn't call a function in my array unless I add an empty function and add the function of interest in it
@@ -188,7 +190,11 @@ function CryptoTable() {
         </div>
         <select onChange={changeDays} className='day_btn' id='daysBtn'>
           {daysOption.map((days, index) => {
-            return <option key={index} value={`${days}D`}>{`${days}D`}</option>;
+            return (
+              <option name={days} key={index} value={selectDays[index]}>
+                {selectDays[index]}
+              </option>
+            );
           })}
         </select>
       </div>
