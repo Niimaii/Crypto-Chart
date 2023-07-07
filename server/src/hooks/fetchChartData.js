@@ -16,22 +16,22 @@ exports.fetchChartData = (days) => {
         );
       } catch (error) {
         console.log(error.message);
-        reject('Fetch market Error');
+        reject('Market fetched failed when getting chart data');
       }
 
       //   Reduce the top 100 coin market data into an array of coin names
-      const coinList = market.data.reduce((acc, coin) => {
-        acc.push(coin.id);
-        return acc;
-      }, []);
+      // const coinList = market.data.reduce((acc, coin) => {
+      //   acc.push(coin.id);
+      //   return acc;
+      // }, []);
 
-      // const coinList = [
-      //   'bitcoin',
-      //   'ethereum',
-      //   'tether',
-      //   'binancecoin',
-      //   'usd-coin',
-      // ];
+      const coinList = [
+        'bitcoin',
+        'ethereum',
+        'tether',
+        'binancecoin',
+        'usd-coin',
+      ];
 
       //   Since coinList will be modified, this is meant to be a copy of the initial array.
       const ogCoinList = [...coinList];
@@ -107,9 +107,10 @@ exports.fetchChartData = (days) => {
 // ================= ↓↓↓↓↓↓↓↓ Insert Into Database ↓↓↓↓↓↓↓↓ =================
 
 // This function inserts crypto market/chart data into database
-const insertData = async (chartData, days, coinArray) => {
+const insertData = async (chartData, fetchedDays, coinArray) => {
   const now = new Date();
   const current = now.getTime();
+  const days = fetchedDays === 'max' ? 0 : fetchedDays;
 
   // Map through all the crypto market data and isolate individual coin market data
   coinArray.map(async (coin) => {
