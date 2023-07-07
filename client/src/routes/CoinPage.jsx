@@ -3,11 +3,13 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import { getChart } from '../api/cryptoAPI';
 import BigChart from '../components/BigChart';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Exchange, RightArrow } from '../icons/icons';
 import BuyCard from '../components/BuyCard';
 
 function CoinPage() {
+  let navigateTo = useNavigate();
+
   const [crypto, setCrypto] = useState(0);
   const [money, setMoney] = useState('0');
   const [cursorPos, setCursorPos] = useState({ cursor: null });
@@ -113,8 +115,13 @@ function CoinPage() {
 
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Crypto Converter ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
-  const handleBuy = () => {
-    openBuyCard(coin);
+  const handleBuy = (e) => {
+    e.stopPropagation();
+    if (isAuth()) {
+      openBuyCard(coin);
+    } else {
+      navigateTo('/signin');
+    }
   };
   const currency = 'USD';
   return (
@@ -204,7 +211,7 @@ function CoinPage() {
           </div>
         </section>
       </div>
-      <BuyCard />
+      {isAuth() && <BuyCard />}
     </div>
   );
 }
