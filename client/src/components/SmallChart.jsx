@@ -17,6 +17,7 @@ import { TempIcon } from '../icons/icons';
 import { useContext } from 'react';
 import { CryptoContext } from '../context/CryptoContext';
 import useDB from '../hooks/useDB';
+import SkeletonSmallChart from '../skeletons/SkeletonSmallChart';
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +37,11 @@ function SmallChart({ coin }) {
 
   // Need this for everything else to work
   if (!response) {
-    return <div>Loading...</div>;
+    return (
+      <div className='flex justify-center'>
+        <SkeletonSmallChart />
+      </div>
+    );
   }
 
   // Bracket notation
