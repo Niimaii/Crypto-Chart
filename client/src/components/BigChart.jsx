@@ -153,11 +153,36 @@ function BigChart({ coin }) {
           </div>
         </div>
         <div className='big_chart_days'>
-          <button onClick={() => setCoinDay(1)}>1D</button>
-          <button onClick={() => setCoinDay(7)}>7D</button>
-          <button onClick={() => setCoinDay(30)}>1M</button>
-          <button onClick={() => setCoinDay(365)}>1Y</button>
-          <button onClick={() => setCoinDay(0)}>All</button>
+          <button
+            className={`${coinDay === 1 ? 'selected_day' : ''}`}
+            onClick={() => setCoinDay(1)}
+          >
+            1D
+          </button>
+          <button
+            className={`${coinDay === 7 ? 'selected_day' : ''}`}
+            onClick={() => setCoinDay(7)}
+          >
+            7D
+          </button>
+          <button
+            className={`${coinDay === 30 ? 'selected_day' : ''}`}
+            onClick={() => setCoinDay(30)}
+          >
+            1M
+          </button>
+          <button
+            className={`${coinDay === 365 ? 'selected_day' : ''}`}
+            onClick={() => setCoinDay(365)}
+          >
+            1Y
+          </button>
+          <button
+            className={`${coinDay === 0 ? 'selected_day' : ''}`}
+            onClick={() => setCoinDay(0)}
+          >
+            All
+          </button>
         </div>
       </div>
       <h1 className='big_chart_price'>

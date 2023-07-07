@@ -151,7 +151,6 @@ function ChartCard() {
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Chart Setup ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
   const changeCoin = (e) => {
-    console.log(e.target.value);
     setCoin(e.target.value);
   };
 
@@ -183,11 +182,36 @@ function ChartCard() {
             </div>
             <div className='chart_card_body_right'>
               <div className='days_options'>
-                <button onClick={() => setCoinDay(1)}>1D</button>
-                <button onClick={() => setCoinDay(7)}>7D</button>
-                <button onClick={() => setCoinDay(30)}>1M</button>
-                <button onClick={() => setCoinDay(365)}>1Y</button>
-                <button onClick={() => setCoinDay(0)}>All</button>
+                <button
+                  className={`${coinDay === 1 ? 'selected_day' : ''}`}
+                  onClick={() => setCoinDay(1)}
+                >
+                  1D
+                </button>
+                <button
+                  className={`${coinDay === 7 ? 'selected_day' : ''}`}
+                  onClick={() => setCoinDay(7)}
+                >
+                  7D
+                </button>
+                <button
+                  className={`${coinDay === 30 ? 'selected_day' : ''}`}
+                  onClick={() => setCoinDay(30)}
+                >
+                  1M
+                </button>
+                <button
+                  className={`${coinDay === 365 ? 'selected_day' : ''}`}
+                  onClick={() => setCoinDay(365)}
+                >
+                  1Y
+                </button>
+                <button
+                  className={`${coinDay === 0 ? 'selected_day' : ''}`}
+                  onClick={() => setCoinDay(0)}
+                >
+                  All
+                </button>
               </div>
 
               <select onChange={changeCoin} className='chart_card_coins'>
