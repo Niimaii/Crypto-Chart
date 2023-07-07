@@ -6,6 +6,7 @@ function ActivityCard() {
   const queryClient = useQueryClient();
   const { data } = queryClient.getQueryData(['portfolio']);
   const portfolio = data.investments;
+  const reversePortfolio = portfolio.reverse().slice(0, 20);
 
   //   Format numbers to look like: 23.M, 1.1K
   const formatNumber = (number) => {
@@ -39,7 +40,7 @@ function ActivityCard() {
     <div className='activity'>
       <h4 className='hello'>Recent Activity</h4>
       <div className='activity_body'>
-        {portfolio.map((coin, index) => {
+        {reversePortfolio.map((coin, index) => {
           // get the date
           const date = new Date(coin.created_at);
           const formattedDate = date.toLocaleDateString('en-US', {
