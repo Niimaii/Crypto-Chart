@@ -41,21 +41,15 @@ function ChartCard() {
   const portfolioData = queryClient.getQueryData(['portfolio']);
   const [coinDay, setCoinDay] = useState(30);
   const portfolio = portfolioData.data.investments;
-  const uniqueCoins = portfolio.reduce((coinNames, transaction) => {
-    if (!coinNames.some((crypto) => crypto.coin === transaction.coin)) {
-      const uniqueCrypto = {
-        coin: transaction.coin,
-        name: transaction.name,
-        symbol: transaction.symbol,
-      };
-      coinNames.push(uniqueCrypto);
-    }
-
-    return coinNames;
-  }, []);
-  const [coin, setCoin] = useState(
-    uniqueCoins.length === 0 ? 'bitcoin' : uniqueCoins[0].coin
+  const uniqueCoinNames = new Set(
+    portfolio.map((transaction) => transaction.coin)
   );
+  const uniqueCoins = portfolio.filter((transaction) =>
+    uniqueCoinNames.has(transaction.coin)
+  );
+  const firstCoin = uniqueCoins.length === 0 ? 'bitcoin' : portfolio[0].coin;
+  const [coin, setCoin] = useState(firstCoin);
+
   const coinChart = useQuery({
     queryKey: ['coin'],
     queryFn: () => getChart(coin, coinDay),

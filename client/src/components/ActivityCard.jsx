@@ -6,7 +6,7 @@ function ActivityCard() {
   const queryClient = useQueryClient();
   const { data } = queryClient.getQueryData(['portfolio']);
   const portfolio = data.investments;
-  const reversePortfolio = portfolio.reverse().slice(0, 20);
+  const reversePortfolio = [...portfolio].reverse().slice(0, 20);
 
   //   Format numbers to look like: 23.M, 1.1K
   const formatNumber = (number) => {
