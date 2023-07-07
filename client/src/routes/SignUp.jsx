@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { onRegistration } from '../api/authAPI';
+import { onLogin, onRegistration } from '../api/authAPI';
+import { CryptoContext } from '../context/CryptoContext';
 
 function SignUp() {
+  const { authenticateUser } = useContext(CryptoContext);
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -23,12 +26,9 @@ function SignUp() {
       const { data } = await onRegistration(values);
       setError('');
       setSuccess(data.message);
-      // Reset values
-      setValues({
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
+      await onLogin({ email: values.email, password: values.password });
+      authenticateUser();
+      localStorage.setItem('localAuth', 'true');
     } catch (err) {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg);
@@ -66,7 +66,7 @@ function SignUp() {
           type='password'
           value={values.confirmPass}
           className=''
-          id='password'
+          id='confirmPassword'
           name='confirmPassword'
           placeholder='Confirm Password'
           required
