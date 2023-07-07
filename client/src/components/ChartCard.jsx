@@ -63,8 +63,6 @@ function ChartCard() {
     refetchInterval: 1000 * 60 * 3,
   });
 
-  console.log(uniqueCoins.length === 0);
-
   useEffect(() => {
     coinChart.refetch();
   }, [coinDay, coin]);

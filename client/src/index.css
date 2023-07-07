@@ -849,6 +849,8 @@ input[type='number']::-webkit-outer-spin-button {
 
 /* Coin Page */
 .converter {
+  position: relative;
+
   background-color: #ffffff;
   margin: 40px 0;
   padding: 30px 30px;
@@ -892,6 +894,20 @@ input[type='number']::-webkit-outer-spin-button {
   font-size: 1.05rem;
   bottom: 4px;
   right: 10px;
+}
+
+.converter_buy {
+  position: absolute;
+  bottom: -22.5px;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  background-color: #454bff;
+  color: white;
+  font-size: 1.2rem;
+  width: 130px;
+  height: 45px;
+  border-radius: 15px;
 }
 
 .coin_data {

@@ -5,6 +5,7 @@ import { getChart } from '../api/cryptoAPI';
 import BigChart from '../components/BigChart';
 import { useParams } from 'react-router-dom';
 import { Exchange, RightArrow } from '../icons/icons';
+import BuyCard from '../components/BuyCard';
 
 function CoinPage() {
   const [crypto, setCrypto] = useState(0);
@@ -15,7 +16,7 @@ function CoinPage() {
 
   const [cryptoCurrency, setCryptoCUrrency] = useState('BTC');
 
-  const { portfolio, market, isAuth } = useContext(CryptoContext);
+  const { portfolio, market, isAuth, openBuyCard } = useContext(CryptoContext);
 
   // Update the cursor position when converting
   useEffect(() => {
@@ -112,6 +113,9 @@ function CoinPage() {
 
   //   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ Crypto Converter ↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+  const handleBuy = () => {
+    openBuyCard(coin);
+  };
   const currency = 'USD';
   return (
     <div className='coin_page'>
@@ -145,6 +149,10 @@ function CoinPage() {
               <p className='converter_input_text2'>{cryptoCurrency}</p>
             </div>
           </div>
+
+          <button onClick={handleBuy} className='converter_buy'>
+            Buy
+          </button>
         </section>
 
         <section className='coin_data'>
@@ -196,6 +204,7 @@ function CoinPage() {
           </div>
         </section>
       </div>
+      <BuyCard />
     </div>
   );
 }
