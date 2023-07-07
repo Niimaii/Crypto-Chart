@@ -1707,3 +1707,15 @@ input[type='number']::-webkit-outer-spin-button {
     width: 300px;
   }
 }
+
+/* Skeleton */
+
+.home_skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 142px;
+
+  width: 100%;
+}

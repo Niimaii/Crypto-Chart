@@ -4,6 +4,7 @@ import { CryptoContext } from '../context/CryptoContext';
 import CryptoCarousel from '../components/CryptoCarousel';
 import CryptoTable from '../components/CryptoTable';
 import BuyCard from '../components/BuyCard';
+import SkeletonHome from '../skeletons/SkeletonHome';
 
 function UserHome() {
   const { unAuthenticateUser, market, portfolio } = useContext(CryptoContext);
@@ -39,8 +40,9 @@ function UserHome() {
     protectedInfo();
   }, []);
 
+  // market.isLoading || portfolio.isLoading || loading
   if (market.isLoading || portfolio.isLoading || loading) {
-    return <h1>Loading...</h1>;
+    return <div></div>;
   }
 
   return (

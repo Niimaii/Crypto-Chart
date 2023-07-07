@@ -5,6 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { getFavorites, patchFavorites } from '../api/cryptoAPI';
 import { formatter, shortFormatter } from '../utils/Formatter';
+import SkeletonHome from '../skeletons/SkeletonHome';
 
 function CryptoTable() {
   let navigateTo = useNavigate();
@@ -44,7 +45,6 @@ function CryptoTable() {
 
   const { days, setDays } = useContext(CryptoContext);
 
-  console.log('Test');
   const daysOption = [1, 7, 30, 365, 0];
   const selectDays = ['1D', '1W', '30D', '1Y', 'All'];
 
@@ -149,8 +149,15 @@ function CryptoTable() {
     setDays(1);
   }, []);
 
+  // loading
   if (loading) {
-    return <h1>Loading</h1>;
+    return (
+      <div className='home_skeleton'>
+        {response.map((coin) => (
+          <SkeletonHome key={coin.crypto_id} />
+        ))}
+      </div>
+    );
   }
 
   return (

@@ -37,7 +37,7 @@ function SearchBar() {
   }, [searchOpen]);
 
   if (!market) {
-    return <h1>Loading...</h1>;
+    return <div></div>;
   }
 
   const formatter = new Intl.NumberFormat('en-US', {
