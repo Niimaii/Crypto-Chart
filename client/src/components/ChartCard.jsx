@@ -53,13 +53,17 @@ function ChartCard() {
 
     return coinNames;
   }, []);
-  const [coin, setCoin] = useState(uniqueCoins[0].coin);
+  const [coin, setCoin] = useState(
+    uniqueCoins.length === 0 ? 'bitcoin' : uniqueCoins[0].coin
+  );
   const coinChart = useQuery({
     queryKey: ['coin'],
     queryFn: () => getChart(coin, coinDay),
     staleTime: 1000 * 60 * 3,
     refetchInterval: 1000 * 60 * 3,
   });
+
+  console.log(uniqueCoins.length === 0);
 
   useEffect(() => {
     coinChart.refetch();
@@ -160,48 +164,55 @@ function ChartCard() {
 
   return (
     <div className='chart_card'>
-      <div className='chart_card_body'>
-        <div className='chart_card_body_left'>
-          <div className='flex justify-between'>
-            <div className='flex items-center m-0'>
-              <img
-                className='h-12 mr-3'
-                src={coinMarket.image}
-                alt={coinMarket.name}
-              />
+      {uniqueCoins.length !== 0 && (
+        <>
+          <div className='chart_card_body'>
+            <div className='chart_card_body_left'>
+              <div className='flex justify-between'>
+                <div className='flex items-center m-0'>
+                  <img
+                    className='h-12 mr-3'
+                    src={coinMarket.image}
+                    alt={coinMarket.name}
+                  />
 
-              <div>
-                <h1 className='text-base m-0 h-5 font-medium'>
-                  {coinMarket.name}
-                </h1>
-                <h1 className='text-base m-0 font-extralight'>
-                  {coinMarket.symbol.toUpperCase()}
-                </h1>
+                  <div>
+                    <h1 className='text-base m-0 h-5 font-medium'>
+                      {coinMarket.name}
+                    </h1>
+                    <h1 className='text-base m-0 font-extralight'>
+                      {coinMarket.symbol.toUpperCase()}
+                    </h1>
+                  </div>
+                </div>
               </div>
+              <h3>{formatter.format(coinMarket.current_price)}</h3>
+            </div>
+            <div className='chart_card_body_right'>
+              <div className='days_options'>
+                <button onClick={() => setCoinDay(1)}>1D</button>
+                <button onClick={() => setCoinDay(7)}>7D</button>
+                <button onClick={() => setCoinDay(30)}>1M</button>
+                <button onClick={() => setCoinDay(365)}>1Y</button>
+              </div>
+
+              <select onChange={changeCoin} className='chart_card_coins'>
+                {uniqueCoins.map((investment, index) => {
+                  return (
+                    <option
+                      key={investment.name + index}
+                      value={investment.coin}
+                    >
+                      {investment.symbol.toUpperCase()}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           </div>
-          <h3>{formatter.format(coinMarket.current_price)}</h3>
-        </div>
-        <div className='chart_card_body_right'>
-          <div className='days_options'>
-            <button onClick={() => setCoinDay(1)}>1D</button>
-            <button onClick={() => setCoinDay(7)}>7D</button>
-            <button onClick={() => setCoinDay(30)}>1M</button>
-            <button onClick={() => setCoinDay(365)}>1Y</button>
-          </div>
-
-          <select onChange={changeCoin} className='chart_card_coins'>
-            {uniqueCoins.map((investment, index) => {
-              return (
-                <option key={investment.name + index} value={investment.coin}>
-                  {investment.symbol.toUpperCase()}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      </div>
-      <Line options={options} data={data} />
+          <Line options={options} data={data} />
+        </>
+      )}
     </div>
   );
 }
