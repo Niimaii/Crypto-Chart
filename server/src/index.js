@@ -26,8 +26,9 @@ app.use('/api/crypto', cryptoRoutes);
 
 // app start
 const appStart = () => {
+  const port = PORT || 8005;
   try {
-    app.listen(PORT, () => {
+    app.listen(port, () => {
       console.log(`App running at http://localhost:${PORT}`);
     });
   } catch (error) {

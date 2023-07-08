@@ -3,9 +3,9 @@ const { config } = require('dotenv');
 config();
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'crypto_chart',
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.DATABASE,
   password: process.env.PASSWORD,
 });
 
