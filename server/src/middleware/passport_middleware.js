@@ -3,6 +3,8 @@ const { SECRET } = require('../constants');
 const { Strategy } = require('passport-jwt');
 const db = require('../db/indexDB');
 
+console.log('after set Secret', SECRET);
+
 const cookieExtractor = function (req) {
   let token = null;
   // If there is a jwt cookie, then make token = to the jwt token
