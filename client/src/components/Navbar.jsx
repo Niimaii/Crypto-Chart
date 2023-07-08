@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import vscodium from '../assets/vscodium.png';
+import Cryptonium from '../images/Cryptonium5.png';
 import {
   AboutIcon,
   Hamburger,
@@ -52,7 +53,7 @@ function Navbar() {
       <div className='flex items-center w-full m-3'>
         <div className='flex items-center'>
           <NavLink className='flex items-center gap-3' to='/'>
-            <img src={vscodium} alt='' className='nav_logo w-14 h-14' />
+            <img src={Cryptonium} alt='' className='nav_logo w-14 h-14' />
             <h1
               className={`nav_response nav_title text-white text-2xl font-bold`}
             >
