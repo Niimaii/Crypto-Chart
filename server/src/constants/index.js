@@ -1,6 +1,3 @@
-const { config } = require('dotenv');
-config();
-
 console.log('env secret being set', process.env.SECRET);
 
 module.exports = {
