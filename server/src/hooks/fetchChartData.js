@@ -20,18 +20,18 @@ exports.fetchChartData = (days) => {
       }
 
       //   Reduce the top 100 coin market data into an array of coin names
-      // const coinList = market.data.reduce((acc, coin) => {
-      //   acc.push(coin.id);
-      //   return acc;
-      // }, []);
+      const coinList = market.data.reduce((acc, coin) => {
+        acc.push(coin.id);
+        return acc;
+      }, []);
 
-      const coinList = [
-        'bitcoin',
-        'ethereum',
-        'tether',
-        'binancecoin',
-        'usd-coin',
-      ];
+      // const coinList = [
+      //   'bitcoin',
+      //   'ethereum',
+      //   'tether',
+      //   'binancecoin',
+      //   'usd-coin',
+      // ];
 
       //   Since coinList will be modified, this is meant to be a copy of the initial array.
       const ogCoinList = [...coinList];

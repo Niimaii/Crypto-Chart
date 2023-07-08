@@ -18,6 +18,8 @@ function Home() {
     return <h1>Loading...</h1>;
   }
 
+  console.log(data);
+
   return (
     <div className=''>
       <CryptoCarousel key='Carousel' />
