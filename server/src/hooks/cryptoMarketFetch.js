@@ -26,12 +26,12 @@ const fetchMarket = async () => {
         await db.query(
           `INSERT INTO crypto_market (rank ,crypto_id, symbol, name, image, current_price, market_cap, market_cap_rank, fully_diluted_valuation, total_volume, volume_24hr, high_24h, low_24h, price_change_24h, price_change_percentage_24h, market_cap_change_24h, market_cap_change_percentage_24h, circulating_supply, total_supply, max_supply, unix, ath, atl) VALUES ${values} ON CONFLICT (crypto_id) DO UPDATE SET rank = EXCLUDED.rank, symbol = EXCLUDED.symbol, name = EXCLUDED.name, image = EXCLUDED.image, current_price = EXCLUDED.current_price, market_cap = EXCLUDED.market_cap, market_cap_rank = EXCLUDED.market_cap_rank, fully_diluted_valuation = EXCLUDED.fully_diluted_valuation, total_volume = EXCLUDED.total_volume, volume_24hr = EXCLUDED.volume_24hr, high_24h = EXCLUDED.high_24h, low_24h = EXCLUDED.low_24h, price_change_24h = EXCLUDED.price_change_24h, price_change_percentage_24h = EXCLUDED.price_change_percentage_24h, market_cap_change_24h = EXCLUDED.market_cap_change_24h, market_cap_change_percentage_24h = EXCLUDED.market_cap_change_percentage_24h, circulating_supply = EXCLUDED.circulating_supply, total_supply = EXCLUDED.total_supply, max_supply = EXCLUDED.max_supply, unix = EXCLUDED.unix, ath = EXCLUDED.ath, atl = EXCLUDED.atl;`
         );
+        console.log('Fetched Market');
       } catch (err) {
         console.log('Error with coinMarketFetch');
         console.error(err.message);
       }
     }
-    console.log('Fetched Market');
   } catch (error) {
     console.log(error.message);
     console.log('Error with fetching market (probably 429)');
