@@ -98,8 +98,8 @@ exports.fetchChartData = (days) => {
       }
     });
   } catch (error) {
-    console.log('Error with cryptoFetch');
     console.error(error.message);
+    console.log('Error with cryptoFetch');
   }
 };
 
@@ -147,6 +147,7 @@ const insertData = async (chartData, fetchedDays, coinArray) => {
       );
     } catch (error) {
       console.log(error.message);
+      console.log('Error with Inserting Data');
     }
   });
 };
