@@ -1643,6 +1643,15 @@ input[type='number']::-webkit-outer-spin-button {
   .coin_table thead th:nth-child(n + 6) {
     display: none;
   }
+
+  .coin_table tbody td:nth-child(6) {
+    display: flex !important;
+  }
+
+  .table_btn {
+    padding: 10px 30px;
+    margin-right: 20px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -1697,7 +1706,7 @@ input[type='number']::-webkit-outer-spin-button {
   }
 
   .table_btn {
-    padding: 10px 10px;
+    padding: 10px 15px !important;
   }
 
   .coin_price {
@@ -1705,7 +1714,6 @@ input[type='number']::-webkit-outer-spin-button {
     min-width: 70px;
   }
 
-  /* Fix  */
   .coin_table_first_cell {
     width: 200px;
   }
@@ -1713,8 +1721,6 @@ input[type='number']::-webkit-outer-spin-button {
   .coin_table_row1 {
     max-width: 200px;
   }
-
-  /* Fix  */
 
   .coin_table_star {
     display: none;
@@ -1741,6 +1747,21 @@ input[type='number']::-webkit-outer-spin-button {
   .coin_table thead th:nth-child(n + 3) {
     display: none;
   }
+
+  .coin_table tbody td:nth-child(6) {
+    display: flex !important;
+  }
+
+  .table_btn {
+    padding: 10px 30px;
+  }
+
+  .coin_table_first_cell {
+    display: flex;
+    justify-content: center;
+
+    width: 220px;
+  }
 }
 
 @media (max-width: 740px) {
@@ -1755,6 +1776,15 @@ input[type='number']::-webkit-outer-spin-button {
   .coin_table thead th:nth-child(n + 4) {
     display: none;
   }
+
+  .coin_table tbody td:nth-child(6) {
+    display: flex !important;
+  }
+
+  .table_btn {
+    padding: 10px 30px;
+    margin-right: 20px;
+  }
 }
 
 @media (max-width: 870px) {
@@ -1768,6 +1798,15 @@ input[type='number']::-webkit-outer-spin-button {
 
   .coin_table thead th:nth-child(n + 5) {
     display: none;
+  }
+
+  .coin_table tbody td:nth-child(6) {
+    display: flex !important;
+  }
+
+  .table_btn {
+    padding: 10px 30px;
+    margin-right: 20px;
   }
 }
 
