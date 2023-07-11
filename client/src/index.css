@@ -1334,6 +1334,19 @@ input[type='number']::-webkit-outer-spin-button {
   width: 100px;
 }
 
+/* Swiper */
+
+.swiper_container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.swiper_carousel {
+  width: 100%;
+  max-width: 1300px;
+}
+
 /* New Responsive */
 
 /* 🌿🔥🔥🔥🌿 */
