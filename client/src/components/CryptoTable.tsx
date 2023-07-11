@@ -4,7 +4,7 @@ import { LeftArrow, RightArrow, StarIcon } from '../icons/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { getFavorites, patchFavorites } from '../api/cryptoAPI';
-import { formatter, shortFormatter } from '../utils/Formatter';
+import { formatter, shortFormatter, smartFormatter } from '../utils/Formatter';
 import SkeletonHome from '../skeletons/SkeletonHome';
 
 function CryptoTable() {
@@ -210,7 +210,7 @@ function CryptoTable() {
       <table className='mt-8 coin_table'>
         <thead>
           <tr>
-            <th width='290px'>{spacedName}</th>
+            <th>{spacedName}</th>
             <th width=''>Price</th>
             <th>Change</th>
             <th>Volume</th>
@@ -242,13 +242,15 @@ function CryptoTable() {
                   key={coin.crypto_id}
                   className='crypto_table_row'
                 >
-                  <td className='relative'>
-                    <div className='pl-12'>
-                      <div className='flex items-center justify-start gap-3'>
+                  <td className='relative coin_table_first_cell'>
+                    <div className='coin_table_row1'>
+                      <div className='flex items-center gap-3'>
                         <img className='h-10' src={coin.image} alt='' />
                         <div className='coin_icon text-left'>
-                          <p className='font-medium w-full'> {coin.name}</p>
-                          <p className='font-light'>
+                          <p className='coin_table_name font-medium'>
+                            {coin.name}
+                          </p>
+                          <p className='coin_table_name font-light'>
                             {coin.symbol.toUpperCase()}
                           </p>
                         </div>
@@ -256,14 +258,14 @@ function CryptoTable() {
                     </div>
                     <button
                       onClick={(e) => handleFavorites(coin.crypto_id, fill, e)}
-                      className='absolute left-1 top-8'
+                      className='coin_table_star absolute left-1 top-8'
                     >
                       <StarIcon fill={fill} />
                     </button>
                   </td>
                   <td>
-                    <div className='coin_price pr-28'>
-                      {formatter.format(coin.current_price)}
+                    <div className='coin_price'>
+                      {smartFormatter(coin.current_price, 6, 2, true)}
                     </div>
                   </td>
                   <td
@@ -293,7 +295,7 @@ function CryptoTable() {
                       {shortFormatter(coin.market_cap)}
                     </div>
                   </td>
-                  <td>
+                  <td className='coin_table_btn_cell'>
                     <div className=''>
                       <button
                         onClick={(e) => handleTradeBtn(coin.crypto_id, e)}

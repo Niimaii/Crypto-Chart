@@ -431,6 +431,10 @@ input[type='number']::-webkit-outer-spin-button {
   border-collapse: collapse;
 }
 
+.coin_table_row1 {
+  padding-left: 3rem;
+}
+
 .crypto_table_row:hover {
   cursor: pointer;
 }
@@ -472,11 +476,11 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .coin_icon {
-  min-width: 170px;
+  width: 140px;
 }
 
 .coin_price {
-  min-width: 200px;
+  min-width: 100px;
 }
 
 .coin_percent {
@@ -1653,6 +1657,81 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* Old Responsive */
+@media (max-width: 350px) {
+  .coin_table tbody td:nth-child(n + 2) {
+    display: none;
+  }
+
+  .coin_table thead th:nth-child(n + 2) {
+    display: none;
+  }
+
+  .opt_btn {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      'all gainers'
+      'losers favorites';
+    justify-content: center;
+  }
+
+  .coin_table_btn_cell {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 450px) {
+  .coin_table tbody td:nth-child(n + 3) {
+    display: none;
+  }
+
+  .coin_table thead th:nth-child(n + 3) {
+    display: none;
+  }
+
+  .coin_table tbody td:nth-child(6) {
+    display: flex !important;
+  }
+
+  .table_btn {
+    padding: 10px 10px;
+  }
+
+  .coin_price {
+    position: relative;
+    min-width: 70px;
+  }
+
+  /* Fix  */
+  .coin_table_first_cell {
+    width: 200px;
+  }
+
+  .coin_table_row1 {
+    max-width: 200px;
+  }
+
+  /* Fix  */
+
+  .coin_table_star {
+    display: none;
+  }
+
+  .coin_table_row1 {
+    padding-left: 16px;
+  }
+
+  .coin_table_name {
+    font-size: 0.9rem;
+  }
+
+  .crypto_table_row:first-child td:first-child {
+    padding-right: 10px;
+  }
+}
 
 @media (max-width: 600px) {
   .coin_table tbody td:nth-child(n + 3) {
