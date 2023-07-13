@@ -1,5 +1,3 @@
-# In Development
-
 ## Description
 
 A crypto paper trading website, where users can login and track their investments.
@@ -16,6 +14,6 @@ Postgres, Express, React & Node
 
 ![App Screenshot](https://github.com/Niimaii/Crypto-Chart/blob/main/ScreenShots/CryptoniumCoinPage.png?raw=true)
 
-## Portfolio Page (still in design)
+## Portfolio Page
 
 ![App Screenshot](https://github.com/Niimaii/Crypto-Chart/blob/main/ScreenShots/CryptoniumPortfolio.png?raw=true)
