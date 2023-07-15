@@ -16,8 +16,6 @@ function CoinPage() {
   const inputRef = useRef(null);
   const { coin } = useParams();
 
-  const [cryptoCurrency, setCryptoCUrrency] = useState('BTC');
-
   const { portfolio, market, isAuth, openBuyCard } = useContext(CryptoContext);
 
   // Update the cursor position when converting
@@ -153,7 +151,9 @@ function CoinPage() {
                 type='number'
               />
               <p className='converter_input_text'>You Get</p>
-              <p className='converter_input_text2'>{cryptoCurrency}</p>
+              <p className='converter_input_text2'>
+                {coinMarket.symbol.toUpperCase()}
+              </p>
             </div>
           </div>
 
